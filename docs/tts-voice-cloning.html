@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>语音合成与声音克隆 - 无界音流</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <a href="welcome.html" class="sidebar-logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color);"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>
+            无界音流
+        </a>
+        
+        <div class="sidebar-group">开始使用</div>
+        <ul>
+            <li><a href="welcome.html">什么是无界音流？</a></li>
+        </ul>
+
+        <div class="sidebar-group">核心功能</div>
+        <ul>
+            <li><a href="stt.html">实时 STT 与模型选择</a></li>
+            <li><a href="translation.html">实时翻译功能</a></li>
+            <li><a href="proofreading-summary.html">AI 纠错与智能总结</a></li>
+            <li><a href="tts-voice-cloning.html" class="active">语音合成与声音克隆</a></li>
+        </ul>
+
+        <div class="sidebar-group">附录</div>
+        <ul>
+            <li><a href="appendix.html">小白指南</a></li>
+        </ul>
+
+        <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+            <a href="tts-voice-cloning-en.html" style="display: flex; align-items: center; gap: 0.5rem;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                English Version
+            </a>
+        </div>
+    </div>
+    
+    <div class="main-content">
+        <div class="content-wrapper">
+            <h1>语音合成 (TTS) 与声音克隆</h1>
+            <p>无界音流不仅能“听懂”您的话，还能“说出”您的文字。通过内置的 Python Bridge 和本地模型，它提供了强大的文字转语音（TTS）和声音克隆功能。目前系统集成了 <strong>Qwen3-TTS</strong> 和 <strong>Index-TTS2</strong> 两大核心引擎，满足不同场景的需求。</p>
+            <div class="doc-image-grid">
+                <figure class="doc-image">
+                    <img src="images/img5.png" alt="打开“模型配置”">
+                    <figcaption>打开“模型配置”</figcaption>
+                </figure>
+                <figure class="doc-image">
+                    <img src="images/img6.png" alt="选择模型，配置模型路径或API<">
+                    <figcaption>选择模型，配置模型路径或API</figcaption>
+                </figure>
+                <figure class="doc-image">
+                    <img src="images/img7.png" alt="上传参考音频">
+                    <figcaption>上传参考音频</figcaption>
+                </figure>
+                <figure class="doc-image">
+                    <img src="images/img8.png" alt="合成语音文本与参数">
+                    <figcaption>合成语音文本与参数</figcaption>
+                </figure>
+                <figure class="doc-image">
+                    <img src="images/img9.png" alt="生成语音音频文件">
+                    <figcaption>生成语音音频文件</figcaption>
+                </figure>
+            </div>
+            <h2>Qwen3-TTS 引擎</h2>
+            <p>Qwen3-TTS 是一个强大的多功能语音合成引擎，支持三种不同的工作模式：</p>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <h3>🎙️ Base (基础模型)</h3>
+                    <p>提供高质量、自然流畅的标准语音合成。适用于常规的文本朗读、有声书制作等场景，无需任何参考音频即可生成清晰的语音。</p>
+                </div>
+                <div class="card">
+                    <h3>👥 CustomVoice (声音克隆)</h3>
+                    <p>只需提供一段 5-15 秒的清晰参考音频，即可克隆出与参考音频音色高度相似的语音。非常适合制作个性化配音或数字人分身。</p>
+                </div>
+                <div class="card">
+                    <h3>✨ VoiceDesign (声音设计)</h3>
+                    <p>无需参考音频，直接通过<strong>文本提示词</strong>（Prompt）来“捏”出你想要的声音。例如输入“一个年轻女性，声音欢快”，模型即可生成符合描述的全新音色。</p>
+                </div>
+            </div>
+            <h2>Index-TTS2 引擎</h2>
+            <p>Index-TTS2 引擎在声音克隆的基础上，引入了更精细的情感和风格控制能力：</p>
+            <ul>
+                <li><strong>情感向量控制</strong>：允许在合成时注入特定的情感向量，使生成的语音带有喜悦、悲伤、愤怒等丰富的情感色彩。</li>
+                <li><strong>提示词 (Prompt) 引导</strong>：结合文本提示词，可以更精准地控制发音的语气、语调和节奏，让克隆出来的声音不仅“像”，而且“有感情”。</li>
+            </ul>
+            
+            <div class="callout">
+                <div class="callout-icon">💡</div>
+                <div class="callout-content">
+                    <p><strong>提示：</strong> 声音克隆的效果很大程度上取决于参考音频的质量。请尽量使用发音清晰、无背景噪音、语速适中的音频作为参考。</p>
+                </div>
+            </div>
+            <h2>本地模型下载与目录配置（推荐）</h2>
+            <p>如果您使用本地 TTS（Qwen3-TTS / Index-TTS2），需要先下载模型文件，然后在设置里填写 <strong>TTS 模型目录</strong>（参考 <a href="https://www.modelscope.cn/docs/" target="_blank" rel="noopener noreferrer">ModelScope 文档</a>；小白安装指南见 <a href="appendix.html#appendix-modelscope">附录 A</a>）。</p>
+
+            <h3>Qwen3-TTS（Base / CustomVoice / VoiceDesign）</h3>
+            <p>分别下载三种模式对应的模型目录：</p>
+            <pre><code>modelscope download --model Qwen/Qwen3-TTS-12Hz-1.7B-Base --local_dir ./Qwen/Qwen3-TTS-12Hz-1.7B-Base
+modelscope download --model Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice --local_dir ./Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice
+modelscope download --model Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign --local_dir ./Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign</code></pre>
+            <p>在无界音流设置里，将 <strong>TTS 模型目录</strong> 指向您当前要使用的模型目录（例如 Base 模式使用 <code>./Qwen/Qwen3-TTS-12Hz-1.7B-Base</code>）。</p>
+
+            <h3>Index-TTS2（声音克隆）</h3>
+            <pre><code>modelscope download --model IndexTeam/IndexTTS-2 --local_dir ./IndexTeam/IndexTTS-2</code></pre>
+            <p>在无界音流设置里，将 <strong>TTS 模型目录</strong> 指向 IndexTTS-2 的模型目录。</p>
+
+            <div class="callout warning">
+                <div class="callout-icon">⚠️</div>
+                <div class="callout-content">
+                    <p><strong>注意：</strong> 离线模式下不会自动下载模型。如果目录不存在或不可用，TTS 会直接报错。</p>
+                </div>
+            </div>
+            <h2>云端 API 服务配置</h2>
+            <p>除了强大的本地模型，无界音流还支持接入多种主流的云端 TTS API 服务，为您提供更多样化的音色选择和更稳定的合成体验。目前支持的云端 API 包括：</p>
+            <ul>
+                <li><strong>火山引擎 (Volcengine)</strong>：提供丰富的高质量音色，支持多种方言和外语。</li>
+                <li><strong>OpenAI (TTS)</strong>：提供自然逼真的语音合成，支持 <code>alloy</code>, <code>echo</code>, <code>fable</code>, <code>onyx</code>, <code>nova</code>, <code>shimmer</code> 等经典音色。</li>
+                <li><strong>MiniMax</strong>：国内领先的语音大模型，支持极具表现力和情感的语音生成。</li>
+            </ul>
+
+            <h3>火山引擎（Volcengine）配置说明</h3>
+            <p>在无界音流的“设置”面板中选择 <strong>Volcengine TTS（火山引擎）</strong> 后，至少需要填写：</p>
+            <ul>
+                <li><strong>AppId</strong>：火山引擎应用标识</li>
+                <li><strong>Token</strong>：访问令牌</li>
+                <li><strong>Cluster</strong>：集群标识（例如 <code>volcano_tts</code> / <code>volcengine_tts</code>）</li>
+                <li><strong>VoiceType</strong>：音色标识</li>
+            </ul>
+            <p>可选项包括 <strong>UID</strong>、音频格式（Encoding）、采样率（Rate）、语速/音量/音高倍率、情感（Emotion）等。开通与音色选择可参考 <a href="appendix.html#appendix-volcengine">附录 C</a>（包含官方链接）。</p>
+            
+            <div class="callout">
+                <div class="callout-icon">⚙️</div>
+                <div class="callout-content">
+                    <p><strong>配置方法：</strong> 请在无界音流的“设置” -> “API 配置”面板中，选择您想要使用的服务商，并填入相应的 API Key 和相关参数。配置完成后，即可在语音合成界面直接选择对应的云端音色进行使用。</p>
+                </div>
+            </div>
+            <h2>TTS 运行环境配置</h2>
+            <p>为了使用 TTS 和声音克隆功能，您需要确保本地环境已正确配置：</p>
+            <ul>
+                <li><strong>完整安装包</strong>：如果您使用的是包含 TTS 运行时的完整安装包，则无需额外配置。</li>
+                <li><strong>Lite 包 + 运行时下载</strong>：如果您使用的是 Lite 包，应用会在首次使用 TTS 功能时提示您下载并解压 TTS 运行时（Python 环境及相关依赖）。请按照提示操作，或参考 <code>INSTALL.md</code> 中的详细说明。</li>
+            </ul>
+            <div class="doc-copyright">
+                <p>Copyright(c) ZimaBlueAI</p>
+                <p>齐码蓝智能（大理市 ）有限责任公司</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

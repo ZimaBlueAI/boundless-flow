@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boundless Flow · Design Philosophy & Practices</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="context-landing">
+    <div class="landing-shell">
+        <div class="particle-layer" aria-hidden="true">
+            <canvas id="particle-canvas" class="particle-canvas"></canvas>
+        </div>
+        <div class="landing-bg">
+            <span class="orb orb-1"></span>
+            <span class="orb orb-2"></span>
+            <span class="orb orb-3"></span>
+        </div>
+        <div class="landing-content">
+            <header class="landing-header">
+                <div class="header-left">
+                    <a class="top-link" href="welcome-en.html">Doc</a>
+                    <a class="top-link" href="#">Blog</a>
+                </div>
+                <a class="landing-brand" href="welcome-en.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                        <line x1="12" y1="19" x2="12" y2="22"></line>
+                    </svg>
+                    Boundless Flow · 无界音流
+                </a>
+                <div class="header-right">
+                    <a class="lang-switch" href="index.html">中文</a>
+                    <a class="icon-button" href="https://github.com/ZimaBlueAI/boundless-flow.git" aria-label="GitHub">
+                        <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
+                            <path d="M12 2C6.475 2 2 6.58 2 12.11c0 4.428 2.865 8.186 6.839 9.512.5.094.682-.222.682-.49 0-.242-.01-1.043-.015-1.894-2.782.614-3.369-1.2-3.369-1.2-.455-1.176-1.112-1.49-1.112-1.49-.909-.63.069-.617.069-.617 1.004.072 1.533 1.032 1.533 1.032.892 1.55 2.341 1.102 2.91.842.092-.658.35-1.103.636-1.357-2.22-.257-4.555-1.131-4.555-5.032 0-1.112.39-2.02 1.03-2.732-.103-.257-.446-1.291.098-2.692 0 0 .84-.273 2.75 1.045A9.45 9.45 0 0 1 12 6.92c.85.004 1.705.117 2.505.342 1.908-1.318 2.748-1.045 2.748-1.045.544 1.401.202 2.435.099 2.692.64.712 1.03 1.62 1.03 2.732 0 3.91-2.338 4.772-4.566 5.025.36.316.68.94.68 1.894 0 1.367-.012 2.47-.012 2.807 0 .27.18.588.688.488A10.128 10.128 0 0 0 22 12.11C22 6.58 17.523 2 12 2z"></path>
+                        </svg>
+                    </a>
+                </div>
+            </header>
+
+            <main class="landing-main">
+                <section class="landing-hero">
+                    <div class="hero-grid">
+                        <div class="hero-copy">
+                            <div class="hero-badge">On-device Voice Context System</div>
+                            <div class="hero-chips">
+                                <span class="hero-chip">On-device inference</span>
+                                <span class="hero-chip">Privacy first</span>
+                                <span class="hero-chip">Pluggable models</span>
+                                <span class="hero-chip">Cross-platform desktop</span>
+                            </div>
+                            <h1>Let voice, memory, and workflows evolve on-device</h1>
+                            <p>Boundless Flow centers on on-device real-time inference, organizing voice input, context management, intelligent processing, and multimodal output into a stable context file system for faster, safer, and more controllable creation.</p>
+                            <div class="hero-actions">
+                                <a class="hero-button primary" href="#design-philosophy">Design Philosophy</a>
+                                <a class="hero-button secondary" href="#quick-start">Quick Start</a>
+                            </div>
+                        </div>
+                        <div class="hero-panel">
+                            <div class="panel-header">
+                                <span>Live Context Stream</span>
+                                <span class="panel-status">Live</span>
+                            </div>
+                            <div class="panel-title">Voice → Structured Context</div>
+                            <div class="signal-list">
+                                <div class="signal-item">
+                                    <div class="signal-left">
+                                        <span class="signal-dot"></span>
+                                        <span class="signal-text">Realtime Caption Stream</span>
+                                    </div>
+                                    <span class="signal-meta">96% accuracy</span>
+                                </div>
+                                <div class="signal-item">
+                                    <div class="signal-left">
+                                        <span class="signal-dot signal-dot-alt"></span>
+                                        <span class="signal-text">Multilingual Translation Layer</span>
+                                    </div>
+                                    <span class="signal-meta">Streaming output</span>
+                                </div>
+                                <div class="signal-item">
+                                    <div class="signal-left">
+                                        <span class="signal-dot signal-dot-warm"></span>
+                                        <span class="signal-text">Voice Synthesis Matrix</span>
+                                    </div>
+                                    <span class="signal-meta">Emotion control</span>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <span>On-device first · Optional cloud enhancement</span>
+                                <span class="panel-chip">Secure isolation</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-metrics">
+                        <div class="metric-card">
+                            <div class="metric-value">120ms</div>
+                            <div class="metric-label">On-device feedback</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">7×24</div>
+                            <div class="metric-label">Always-on mode</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">Multi-model</div>
+                            <div class="metric-label">Local + cloud synergy</div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="section-divider"></div>
+
+                <section id="design-philosophy" class="landing-section">
+                    <div class="section-header">
+                        <span class="section-eyebrow">Design Philosophy</span>
+                        <h2>Design Philosophy</h2>
+                        <p>Built on on-device foundations, privacy by default, geek-tool flexibility, and cross-platform usability for a stable, extensible voice context experience.</p>
+                    </div>
+                    <div class="landing-grid">
+                        <div class="glass-card">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="18" height="18" rx="4"></rect>
+                                <path d="M9 9h6v6H9z"></path>
+                            </svg>
+                            <h3>On-device</h3>
+                            <p>Speech recognition, translation, and synthesis run locally with low latency, offline ability, and continuous availability.</p>
+                        </div>
+                        <div class="glass-card">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 2l7 4v6c0 5-3.5 9-7 10-3.5-1-7-5-7-10V6l7-4z"></path>
+                            </svg>
+                            <h3>Privacy</h3>
+                            <p>Sensitive audio and text stay on your device; cloud capability is only used with explicit permission.</p>
+                        </div>
+                        <div class="glass-card">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 7h16"></path>
+                                <path d="M7 7v10"></path>
+                                <path d="M12 7v10"></path>
+                                <path d="M17 7v10"></path>
+                                <path d="M5 17h14"></path>
+                            </svg>
+                            <h3>Geek Swiss Army Knife</h3>
+                            <p>Pluggable models, composable flows, and extensible plugins for power users and complex workflows.</p>
+                        </div>
+                        <div class="glass-card">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                                <path d="M8 21h8"></path>
+                                <path d="M12 19v2"></path>
+                            </svg>
+                            <h3>Easy, cross-platform</h3>
+                            <p>Desktop-first across macOS and Windows with minimal learning curve and instant readiness.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="quick-start" class="landing-section">
+                    <div class="section-header">
+                        <span class="section-eyebrow">Quick Start</span>
+                        <h2>Quick Start</h2>
+                        <p>Two steps to configure on-device usage, with optional API access for cloud capabilities.</p>
+                    </div>
+                    <div class="quick-banner">
+                        <div class="quick-banner-text">
+                            <h3>Two paths, one experience</h3>
+                            <p>Offline models ensure speed; cloud APIs add advanced capabilities. Switch freely by scenario.</p>
+                        </div>
+                        <div class="quick-banner-chips">
+                            <span class="quick-chip">Local models</span>
+                            <span class="quick-chip">API access</span>
+                            <span class="quick-chip">One-click start</span>
+                        </div>
+                    </div>
+                    <div class="quick-start-grid">
+                        <div class="step-card">
+                            <div class="step-tag">Step 01 · Model / API</div>
+                            <h3>Download models or configure API</h3>
+                            <ul>
+                                <li>Download SenseVoice / TTS local models and point to the folder.</li>
+                                <li>Or provide an OpenAI-compatible API Base URL and key.</li>
+                                <li>Validate realtime captions, translation, and synthesis pipelines.</li>
+                            </ul>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-tag">Step 02 · Install & Launch</div>
+                            <h3>Install and run Boundless Flow</h3>
+                            <ul>
+                                <li>Install the desktop client and complete initial settings.</li>
+                                <li>Press the shortcut to start recording and stream captions.</li>
+                                <li>Enable translation, proofreading, and synthesis as needed.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="best-practices" class="landing-section">
+                    <div class="section-header">
+                        <span class="section-eyebrow">Best Practices</span>
+                        <h2>Best Practices</h2>
+                        <p>Use proven scenarios to ship faster with reliable outcomes.</p>
+                    </div>
+                    <div class="practice-grid">
+                        <div class="practice-card">
+                            <div class="practice-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="9"></circle>
+                                    <path d="M8 12h8"></path>
+                                    <path d="M12 8v8"></path>
+                                </svg>
+                            </div>
+                            <h3>Realtime captions for large international conferences</h3>
+                            <p>Multilingual translation with low-latency captions for venues and live streams, keeping onsite and remote audiences aligned.</p>
+                            <div class="practice-tags">
+                                <span class="practice-tag">Realtime translation</span>
+                                <span class="practice-tag">Multilingual captions</span>
+                                <span class="practice-tag">Stable low latency</span>
+                            </div>
+                        </div>
+                        <div class="practice-card">
+                            <div class="practice-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M4 7h16"></path>
+                                    <path d="M4 12h16"></path>
+                                    <path d="M4 17h16"></path>
+                                </svg>
+                            </div>
+                            <h3>Film & digital-human voice synthesis</h3>
+                            <p>High-quality TTS with voice cloning for film dubbing, digital humans, and batch content production.</p>
+                            <div class="practice-tags">
+                                <span class="practice-tag">Voice cloning</span>
+                                <span class="practice-tag">Batch synthesis</span>
+                                <span class="practice-tag">Emotion control</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="landing-footer">
+                    <p>Boundless Flow · Context-first Voice Experience</p>
+                    <p>ZimaBlueAI</p>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script>
+        ;(function(){
+            var canvas = document.getElementById('particle-canvas')
+            if(!canvas){ return }
+            var ctx = canvas.getContext('2d')
+            var dpr = Math.min(window.devicePixelRatio || 1, 2)
+            var width = 0, height = 0, particles = [], sites = [], tick = 0
+            var mouse = { x: 0, y: 0, last: 0 }
+            function resize(){
+                width = window.innerWidth
+                height = window.innerHeight
+                canvas.style.width = width + 'px'
+                canvas.style.height = height + 'px'
+                canvas.width = Math.floor(width * dpr)
+                canvas.height = Math.floor(height * dpr)
+                ctx.setTransform(dpr,0,0,dpr,0,0)
+                var count = Math.floor((width*height)/4200)
+                particles = []
+                for(var i=0;i<count;i++){
+                    particles.push({
+                        x: Math.random()*width,
+                        y: Math.random()*height,
+                        vx: (Math.random()-0.5)*0.95,
+                        vy: (Math.random()-0.5)*0.95,
+                        s: 1.1 + Math.random()*1.4,
+                        h: Math.random()<0.4?200+Math.random()*40:20+Math.random()*40
+                    })
+                }
+                sites = []
+                var siteCount = Math.max(18, Math.floor(Math.min(width, height) / 60))
+                for(var j=0;j<siteCount;j++){
+                    sites.push({
+                        x: Math.random()*width,
+                        y: Math.random()*height,
+                        vx: (Math.random()-0.5)*0.4,
+                        vy: (Math.random()-0.5)*0.4
+                    })
+                }
+            }
+            function circumcircle(a, b, c){
+                var ax = a.x, ay = a.y
+                var bx = b.x, by = b.y
+                var cx = c.x, cy = c.y
+                var d = 2 * (ax*(by-cy) + bx*(cy-ay) + cx*(ay-by))
+                if(Math.abs(d) < 1e-6){
+                    return { x: 0, y: 0, r2: Infinity }
+                }
+                var ax2ay2 = ax*ax + ay*ay
+                var bx2by2 = bx*bx + by*by
+                var cx2cy2 = cx*cx + cy*cy
+                var ux = (ax2ay2*(by-cy) + bx2by2*(cy-ay) + cx2cy2*(ay-by)) / d
+                var uy = (ax2ay2*(cx-bx) + bx2by2*(ax-cx) + cx2cy2*(bx-ax)) / d
+                var dx = ux - ax
+                var dy = uy - ay
+                return { x: ux, y: uy, r2: dx*dx + dy*dy }
+            }
+            function delaunay(points){
+                var minX = 0, minY = 0, maxX = width, maxY = height
+                var dx = maxX - minX
+                var dy = maxY - minY
+                var dmax = Math.max(dx, dy)
+                var midx = (minX + maxX) / 2
+                var midy = (minY + maxY) / 2
+                var p0 = { x: midx - 2*dmax, y: midy - dmax }
+                var p1 = { x: midx, y: midy + 2*dmax }
+                var p2 = { x: midx + 2*dmax, y: midy - dmax }
+                var pts = points.concat([p0, p1, p2])
+                var st0 = points.length
+                var st1 = points.length + 1
+                var st2 = points.length + 2
+                var triangles = [{ a: st0, b: st1, c: st2, circ: circumcircle(p0, p1, p2) }]
+                for(var i=0;i<points.length;i++){
+                    var edges = {}
+                    var newTriangles = []
+                    for(var t=0;t<triangles.length;t++){
+                        var tri = triangles[t]
+                        var cc = tri.circ
+                        var dxp = pts[i].x - cc.x
+                        var dyp = pts[i].y - cc.y
+                        if(dxp*dxp + dyp*dyp <= cc.r2){
+                            var e1a = tri.a, e1b = tri.b
+                            var e2a = tri.b, e2b = tri.c
+                            var e3a = tri.c, e3b = tri.a
+                            var key
+                            if(e1a > e1b){ var tmp = e1a; e1a = e1b; e1b = tmp }
+                            key = e1a + ',' + e1b
+                            edges[key] = edges[key] ? null : [e1a, e1b]
+                            if(e2a > e2b){ var tmp2 = e2a; e2a = e2b; e2b = tmp2 }
+                            key = e2a + ',' + e2b
+                            edges[key] = edges[key] ? null : [e2a, e2b]
+                            if(e3a > e3b){ var tmp3 = e3a; e3a = e3b; e3b = tmp3 }
+                            key = e3a + ',' + e3b
+                            edges[key] = edges[key] ? null : [e3a, e3b]
+                        } else {
+                            newTriangles.push(tri)
+                        }
+                    }
+                    for(var k in edges){
+                        if(!edges[k]){ continue }
+                        var e = edges[k]
+                        var ta = e[0], tb = e[1], tc = i
+                        var ccc = circumcircle(pts[ta], pts[tb], pts[tc])
+                        newTriangles.push({ a: ta, b: tb, c: tc, circ: ccc })
+                    }
+                    triangles = newTriangles
+                }
+                var result = []
+                for(var r=0;r<triangles.length;r++){
+                    var tr = triangles[r]
+                    if(tr.a < st0 && tr.b < st0 && tr.c < st0){
+                        result.push(tr)
+                    }
+                }
+                return { triangles: result, points: pts }
+            }
+            function updateSites(){
+                for(var i=0;i<sites.length;i++){
+                    var s = sites[i]
+                    s.vx += (Math.random()-0.5)*0.08
+                    s.vy += (Math.random()-0.5)*0.08
+                    s.vx *= 0.975
+                    s.vy *= 0.975
+                    s.x += s.vx
+                    s.y += s.vy
+                    if(s.x < 20 || s.x > width-20){ s.vx *= -1 }
+                    if(s.y < 20 || s.y > height-20){ s.vy *= -1 }
+                }
+            }
+            function updateParticles(){
+                var now = Date.now()
+                var active = (now - mouse.last) < 1400
+                for(var i=0;i<particles.length;i++){
+                    var p = particles[i]
+                    if(active){
+                        var dxm = mouse.x - p.x
+                        var dym = mouse.y - p.y
+                        var dist = Math.sqrt(dxm*dxm + dym*dym) || 1
+                        var maxD = Math.min(width, height) * 0.45
+                        if(dist < maxD){
+                            var strength = (1 - dist / maxD)
+                            strength = strength * strength * 0.12
+                            p.vx += (dxm / dist) * strength
+                            p.vy += (dym / dist) * strength
+                        } else {
+                            p.vx += (Math.random()-0.5)*0.02
+                            p.vy += (Math.random()-0.5)*0.02
+                        }
+                    } else {
+                        p.vx += Math.sin((p.y*0.004)+tick*2)*0.018
+                        p.vy += Math.cos((p.x*0.004)-tick*2)*0.018
+                        p.vx += (Math.random()-0.5)*0.035
+                        p.vy += (Math.random()-0.5)*0.035
+                    }
+                    p.vx *= 0.94
+                    p.vy *= 0.94
+                    p.x += p.vx
+                    p.y += p.vy
+                    if(p.x < -20) p.x = width + 20
+                    if(p.x > width + 20) p.x = -20
+                    if(p.y < -20) p.y = height + 20
+                    if(p.y > height + 20) p.y = -20
+                }
+            }
+            function step(){
+                tick+=0.006
+                ctx.clearRect(0,0,width,height)
+                updateSites()
+                updateParticles()
+                var triangulation = delaunay(sites)
+                var triangles = triangulation.triangles
+                var pts = triangulation.points
+                var cellMap = []
+                for(var i=0;i<sites.length;i++){ cellMap[i] = [] }
+                for(var t=0;t<triangles.length;t++){
+                    var tri = triangles[t]
+                    var cc = tri.circ
+                    cellMap[tri.a].push(cc)
+                    cellMap[tri.b].push(cc)
+                    cellMap[tri.c].push(cc)
+                }
+                ctx.globalCompositeOperation='source-over'
+                ctx.lineWidth = 1
+                for(var s=0;s<sites.length;s++){
+                    var site = sites[s]
+                    var centers = cellMap[s]
+                    if(centers.length < 3){ continue }
+                    centers.sort(function(a,b){
+                        return Math.atan2(a.y-site.y, a.x-site.x) - Math.atan2(b.y-site.y, b.x-site.x)
+                    })
+                    var wave = Math.sin((site.x*0.006) + tick*3) + Math.cos((site.y*0.006) - tick*2)
+                    var alpha = 0.12 + (wave+2)*0.04
+                    ctx.strokeStyle = 'rgba(99, 179, 237, ' + alpha.toFixed(3) + ')'
+                    ctx.beginPath()
+                    ctx.moveTo(centers[0].x, centers[0].y)
+                    for(var c=1;c<centers.length;c++){
+                        ctx.lineTo(centers[c].x, centers[c].y)
+                    }
+                    ctx.closePath()
+                    ctx.stroke()
+                }
+                ctx.strokeStyle = 'rgba(125, 211, 252, 0.2)'
+                ctx.lineWidth = 1
+                var edgeMap = {}
+                for(var k=0;k<triangles.length;k++){
+                    var tr = triangles[k]
+                    var ea = [[tr.a, tr.b], [tr.b, tr.c], [tr.c, tr.a]]
+                    for(var e=0;e<3;e++){
+                        var a = ea[e][0], b = ea[e][1]
+                        var key = a < b ? a + '-' + b : b + '-' + a
+                        if(edgeMap[key]){ continue }
+                        edgeMap[key] = true
+                        var pa = pts[a], pb = pts[b]
+                        ctx.beginPath()
+                        ctx.moveTo(pa.x, pa.y)
+                        ctx.lineTo(pb.x, pb.y)
+                        ctx.stroke()
+                    }
+                }
+                ctx.fillStyle = 'rgba(125, 211, 252, 0.5)'
+                for(var si=0;si<sites.length;si++){
+                    var sp = sites[si]
+                    ctx.beginPath()
+                    ctx.arc(sp.x, sp.y, 1.8, 0, Math.PI*2)
+                    ctx.fill()
+                }
+                ctx.globalCompositeOperation='lighter'
+                ctx.shadowColor='rgba(56, 189, 248, 0.6)'
+                ctx.shadowBlur=12
+                for(var pi=0;pi<particles.length;pi++){
+                    var p2 = particles[pi]
+                    ctx.beginPath()
+                    ctx.fillStyle='hsla('+p2.h+', 90%, 70%, 0.85)'
+                    ctx.arc(p2.x,p2.y,p2.s,0,Math.PI*2)
+                    ctx.fill()
+                }
+                ctx.shadowBlur=0
+                ctx.globalCompositeOperation='source-over'
+                requestAnimationFrame(step)
+            }
+            window.addEventListener('resize', resize)
+            window.addEventListener('mousemove', function(e){
+                mouse.x = e.clientX
+                mouse.y = e.clientY
+                mouse.last = Date.now()
+            })
+            window.addEventListener('mouseleave', function(){
+                mouse.last = 0
+            })
+            resize()
+            step()
+        })();
+    </script>
+</body>
+</html>

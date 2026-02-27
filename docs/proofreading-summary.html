@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 纠错与智能总结 - 无界音流</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <a href="welcome.html" class="sidebar-logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color);"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>
+            无界音流
+        </a>
+        
+        <div class="sidebar-group">开始使用</div>
+        <ul>
+            <li><a href="welcome.html">什么是无界音流？</a></li>
+        </ul>
+
+        <div class="sidebar-group">核心功能</div>
+        <ul>
+            <li><a href="stt.html">实时 STT 与模型选择</a></li>
+            <li><a href="translation.html">实时翻译功能</a></li>
+            <li><a href="proofreading-summary.html" class="active">AI 纠错与智能总结</a></li>
+            <li><a href="tts-voice-cloning.html">语音合成与声音克隆</a></li>
+        </ul>
+
+        <div class="sidebar-group">附录</div>
+        <ul>
+            <li><a href="appendix.html">小白指南</a></li>
+        </ul>
+
+        <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+            <a href="proofreading-summary-en.html" style="display: flex; align-items: center; gap: 0.5rem;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                English Version
+            </a>
+        </div>
+    </div>
+    
+    <div class="main-content">
+        <div class="content-wrapper">
+            <h1>AI 纠错与智能总结</h1>
+            <p>无界音流不仅能将您的语音转化为文字，还能通过强大的 AI 模型对识别结果进行智能纠错（“校长”功能）和总结。这使得它成为会议记录、访谈纪要等场景的理想工具。</p>
+            <figure class="doc-image">
+                <img src="images/img4.png" alt="文本校正与总结输出面板">
+                <figcaption>AI 纠错 · 字幕文档输出 · 智能总结展示面板</figcaption>
+            </figure>
+            <h2>AI 纠错（“校长”功能）</h2>
+            <p>语音识别难免会出现错别字或语法不通顺的情况。无界音流的 AI 纠错功能（即“校长”功能）可以自动对识别出的文本进行润色和纠错，使其更加准确、流畅。</p>
+            
+            <h3>如何开启 AI 纠错</h3>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>进入设置</h3>
+                        <p>在设置中找到 <strong>录音总结</strong> 选项。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>启用功能</h3>
+                        <p>勾选 <strong>启用纠错及文字总结（LLM）</strong>。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>配置服务</h3>
+                        <p>配置好总结服务商、API Base URL、模型和 API Key（详见下文）。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="callout">
+                <div class="callout-icon">💡</div>
+                <div class="callout-content">
+                    <p><strong>提示：</strong> 纠错功能会在后台自动运行，并将纠正后的文本替换原始识别结果。您可以设置 <strong>纠错并发线程数</strong>（默认 2，最大 4）以提高处理速度。</p>
+                </div>
+            </div>
+
+            <h2>智能总结功能</h2>
+            <p>在长时间的录音过程中，无界音流可以定时为您生成会议或录音的智能总结。这有助于您快速回顾重点内容，提取关键信息。</p>
+            
+            <h3>配置总结服务</h3>
+            <p>要使用智能总结功能，您需要进行以下配置：</p>
+            <ul>
+                <li><strong>总结服务商</strong>：选择您使用的 AI 服务商，如 OpenAI、Ollama 或火山引擎。</li>
+                <li><strong>总结 API Base URL</strong>：填写服务商的 API 地址。例如，OpenAI 兼容接口通常是 <code>https://api.openai.com/v1</code>，火山引擎是 <code>https://ark.cn-beijing.volces.com/api/v3</code>。</li>
+                <li><strong>总结模型</strong>：填写服务端要求的模型标识，如 <code>gpt-4o-mini</code>、<code>doubao-seed-1-6</code> 等。</li>
+                <li><strong>总结 API Key</strong>：填写您的 API 密钥。如果您使用的是本地模型（如 Ollama），此项可留空。</li>
+                <li><strong>总结更新间隔（秒）</strong>：设置生成总结的时间间隔。建议设置为 <code>60</code> 秒，即每分钟生成一次总结。</li>
+            </ul>
+
+            <h3>推荐校对与总结模型（Ollama）</h3>
+            <p>如果您在本机使用 Ollama 进行纠错与总结，推荐拉取以下模型（参考 <a href="https://docs.ollama.com/" target="_blank" rel="noopener noreferrer">Ollama 文档</a>；小白安装指南见 <a href="appendix.html#appendix-ollama">附录 B</a>）：</p>
+            <pre><code>ollama pull qwen3:4b</code></pre>
+            <p>对应配置建议：</p>
+            <ul>
+                <li><strong>总结服务商</strong>：Ollama</li>
+                <li><strong>总结 API Base URL</strong>：<code>http://localhost:11434/v1</code></li>
+                <li><strong>总结模型</strong>：<code>qwen3:4b</code></li>
+                <li><strong>总结 API Key</strong>：可留空</li>
+            </ul>
+
+            <h2>总结结果展示</h2>
+            <p>智能总结结果将以树状结构（Tree Payload）或队列（Queue Payload）的形式展示在应用界面中。您可以随时查看、复制或导出这些总结内容。</p>
+            <div class="doc-copyright">
+                <p>Copyright(c) ZimaBlueAI</p>
+                <p>齐码蓝智能（大理市 ）有限责任公司</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

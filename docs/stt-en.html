@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-time STT & Models - Boundless Flow</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <a href="welcome-en.html" class="sidebar-logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color);"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>
+            Boundless Flow
+        </a>
+        
+        <div class="sidebar-group">Getting Started</div>
+        <ul>
+            <li><a href="welcome-en.html">What is Boundless Flow?</a></li>
+        </ul>
+
+        <div class="sidebar-group">Core Features</div>
+        <ul>
+            <li><a href="stt-en.html" class="active">Real-time STT & Models</a></li>
+            <li><a href="translation-en.html">Real-time Translation</a></li>
+            <li><a href="proofreading-summary-en.html">AI Proofreading & Summary</a></li>
+            <li><a href="tts-voice-cloning-en.html">TTS & Voice Cloning</a></li>
+        </ul>
+
+        <div class="sidebar-group">Appendix</div>
+        <ul>
+            <li><a href="appendix-en.html">Beginner Guide</a></li>
+        </ul>
+
+        <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+            <a href="stt.html" style="display: flex; align-items: center; gap: 0.5rem;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                中文版本
+            </a>
+        </div>
+    </div>
+    
+    <div class="main-content">
+        <div class="content-wrapper">
+            <h1>Real-time Speech-to-Text (STT) & Model Selection</h1>
+            <p>The core feature of Boundless Flow is real-time Speech-to-Text (STT) based on local models. It accurately and rapidly converts your speech into text and supports multiple output methods.</p>
+
+            <figure class="doc-image">
+                <img src="images/img2.png" alt="Mini Mode floating subtitle overlay">
+                <figcaption>Mini Mode — floating real-time subtitle overlay</figcaption>
+            </figure>
+
+            <h2>Real-time STT Introduction</h2>
+            <p>Boundless Flow uses the advanced SenseVoice ONNX local model for inference, supporting both real-time output and final result output. This means that as you speak, the text will immediately appear on the screen.</p>
+            
+            <h3>Output Methods</h3>
+            <p>In the settings, you can choose different output methods:</p>
+            <ul>
+                <li><strong>Cursor-following Injection (Recommended)</strong>: Speak as you write. The recognized text is directly injected into your current cursor position. After enabling this, please click where you want to type (e.g., Word, web input box) before you start speaking.</li>
+                <li><strong>Real-time Output</strong>: Displays the recognized text in real-time within the application interface.</li>
+                <li><strong>Final Auto-Return</strong>: Automatically outputs the final result and adds a line break after you finish a sentence.</li>
+            </ul>
+
+            <h2>How to Start Real-time STT</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Configure Model</h3>
+                        <p>Ensure you have correctly configured the model directory (see below).</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Start Recording</h3>
+                        <p><strong>Method 1</strong>: Click the <strong>"Start Recording"</strong> button on the main interface.<br>
+                        <strong>Method 2</strong>: Press the <strong>Right Alt key (<code>RightAlt</code>)</strong> on your keyboard from any screen.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Speak and Stop</h3>
+                        <p>Start speaking! You will see the recognized text appear in real-time. Press the shortcut again or click the stop button to end the recording.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Selecting and Configuring Different Models</h2>
+            <p>For the speech recognition feature to work, a simple model configuration is required:</p>
+            
+            <h3>Configure Model Directory</h3>
+            <ol>
+                <li>Open the main application interface and go to <strong>Settings</strong>.</li>
+                <li>Locate the <strong>Model Directory</strong> configuration item.</li>
+                <li>Select or enter the folder path where your SenseVoice model is located.</li>
+            </ol>
+
+            <h3>Recommended Model Download (ModelScope)</h3>
+            <p>Boundless Flow uses a local SenseVoice ONNX model by default. Recommended download via ModelScope (see <a href="https://www.modelscope.cn/docs/" target="_blank" rel="noopener noreferrer">ModelScope docs</a>; beginner steps: <a href="appendix-en.html#appendix-modelscope">Appendix A</a>):</p>
+            <pre><code>modelscope download --model iic/SenseVoiceSmall --local_dir ./SenseVoiceSmall</code></pre>
+            <p>After downloading, set <strong>Model Directory</strong> to the download folder (e.g., <code>./SenseVoiceSmall</code> or an absolute Windows path).</p>
+            
+            <div class="callout warning">
+                <div class="callout-icon">⚠️</div>
+                <div class="callout-content">
+                    <p><strong>Note:</strong> Please ensure this folder contains the <code>model.onnx</code> and <code>tokens.json</code> files. If you haven't downloaded the model yet, please refer to the installation guide to get the model files.</p>
+                </div>
+            </div>
+
+            <h3>Advanced STT Settings</h3>
+            <ul>
+                <li><strong>Frame Interval (ms)</strong>: Determines the real-time responsiveness of STT. A setting of <code>20ms</code> (near real-time) is recommended. A smaller value means faster text display but higher CPU usage.</li>
+                <li><strong>Language</strong>: Force a specific language for recognition (e.g., English, Chinese, Japanese). Selecting <strong>Auto</strong> is recommended to let the AI decide.</li>
+                <li><strong>TextNorm</strong>: Text normalization processing. Keeping it at <strong>auto (default)</strong> is recommended.</li>
+            </ul>
+            <div class="doc-copyright">
+                <p>Copyright(c) ZimaBlueAI</p>
+                <p>齐码蓝智能（大理市 ）有限责任公司</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

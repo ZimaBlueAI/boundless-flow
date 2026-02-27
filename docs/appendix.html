@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>附录（小白指南） - 无界音流</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <a href="welcome.html" class="sidebar-logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color);"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>
+            无界音流
+        </a>
+        
+        <div class="sidebar-group">开始使用</div>
+        <ul>
+            <li><a href="welcome.html">什么是无界音流？</a></li>
+        </ul>
+
+        <div class="sidebar-group">核心功能</div>
+        <ul>
+            <li><a href="stt.html">实时 STT 与模型选择</a></li>
+            <li><a href="translation.html">实时翻译功能</a></li>
+            <li><a href="proofreading-summary.html">AI 纠错与智能总结</a></li>
+            <li><a href="tts-voice-cloning.html">语音合成与声音克隆</a></li>
+        </ul>
+
+        <div class="sidebar-group">附录</div>
+        <ul>
+            <li><a href="appendix.html" class="active">小白指南</a></li>
+        </ul>
+
+        <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+            <a href="appendix-en.html" style="display: flex; align-items: center; gap: 0.5rem;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                English Version
+            </a>
+        </div>
+    </div>
+    
+    <div class="main-content">
+        <div class="content-wrapper">
+            <h1>附录（小白指南）</h1>
+            <p>如果您是第一次接触“模型下载 / 本地大模型 / 云端 API”，建议先从这里开始：一步一步照做即可。</p>
+
+            <h2 id="appendix-modelscope">附录 A：ModelScope（模型下载）</h2>
+            <p><strong>适用场景：</strong>下载 STT（SenseVoice）与本地 TTS（Qwen3-TTS / Index-TTS2）模型文件。</p>
+            <p><strong>官方文档：</strong><a href="https://www.modelscope.cn/docs/" target="_blank" rel="noopener noreferrer">https://www.modelscope.cn/docs/</a></p>
+
+            <h3>1) 是否需要注册/登录？</h3>
+            <p>大多数公开模型无需登录即可下载；如果遇到“权限/访问受限”等提示，通常需要在 ModelScope 网站登录后按提示开通访问权限。</p>
+
+            <h3>2) 先确认系统架构（选对安装包/环境）</h3>
+            <ul>
+                <li><strong>Windows</strong>：打开“设置 → 系统 → 关于”，查看“系统类型”；或在 PowerShell 执行 <code>$env:PROCESSOR_ARCHITECTURE</code></li>
+                <li><strong>macOS</strong>：点左上角“ → 关于本机”，查看“芯片”；或在终端执行 <code>uname -m</code></li>
+                <li><strong>Linux</strong>：在终端执行 <code>uname -m</code></li>
+            </ul>
+
+            <h3>3) 安装 ModelScope CLI</h3>
+            <p>ModelScope 的下载命令来自其 CLI（需要本机有 Python 与 pip）。常见方式如下：</p>
+            <pre><code>pip install modelscope
+modelscope --help</code></pre>
+
+            <h3>4) 找模型（如果需要）</h3>
+            <p>打开 ModelScope 网站，搜索模型名（例如 SenseVoice / Qwen3-TTS / IndexTTS-2），进入模型详情页复制模型 ID。</p>
+
+            <h3>5) 下载示例（与你的文档保持一致）</h3>
+            <pre><code>modelscope download --model iic/SenseVoiceSmall --local_dir ./SenseVoiceSmall
+modelscope download --model Qwen/Qwen3-TTS-12Hz-1.7B-Base --local_dir ./Qwen/Qwen3-TTS-12Hz-1.7B-Base
+modelscope download --model Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice --local_dir ./Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice
+modelscope download --model Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign --local_dir ./Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign
+modelscope download --model IndexTeam/IndexTTS-2 --local_dir ./IndexTeam/IndexTTS-2</code></pre>
+
+            <h3>6) 在无界音流里怎么填路径？</h3>
+            <ul>
+                <li><strong>STT 模型目录</strong>：填写 SenseVoice 的下载目录（例如 <code>./SenseVoiceSmall</code>）</li>
+                <li><strong>TTS 模型目录</strong>：填写您要使用的 TTS 模型目录（例如 <code>./Qwen/Qwen3-TTS-12Hz-1.7B-Base</code> 或 <code>./IndexTeam/IndexTTS-2</code>）</li>
+            </ul>
+
+            <h3>7) 小白用例（最短路径）</h3>
+            <ol>
+                <li>按上面命令下载 <code>iic/SenseVoiceSmall</code></li>
+                <li>打开无界音流 → 设置 → 模型目录，指向 <code>SenseVoiceSmall</code> 目录</li>
+                <li>回到主界面按 <code>RightAlt</code> 开始说话，看文字是否实时出现</li>
+            </ol>
+
+            <h2 id="appendix-ollama">附录 B：Ollama（本地大模型：翻译 / 纠错 / 总结）</h2>
+            <p><strong>适用场景：</strong>本机运行翻译模型与总结模型；无界音流通过 OpenAI 兼容接口调用（典型 Base URL：<code>http://localhost:11434/v1</code>）。</p>
+            <p><strong>官方文档：</strong><a href="https://docs.ollama.com/" target="_blank" rel="noopener noreferrer">https://docs.ollama.com/</a></p>
+
+            <h3>1) 安装（按系统/架构选择下载）</h3>
+            <ul>
+                <li><strong>Windows / macOS / Linux</strong>：优先按官方文档的“Download / Get started”指引安装对应架构版本</li>
+            </ul>
+
+            <h3>2) 验证安装</h3>
+            <pre><code>ollama --version</code></pre>
+
+            <h3>3) 拉取模型（与你的文档保持一致）</h3>
+            <pre><code>ollama pull ZimaBlueAI/HY-MT1.5-1.8
+ollama pull qwen3:4b</code></pre>
+
+            <h3>4) 无界音流配置示例</h3>
+            <ul>
+                <li><strong>翻译</strong>：Base URL 填 <code>http://localhost:11434/v1</code>；模型填 <code>ZimaBlueAI/HY-MT1.5-1.8</code></li>
+                <li><strong>纠错/总结</strong>：Base URL 填 <code>http://localhost:11434/v1</code>；模型填 <code>qwen3:4b</code></li>
+            </ul>
+            <p>本地 Ollama 一般不需要 API Key；如果您部署在远程机器/网关，请按您的部署策略决定是否需要鉴权。</p>
+
+            <h3>5) 小白用例（最短路径）</h3>
+            <ol>
+                <li>安装 Ollama</li>
+                <li>执行 <code>ollama pull ZimaBlueAI/HY-MT1.5-1.8</code></li>
+                <li>无界音流 → 设置 → 勾选“启用翻译输出”，Base URL 填 <code>http://localhost:11434/v1</code>，模型填上面名称</li>
+                <li>开始录音，观察翻译结果是否出现</li>
+            </ol>
+
+            <h2 id="appendix-volcengine">附录 C：火山引擎（Volcengine）云端 TTS</h2>
+            <p><strong>适用场景：</strong>希望使用云端高质量音色或声音复刻能力时，使用火山引擎云端 TTS。</p>
+            <p><strong>官方入口：</strong></p>
+            <ul>
+                <li><a href="https://www.volcengine.com/product/tts" target="_blank" rel="noopener noreferrer">火山引擎 TTS 产品页</a></li>
+                <li><a href="https://www.volcengine.com/docs/6561" target="_blank" rel="noopener noreferrer">豆包语音/语音大模型 文档中心</a></li>
+                <li><a href="https://www.volcengine.com/docs/6561/1257544" target="_blank" rel="noopener noreferrer">在线音色列表（VoiceType 参考）</a></li>
+            </ul>
+
+            <h3>1) 是否需要注册/开通？</h3>
+            <p>需要。请先注册并登录火山引擎账号，在控制台开通语音相关服务，并创建可用的鉴权信息。</p>
+
+            <h3>2) 你需要准备哪些信息（与无界音流设置项对应）</h3>
+            <ul>
+                <li><strong>AppId</strong>：应用标识</li>
+                <li><strong>Token</strong>：访问令牌</li>
+                <li><strong>Cluster</strong>：集群标识（示例：<code>volcano_tts</code> / <code>volcengine_tts</code>，以官方控制台为准）</li>
+                <li><strong>VoiceType</strong>：音色标识（可在“在线音色列表”里选择）</li>
+            </ul>
+
+            <h3>3) 无界音流配置示例（最小可用）</h3>
+            <ol>
+                <li>无界音流 → 设置 → TTS 模型选择：选择 <strong>Volcengine TTS（火山引擎）</strong></li>
+                <li>Mode 选择 <strong>HTTP</strong>（更简单；部分模式可能在未来更新）</li>
+                <li>填写 AppId / Token / Cluster / VoiceType</li>
+                <li>输入一段文字做合成，确认可以出声</li>
+            </ol>
+
+            <h3>4) 小白排错</h3>
+            <ul>
+                <li>提示缺少 AppId/Token/Cluster：先把这三个必填项补齐</li>
+                <li>提示缺少 VoiceType：从“在线音色列表”复制一个有效的 <code>voice_type</code> 填入</li>
+                <li>仍失败：优先检查 Token 是否过期、是否有服务开通权限、网络是否能访问火山引擎</li>
+            </ul>
+            <div class="doc-copyright">
+                <p>Copyright(c) ZimaBlueAI</p>
+                <p>齐码蓝智能（大理市 ）有限责任公司</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

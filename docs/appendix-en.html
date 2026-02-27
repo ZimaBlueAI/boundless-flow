@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appendix - Boundless Flow</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <a href="welcome-en.html" class="sidebar-logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color);"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>
+            Boundless Flow
+        </a>
+        
+        <div class="sidebar-group">Getting Started</div>
+        <ul>
+            <li><a href="welcome-en.html">What is Boundless Flow?</a></li>
+        </ul>
+
+        <div class="sidebar-group">Core Features</div>
+        <ul>
+            <li><a href="stt-en.html">Real-time STT & Models</a></li>
+            <li><a href="translation-en.html">Real-time Translation</a></li>
+            <li><a href="proofreading-summary-en.html">AI Proofreading & Summary</a></li>
+            <li><a href="tts-voice-cloning-en.html">TTS & Voice Cloning</a></li>
+        </ul>
+
+        <div class="sidebar-group">Appendix</div>
+        <ul>
+            <li><a href="appendix-en.html" class="active">Beginner Guide</a></li>
+        </ul>
+
+        <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+            <a href="appendix.html" style="display: flex; align-items: center; gap: 0.5rem;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                中文版本
+            </a>
+        </div>
+    </div>
+    
+    <div class="main-content">
+        <div class="content-wrapper">
+            <h1>Appendix (Beginner-friendly)</h1>
+            <p>If this is your first time dealing with “model downloads / local LLMs / cloud APIs”, follow the steps below.</p>
+
+            <h2 id="appendix-modelscope">Appendix A: ModelScope (Model Downloads)</h2>
+            <p><strong>When you need it:</strong> Download local STT (SenseVoice) and local TTS (Qwen3-TTS / Index-TTS2) model files.</p>
+            <p><strong>Official docs:</strong> <a href="https://www.modelscope.cn/docs/" target="_blank" rel="noopener noreferrer">https://www.modelscope.cn/docs/</a></p>
+
+            <h3>1) Do I need to sign up?</h3>
+            <p>Most public models can be downloaded without login. If you see an access/permission error, you typically need to log in on ModelScope and request access as prompted.</p>
+
+            <h3>2) Check your OS / CPU architecture</h3>
+            <ul>
+                <li><strong>Windows</strong>: Settings → System → About → System type; or PowerShell <code>$env:PROCESSOR_ARCHITECTURE</code></li>
+                <li><strong>macOS</strong>: Apple menu → About This Mac → Chip; or Terminal <code>uname -m</code></li>
+                <li><strong>Linux</strong>: Terminal <code>uname -m</code></li>
+            </ul>
+
+            <h3>3) Install ModelScope CLI</h3>
+            <p>The download command comes from the ModelScope CLI (requires Python + pip):</p>
+            <pre><code>pip install modelscope
+modelscope --help</code></pre>
+
+            <h3>4) Find models (optional)</h3>
+            <p>Use the ModelScope website search, open the model page, and copy the model ID.</p>
+
+            <h3>5) Download examples (aligned with this manual)</h3>
+            <pre><code>modelscope download --model iic/SenseVoiceSmall --local_dir ./SenseVoiceSmall
+modelscope download --model Qwen/Qwen3-TTS-12Hz-1.7B-Base --local_dir ./Qwen/Qwen3-TTS-12Hz-1.7B-Base
+modelscope download --model Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice --local_dir ./Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice
+modelscope download --model Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign --local_dir ./Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign
+modelscope download --model IndexTeam/IndexTTS-2 --local_dir ./IndexTeam/IndexTTS-2</code></pre>
+
+            <h3>6) Where do I set the path in Boundless Flow?</h3>
+            <ul>
+                <li><strong>STT Model Directory</strong>: point to the SenseVoice download folder</li>
+                <li><strong>TTS Model Directory</strong>: point to the specific TTS model folder you want to use</li>
+            </ul>
+
+            <h2 id="appendix-ollama">Appendix B: Ollama (Local LLMs for Translation / Summary)</h2>
+            <p><strong>When you need it:</strong> Run translation/proofreading/summary models locally. Boundless Flow calls an OpenAI-compatible API (typical Base URL: <code>http://localhost:11434/v1</code>).</p>
+            <p><strong>Official docs:</strong> <a href="https://docs.ollama.com/" target="_blank" rel="noopener noreferrer">https://docs.ollama.com/</a></p>
+
+            <h3>1) Install</h3>
+            <p>Follow the official “Download / Get started” instructions for your OS and CPU architecture.</p>
+
+            <h3>2) Verify</h3>
+            <pre><code>ollama --version</code></pre>
+
+            <h3>3) Pull models (aligned with this manual)</h3>
+            <pre><code>ollama pull ZimaBlueAI/HY-MT1.5-1.8
+ollama pull qwen3:4b</code></pre>
+
+            <h3>4) Suggested settings in Boundless Flow</h3>
+            <ul>
+                <li><strong>Translation</strong>: Base URL <code>http://localhost:11434/v1</code>, Model <code>ZimaBlueAI/HY-MT1.5-1.8</code></li>
+                <li><strong>Proofreading/Summary</strong>: Base URL <code>http://localhost:11434/v1</code>, Model <code>qwen3:4b</code></li>
+            </ul>
+
+            <h2 id="appendix-volcengine">Appendix C: Volcengine Cloud TTS</h2>
+            <p><strong>When you need it:</strong> Use Volcengine cloud voices / higher quality TTS / voice replication features.</p>
+            <p><strong>Useful links:</strong></p>
+            <ul>
+                <li><a href="https://www.volcengine.com/product/tts" target="_blank" rel="noopener noreferrer">Volcengine TTS product page</a></li>
+                <li><a href="https://www.volcengine.com/docs/6561" target="_blank" rel="noopener noreferrer">Speech docs hub</a></li>
+                <li><a href="https://www.volcengine.com/docs/6561/1257544" target="_blank" rel="noopener noreferrer">VoiceType list</a></li>
+            </ul>
+
+            <h3>1) Do I need to sign up?</h3>
+            <p>Yes. You need a Volcengine account and enabled speech services in the console.</p>
+
+            <h3>2) What info do I need?</h3>
+            <ul>
+                <li><strong>AppId</strong></li>
+                <li><strong>Token</strong></li>
+                <li><strong>Cluster</strong> (e.g. <code>volcano_tts</code> / <code>volcengine_tts</code>, depends on your console)</li>
+                <li><strong>VoiceType</strong> (pick from the VoiceType list)</li>
+            </ul>
+
+            <h3>3) Minimal setup in Boundless Flow</h3>
+            <ol>
+                <li>Settings → TTS Model: select <strong>Volcengine TTS</strong></li>
+                <li>Choose <strong>HTTP</strong> mode</li>
+                <li>Fill AppId / Token / Cluster / VoiceType</li>
+                <li>Synthesize a short sentence to verify audio output</li>
+            </ol>
+            <div class="doc-copyright">
+                <p>Copyright(c) ZimaBlueAI</p>
+                <p>齐码蓝智能（大理市 ）有限责任公司</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

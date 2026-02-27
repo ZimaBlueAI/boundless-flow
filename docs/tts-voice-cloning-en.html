@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TTS & Voice Cloning - Boundless Flow</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <a href="welcome-en.html" class="sidebar-logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color);"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>
+            Boundless Flow
+        </a>
+        
+        <div class="sidebar-group">Getting Started</div>
+        <ul>
+            <li><a href="welcome-en.html">What is Boundless Flow?</a></li>
+        </ul>
+
+        <div class="sidebar-group">Core Features</div>
+        <ul>
+            <li><a href="stt-en.html">Real-time STT & Models</a></li>
+            <li><a href="translation-en.html">Real-time Translation</a></li>
+            <li><a href="proofreading-summary-en.html">AI Proofreading & Summary</a></li>
+            <li><a href="tts-voice-cloning-en.html" class="active">TTS & Voice Cloning</a></li>
+        </ul>
+
+        <div class="sidebar-group">Appendix</div>
+        <ul>
+            <li><a href="appendix-en.html">Beginner Guide</a></li>
+        </ul>
+
+        <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+            <a href="tts-voice-cloning.html" style="display: flex; align-items: center; gap: 0.5rem;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                中文版本
+            </a>
+        </div>
+    </div>
+    
+    <div class="main-content">
+        <div class="content-wrapper">
+            <h1>Text-to-Speech (TTS) & Voice Cloning</h1>
+            <p>Boundless Flow not only "understands" your words but also "speaks" your text. Through the built-in Python Bridge and local models, it provides powerful Text-to-Speech (TTS) and voice cloning capabilities. The system currently integrates two core engines: <strong>Qwen3-TTS</strong> and <strong>Index-TTS2</strong>, to meet various scenario needs.</p>
+            <div class="doc-image-grid">
+                <figure class="doc-image">
+                    <img src="images/img5.png" alt="Open 'Model Configuration'">
+                    <figcaption>Open "Model Configuration"</figcaption>
+                </figure>
+                <figure class="doc-image">
+                    <img src="images/img6.png" alt="Select a model and configure the model path or API.">
+                    <figcaption>Select a model and configure the model path or API.</figcaption>
+                </figure>
+                <figure class="doc-image">
+                    <img src="images/img7.png" alt="Upload reference audio">
+                    <figcaption>Upload reference audio</figcaption>
+                </figure>
+                <figure class="doc-image">
+                    <img src="images/img8.png" alt="Synthesized speech text and parameters">
+                    <figcaption>Synthesized speech text and parameters</figcaption>
+                </figure>
+                <figure class="doc-image">
+                    <img src="images/img9.png" alt="Generate audio files">
+                    <figcaption>Generate audio files</figcaption>
+                </figure>
+            </div>
+
+            <h2>Qwen3-TTS Engine</h2>
+            <p>Qwen3-TTS is a powerful, multi-functional voice synthesis engine that supports three different working modes:</p>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <h3>🎙️ Base Model</h3>
+                    <p>Provides high-quality, natural, and fluent standard voice synthesis. Suitable for general text reading and audiobook production, generating clear speech without any reference audio.</p>
+                </div>
+                <div class="card">
+                    <h3>👥 CustomVoice (Cloning)</h3>
+                    <p>By providing a clear 5-15 second reference audio, you can clone a voice highly similar to the reference. Perfect for creating personalized dubbing or digital avatars.</p>
+                </div>
+                <div class="card">
+                    <h3>✨ VoiceDesign</h3>
+                    <p>No reference audio needed. Directly "design" the voice you want using <strong>text prompts</strong>. For example, input "A young female voice, speaking happily", and the model will generate a brand new voice matching the description.</p>
+                </div>
+            </div>
+            <h2>Index-TTS2 Engine</h2>
+            <p>Building upon voice cloning, the Index-TTS2 engine introduces finer emotional and stylistic control capabilities:</p>
+            <ul>
+                <li><strong>Emotional Vector Control</strong>: Allows injecting specific emotional vectors during synthesis, giving the generated speech rich emotional colors like joy, sadness, or anger.</li>
+                <li><strong>Prompt Guidance</strong>: Combined with text prompts, it can more accurately control the tone, intonation, and rhythm of pronunciation, making the cloned voice not only "sound alike" but also "feel real".</li>
+            </ul>
+            
+            <div class="callout">
+                <div class="callout-icon">💡</div>
+                <div class="callout-content">
+                    <p><strong>Tip:</strong> The effect of voice cloning largely depends on the quality of the reference audio. Please try to use audio with clear pronunciation, no background noise, and a moderate speaking rate as a reference.</p>
+                </div>
+            </div>
+            <h2>Local Model Download & Directory Setup (Recommended)</h2>
+            <p>If you use local TTS (Qwen3-TTS / Index-TTS2), download the model files first, then fill in the <strong>TTS Model Directory</strong> in settings (see <a href="https://www.modelscope.cn/docs/" target="_blank" rel="noopener noreferrer">ModelScope docs</a>; beginner steps: <a href="appendix-en.html#appendix-modelscope">Appendix A</a>).</p>
+
+            <h3>Qwen3-TTS (Base / CustomVoice / VoiceDesign)</h3>
+            <p>Download model folders for each mode:</p>
+            <pre><code>modelscope download --model Qwen/Qwen3-TTS-12Hz-1.7B-Base --local_dir ./Qwen/Qwen3-TTS-12Hz-1.7B-Base
+modelscope download --model Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice --local_dir ./Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice
+modelscope download --model Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign --local_dir ./Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign</code></pre>
+            <p>In Boundless Flow settings, set <strong>TTS Model Directory</strong> to the model folder you want to use (e.g., Base mode uses <code>./Qwen/Qwen3-TTS-12Hz-1.7B-Base</code>).</p>
+
+            <h3>Index-TTS2 (Voice Cloning)</h3>
+            <pre><code>modelscope download --model IndexTeam/IndexTTS-2 --local_dir ./IndexTeam/IndexTTS-2</code></pre>
+            <p>In Boundless Flow settings, set <strong>TTS Model Directory</strong> to the IndexTTS-2 model folder.</p>
+
+            <div class="callout warning">
+                <div class="callout-icon">⚠️</div>
+                <div class="callout-content">
+                    <p><strong>Note:</strong> In offline mode, models are not auto-downloaded. If the directory does not exist or is not usable, TTS will fail.</p>
+                </div>
+            </div>
+            <h2>Cloud API Service Configuration</h2>
+            <p>In addition to powerful local models, Boundless Flow also supports integrating various mainstream cloud TTS API services, providing you with more diverse voice options and a more stable synthesis experience. Currently supported cloud APIs include:</p>
+            <ul>
+                <li><strong>Volcengine</strong>: Provides a wealth of high-quality voices, supporting multiple dialects and foreign languages.</li>
+                <li><strong>OpenAI (TTS)</strong>: Offers natural and realistic voice synthesis, supporting classic voices like <code>alloy</code>, <code>echo</code>, <code>fable</code>, <code>onyx</code>, <code>nova</code>, and <code>shimmer</code>.</li>
+                <li><strong>MiniMax</strong>: A leading domestic voice large model, supporting highly expressive and emotional voice generation.</li>
+            </ul>
+
+            <h3>Volcengine Configuration</h3>
+            <p>After selecting <strong>Volcengine TTS</strong> in the settings panel, the minimum required fields are:</p>
+            <ul>
+                <li><strong>AppId</strong>: Volcengine application identifier</li>
+                <li><strong>Token</strong>: access token</li>
+                <li><strong>Cluster</strong>: cluster id (e.g. <code>volcano_tts</code> / <code>volcengine_tts</code>)</li>
+                <li><strong>VoiceType</strong>: voice id</li>
+            </ul>
+            <p>Optional fields include <strong>UID</strong>, Encoding, sample Rate, Speed/Volume/Pitch ratios, Emotion, etc. For signup and VoiceType selection, see <a href="appendix-en.html#appendix-volcengine">Appendix C</a>.</p>
+            
+            <div class="callout">
+                <div class="callout-icon">⚙️</div>
+                <div class="callout-content">
+                    <p><strong>Configuration Method:</strong> Please go to the "Settings" -> "API Configuration" panel in Boundless Flow, select your desired service provider, and enter the corresponding API Key and related parameters. Once configured, you can directly select the corresponding cloud voices in the TTS interface.</p>
+                </div>
+            </div>
+            <h2>TTS Runtime Environment Configuration</h2>
+            <p>To use the TTS and voice cloning features, you need to ensure that your local environment is correctly configured:</p>
+            <ul>
+                <li><strong>Full Installation Package</strong>: If you are using the full installation package that includes the TTS runtime, no additional configuration is required.</li>
+                <li><strong>Lite Package + Runtime Download</strong>: If you are using the Lite package, the application will prompt you to download and extract the TTS runtime (Python environment and related dependencies) the first time you use the TTS feature. Please follow the prompts or refer to the detailed instructions in <code>INSTALL.md</code>.</li>
+            </ul>
+            <div class="doc-copyright">
+                <p>Copyright(c) ZimaBlueAI</p>
+                <p>齐码蓝智能（大理市 ）有限责任公司</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

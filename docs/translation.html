@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实时翻译功能 - 无界音流</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <a href="welcome.html" class="sidebar-logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color);"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>
+            无界音流
+        </a>
+        
+        <div class="sidebar-group">开始使用</div>
+        <ul>
+            <li><a href="welcome.html">什么是无界音流？</a></li>
+        </ul>
+
+        <div class="sidebar-group">核心功能</div>
+        <ul>
+            <li><a href="stt.html">实时 STT 与模型选择</a></li>
+            <li><a href="translation.html" class="active">实时翻译功能</a></li>
+            <li><a href="proofreading-summary.html">AI 纠错与智能总结</a></li>
+            <li><a href="tts-voice-cloning.html">语音合成与声音克隆</a></li>
+        </ul>
+
+        <div class="sidebar-group">附录</div>
+        <ul>
+            <li><a href="appendix.html">小白指南</a></li>
+        </ul>
+
+        <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+            <a href="translation-en.html" style="display: flex; align-items: center; gap: 0.5rem;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                English Version
+            </a>
+        </div>
+    </div>
+    
+    <div class="main-content">
+        <div class="content-wrapper">
+            <h1>实时翻译功能</h1>
+            <p>无界音流内置了强大的翻译代理功能，支持调用大语言模型（如 OpenAI、Ollama 等）进行高质量的多语言互译。这使得它不仅是一个语音记录工具，更是一个跨语言沟通的得力助手。</p>
+
+            <figure class="doc-image">
+                <img src="images/img3.png" alt="实时翻译字幕效果">
+                <figcaption>实时 STT + 翻译双语字幕显示效果</figcaption>
+            </figure>
+
+            <h2>翻译功能介绍</h2>
+            <p>开启翻译功能后，无界音流会将识别出的语音文本实时翻译为您指定的目标语言。翻译结果将直接显示在界面上，或通过“跟随光标注入”功能输入到您的文档中。</p>
+            
+            <div class="callout">
+                <div class="callout-icon">💡</div>
+                <div class="callout-content">
+                    <p><strong>提示：</strong> 翻译功能只影响“显示/复制/最终注入”的文本，不会改变语音识别（STT）的语言参数。</p>
+                </div>
+            </div>
+
+            <h2>配置翻译服务</h2>
+            <p>要使用翻译功能，您需要在设置中进行以下配置：</p>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>启用翻译输出</h3>
+                        <p>在设置中勾选“启用翻译输出”。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>选择目标语言</h3>
+                        <p>选择您希望翻译成的语言（如英语、日语等）。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>配置 API 信息</h3>
+                        <p>填写翻译服务的 API 地址。例如，OpenAI 兼容接口通常是 <code>https://api.openai.com/v1</code>。</p>
+                        <p>填写服务端要求的模型标识，如 <code>gpt-4o-mini</code>、<code>deepseek-chat</code> 等。</p>
+                        <p>填写您的 API 密钥。该密钥仅保存在您的本机设置中，不会上传到任何服务器。</p>
+                    </div>
+                </div>
+            </div>
+
+            <h2>推荐翻译模型（Ollama）</h2>
+            <p>如果您希望在本机离线/局域网环境使用翻译，推荐使用 Ollama 拉取翻译模型（参考 <a href="https://docs.ollama.com/" target="_blank" rel="noopener noreferrer">Ollama 文档</a>；小白安装指南见 <a href="appendix.html#appendix-ollama">附录 B</a>）：</p>
+            <pre><code>ollama pull ZimaBlueAI/HY-MT1.5-1.8</code></pre>
+            <p>然后在无界音流设置中填写：</p>
+            <ul>
+                <li><strong>翻译 API Base URL</strong>：<code>http://localhost:11434/v1</code></li>
+                <li><strong>翻译模型</strong>：<code>ZimaBlueAI/HY-MT1.5-1.8</code></li>
+                <li><strong>翻译 API Key</strong>：本地 Ollama 可留空</li>
+            </ul>
+
+            <h2>翻译策略选择</h2>
+            <p>无界音流提供了两种翻译策略，以适应不同的使用场景：</p>
+            <ul>
+                <li><strong>实时翻译临时结果</strong>：对语音识别的中间结果进行实时翻译。这种方式能让您更快看到翻译结果，但可能会更慢且消耗更多的 API 额度。</li>
+                <li><strong>流式输出（推荐）</strong>：使用流式 API 输出翻译结果。这种方式在调用本地模型（如 Ollama）时表现更佳，能提供更平滑的阅读体验。</li>
+            </ul>
+            
+            <div class="callout warning">
+                <div class="callout-icon">⚠️</div>
+                <div class="callout-content">
+                    <p><strong>注意：</strong> 启用翻译功能后，“实时输出（持续追加，不回退）”模式会自动关闭，以避免翻译延迟导致输入错乱。</p>
+                </div>
+            </div>
+            <div class="doc-copyright">
+                <p>Copyright(c) ZimaBlueAI</p>
+                <p>齐码蓝智能（大理市 ）有限责任公司</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

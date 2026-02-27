@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实时 STT 与模型选择 - 无界音流</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <a href="welcome.html" class="sidebar-logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color);"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>
+            无界音流
+        </a>
+        
+        <div class="sidebar-group">开始使用</div>
+        <ul>
+            <li><a href="welcome.html">什么是无界音流？</a></li>
+        </ul>
+
+        <div class="sidebar-group">核心功能</div>
+        <ul>
+            <li><a href="stt.html" class="active">实时 STT 与模型选择</a></li>
+            <li><a href="translation.html">实时翻译功能</a></li>
+            <li><a href="proofreading-summary.html">AI 纠错与智能总结</a></li>
+            <li><a href="tts-voice-cloning.html">语音合成与声音克隆</a></li>
+        </ul>
+
+        <div class="sidebar-group">附录</div>
+        <ul>
+            <li><a href="appendix.html">小白指南</a></li>
+        </ul>
+
+        <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+            <a href="stt-en.html" style="display: flex; align-items: center; gap: 0.5rem;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                English Version
+            </a>
+        </div>
+    </div>
+    
+    <div class="main-content">
+        <div class="content-wrapper">
+            <h1>实时语音转文字 (STT) 与模型选择</h1>
+            <p>无界音流的核心功能是基于本地模型的实时语音转文字（STT）。它能够精准、快速地将您的语音转化为文字，并支持多种输出方式。</p>
+
+            <figure class="doc-image">
+                <img src="images/img2.png" alt="Mini Mode 悬浮字幕界面">
+                <figcaption>Mini Mode — 右下角悬浮实时字幕</figcaption>
+            </figure>
+
+            <h2>实时 STT 功能介绍</h2>
+            <p>无界音流使用先进的 SenseVoice ONNX 本地模型进行推理，支持实时输出和最终结果输出。这意味着您在说话的同时，文字就会立刻显示在屏幕上。</p>
+            
+            <h3>输出方式</h3>
+            <p>在设置中，您可以选择不同的输出方式：</p>
+            <ul>
+                <li><strong>跟随光标注入（推荐）</strong>：边说边写，识别结果直接输入到您当前光标所在的位置。开启后，请先用鼠标点到你想输入的地方（如 Word、网页输入框），再开始说话。</li>
+                <li><strong>实时输出</strong>：在应用界面内实时显示识别结果。</li>
+                <li><strong>最终自动回车</strong>：在一段话讲完后，自动输出最终结果并换行。</li>
+            </ul>
+
+            <h2>如何开启实时 STT</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>确认配置</h3>
+                        <p>确保您已经正确配置了模型目录（见下文）。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>开始录音</h3>
+                        <p><strong>方式一</strong>：点击主界面上的 <strong>“开始录音”</strong> 按钮。<br>
+                        <strong>方式二</strong>：在任何界面下，按下键盘上的 <strong>右侧 Alt 键 (<code>RightAlt</code>)</strong>。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>结束录音</h3>
+                        <p>开始说话吧！您会看到识别的文字实时显示出来。再次按下快捷键或点击停止按钮即可结束录音。</p>
+                    </div>
+                </div>
+            </div>
+
+            <h2>选择与配置不同模型</h2>
+            <p>为了让语音识别功能正常工作，您需要进行简单的模型配置：</p>
+            
+            <h3>配置模型目录</h3>
+            <ol>
+                <li>打开应用主界面，进入 <strong>设置 (Settings)</strong>。</li>
+                <li>找到 <strong>模型目录</strong> 配置项。</li>
+                <li>选择或输入您的 SenseVoice 模型所在的文件夹路径。</li>
+            </ol>
+
+            <h3>推荐模型下载（ModelScope）</h3>
+            <p>无界音流默认使用 SenseVoice 本地模型（ONNX）。推荐使用 ModelScope 下载（参考 <a href="https://www.modelscope.cn/docs/" target="_blank" rel="noopener noreferrer">ModelScope 文档</a>；小白安装指南见 <a href="appendix.html#appendix-modelscope">附录 A</a>）：</p>
+            <pre><code>modelscope download --model iic/SenseVoiceSmall --local_dir ./SenseVoiceSmall</code></pre>
+            <p>下载完成后，将设置里的 <strong>模型目录</strong> 指向下载目录（例如 <code>./SenseVoiceSmall</code> 或 Windows 绝对路径）。</p>
+            
+            <div class="callout warning">
+                <div class="callout-icon">⚠️</div>
+                <div class="callout-content">
+                    <p><strong>注意：</strong> 请确保该文件夹内包含 <code>model.onnx</code> 和 <code>tokens.json</code> 文件。如果尚未下载模型，请参考安装指南获取模型文件。</p>
+                </div>
+            </div>
+
+            <h3>高级 STT 设置</h3>
+            <ul>
+                <li><strong>发送帧间隔（毫秒）</strong>：决定语音识别的实时性。建议设置为 <code>20ms</code>（接近实时）。数值越小，文字上屏越快，但会增加电脑性能消耗。</li>
+                <li><strong>识别语言</strong>：强制指定识别的语言（如中文、英文、日文等）。推荐选择 <strong>自动 (auto)</strong>，让 AI 自动判断。</li>
+                <li><strong>TextNorm</strong>：文本标准化处理。推荐保持 <strong>auto（默认）</strong>。</li>
+            </ul>
+            <div class="doc-copyright">
+                <p>Copyright(c) ZimaBlueAI</p>
+                <p>齐码蓝智能（大理市 ）有限责任公司</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

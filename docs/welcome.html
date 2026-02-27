@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>无界音流 (Boundless Flow) - 用户文档</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <a href="index.html" class="sidebar-logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color);"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>
+            无界音流
+        </a>
+        
+        <div class="sidebar-group">开始使用</div>
+        <ul>
+            <li><a href="welcome.html" class="active">什么是无界音流？</a></li>
+        </ul>
+
+        <div class="sidebar-group">核心功能</div>
+        <ul>
+            <li><a href="stt.html">实时 STT 与模型选择</a></li>
+            <li><a href="translation.html">实时翻译功能</a></li>
+            <li><a href="proofreading-summary.html">AI 纠错与智能总结</a></li>
+            <li><a href="tts-voice-cloning.html">语音合成与声音克隆</a></li>
+        </ul>
+
+        <div class="sidebar-group">附录</div>
+        <ul>
+            <li><a href="appendix.html">小白指南</a></li>
+        </ul>
+
+        <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+            <a href="welcome-en.html" style="display: flex; align-items: center; gap: 0.5rem;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                English Version
+            </a>
+        </div>
+    </div>
+    
+    <div class="main-content">
+        <div class="content-wrapper">
+            <div class="hero">
+                <h1>什么是无界音流？</h1>
+                <p class="hero-subtitle">一款专为提升创作与记录效率而设计的桌面端智能语音助手，提供流畅的语音转文字（STT）和文字转语音（TTS）体验。</p>
+            </div>
+
+            <p>无论您是在进行会议记录、灵感捕捉，还是需要为视频配音，无界音流都能成为您得力的助手。它运行在您的本地设备上，保护您的隐私，同时提供强大的 AI 能力。</p>
+
+            <figure class="doc-image">
+                <img src="images/img1.png" alt="无界音流主面板界面">
+                <figcaption>无界音流主面板界面总览</figcaption>
+            </figure>
+
+            <h2>核心能力</h2>
+            
+            <div class="card-grid">
+                <a href="stt.html" class="card">
+                    <div class="card-icon">🎙️</div>
+                    <h3>实时语音转文字</h3>
+                    <p>基于先进的本地模型，精准、快速地将您的语音转化为文字，支持光标跟随输入。</p>
+                </a>
+                <a href="translation.html" class="card">
+                    <div class="card-icon">🌐</div>
+                    <h3>实时翻译</h3>
+                    <p>内置翻译代理，支持调用大语言模型进行高质量的多语言互译。</p>
+                </a>
+                <a href="proofreading-summary.html" class="card">
+                    <div class="card-icon">✨</div>
+                    <h3>AI 纠错与总结</h3>
+                    <p>自动对识别文本进行润色纠错，并定时生成会议或录音总结。</p>
+                </a>
+                <a href="tts-voice-cloning.html" class="card">
+                    <div class="card-icon">🔊</div>
+                    <h3>语音合成与克隆</h3>
+                    <p>提供自然流畅的语音合成功能，支持多种音色及声音克隆。</p>
+                </a>
+            </div>
+
+            <h2>快速开始</h2>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>安装与启动</h3>
+                        <p>下载并安装最新版本的无界音流客户端。安装完成后，双击图标启动应用。应用启动后，您可以在系统托盘找到它的图标。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>配置模型目录</h3>
+                        <p>打开应用主界面，进入 <strong>设置 (Settings)</strong>，找到 <strong>模型目录</strong> 配置项，选择您的 SenseVoice 模型所在的文件夹路径。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>开始录音</h3>
+                        <p>按下键盘上的 <code>RightAlt</code> (右侧 Alt 键) 即可随时随地开启或停止录音。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="callout">
+                <div class="callout-icon">💡</div>
+                <div class="callout-content">
+                    <p><strong>提示：</strong> 请通过左侧的导航栏，浏览您感兴趣的功能模块。每个模块都包含了详细的配置说明和使用指南。</p>
+                </div>
+            </div>
+
+            <h2>附录（小白指南）</h2>
+            <p>首次使用“模型下载 / 本地大模型 / 云端 API”？直接按附录一步一步做即可。</p>
+            <div class="callout">
+                <div class="callout-icon">📎</div>
+                <div class="callout-content">
+                    <p><a href="appendix.html">打开附录（小白指南）</a></p>
+                </div>
+            </div>
+            <div class="doc-copyright">
+                <p>Copyright(c) ZimaBlueAI</p>
+                <p>齐码蓝智能（大理市 ）有限责任公司</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
