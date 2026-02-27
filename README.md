@@ -3,7 +3,7 @@
 <picture>
   <img alt="BoundlessFlow" src="docs/images/banner.png" width="100%" height="auto">
 </picture>
-<a href="https://boundless-flow.github.io">Website</a> · <a href="https://github.com/ZimaBlueAI/boundless-flow">GitHub</a> · <a href="https://github.com/ZimaBlueAI/boundless-flow/issues">Issues</a> · <a href="https://boundless-flow.github.io/docs">Docs</a>
+<a href="http://boundless-flow.zimablueai.com">Website</a> · <a href="https://github.com/ZimaBlueAI/boundless-flow">GitHub</a> · <a href="https://github.com/ZimaBlueAI/boundless-flow/issues">Issues</a> · <a href="https://boundless-flow.github.io/docs">Docs</a>
 
 
 [![][release-shield]][release-link]
