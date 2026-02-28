@@ -52,7 +52,7 @@ modelscope download --model iic/SenseVoiceSmall --local_dir ./SenseVoiceSmall
 - Strategies: translate only final results (saves API quota) or translate realtime results too
 
 ### AI Proofreading & Smart Summaries
-- **AI proofreading** ("Principal" feature): auto-polish recognized text with configurable concurrency (default 2, max 4)
+- **AI proofreading** ("Correction" feature): auto-polish recognized text with configurable concurrency (default 2, max 4)
 - **Smart summaries**: scheduled meeting/recording summaries (recommended every 60 seconds), shown as a tree or queue
 - Supports OpenAI / Ollama / Volcengine; recommended local model: `qwen3:4b`
 
