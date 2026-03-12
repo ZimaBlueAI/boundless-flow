@@ -35,6 +35,7 @@ An on-device intelligent voice assistant designed to boost creation and recordin
 
 ### Realtime Speech-to-Text (STT)
 - SenseVoice ONNX local inference with realtime and final results
+- Upgraded `native-stt` path for offline audio-file transcription with Whisper / SenseVoice native backends
 - Three output modes: **cursor-follow injection** (recommended) / **realtime output** / **final auto-enter**
 - Global hotkey `RightAlt` to start/stop recording anytime
 - Supported languages: `auto` / `zh` / `en` / `yue` / `ja` / `ko` / `nospeech`
@@ -79,6 +80,8 @@ modelscope download --model iic/SenseVoiceSmall --local_dir ./SenseVoiceSmall
 2. Open settings and point **Model Directory** to the SenseVoice model folder (must include `model.onnx` and `tokens.json`)
 3. Press `RightAlt` to start recording
 
+If you want offline file transcription instead of live microphone STT, switch the STT backend to `Whisper` or `SenseVoice`, then select a model file and an audio file in the STT panel.
+
 For model downloads and FAQs, see [INSTALL.md](INSTALL.md).
 
 ### Developers (Local Debugging)
@@ -98,12 +101,15 @@ Full environment setup (Rust/MSVC, Python/TTS, Lite packages, packaging outputs)
 | Setting | Description | Recommendation |
 | --- | --- | --- |
 | Model Directory | SenseVoice model folder (must include `model.onnx`, `tokens.json`) | Point to the exact model directory |
+| Backend | `onnx` for realtime mic STT, `whisper` / `sensevoice` for native offline file transcription | Use `onnx` for live subtitles; switch only when transcribing files |
 | Frame Interval (ms) | Audio frame send frequency; lower is more realtime but higher CPU | `20ms` |
 | Language | auto/zh/en/yue/ja/ko/nospeech | `auto` |
 | TextNorm | Text normalization | `auto` |
 | Output Mode | Cursor-follow injection / realtime output / final auto-enter | Choose by scenario |
 
 > Auto-downgrades if a platform does not support a feature (e.g., cursor-follow injection may be unavailable on some platforms).
+>
+> `native-stt` is currently designed for uploaded audio files, not live microphone subtitles.
 
 ### Translation Settings
 

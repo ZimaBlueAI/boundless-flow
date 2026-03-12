@@ -51,6 +51,13 @@
 
             <h2>Real-time STT Introduction</h2>
             <p>Boundless Flow uses the advanced SenseVoice ONNX local model for inference, supporting both real-time output and final result output. This means that as you speak, the text will immediately appear on the screen.</p>
+
+            <div class="callout info">
+                <div class="callout-icon">ℹ️</div>
+                <div class="callout-content">
+                    <p><strong>There are now two STT paths:</strong> microphone real-time recognition still uses local SenseVoice ONNX inference, while the upgraded <strong>native-stt</strong> path is designed for offline audio-file transcription with native Whisper / SenseVoice backends.</p>
+                </div>
+            </div>
             
             <h3>Output Methods</h3>
             <p>In the settings, you can choose different output methods:</p>
@@ -114,6 +121,45 @@
                 <li><strong>Language</strong>: Force a specific language for recognition (e.g., English, Chinese, Japanese). Selecting <strong>Auto</strong> is recommended to let the AI decide.</li>
                 <li><strong>TextNorm</strong>: Text normalization processing. Keeping it at <strong>auto (default)</strong> is recommended.</li>
             </ul>
+
+            <h2>native-stt Offline File Transcription</h2>
+            <p>The upgraded <strong>native-stt</strong> path adds an offline transcription workflow alongside real-time microphone STT. It is intended for longer recordings, archived audio, meeting replays, and local file-based transcription.</p>
+
+            <figure class="doc-image">
+                <img src="images/native-stt.png" alt="native-stt configuration screen">
+                <figcaption>native-stt configuration: choose backend, model, and audio file to transcribe</figcaption>
+            </figure>
+
+            <h3>Best-fit Scenarios and Behavior</h3>
+            <ul>
+                <li><strong>Audio files only</strong>: it does not replace live microphone STT; real-time capture still uses the ONNX path.</li>
+                <li><strong>Native backends</strong>: switch between <code>Whisper</code> and <code>SenseVoice</code> based on the model you want to run.</li>
+                <li><strong>Safer long-audio handling</strong>: long files are processed in chunks and appended incrementally to the Raw Result area.</li>
+                <li><strong>Interruptible</strong>: you can stop an in-progress transcription with the stop button.</li>
+                <li><strong>CUDA preferred when available</strong>: if the machine has a usable CUDA environment, native-stt will try GPU acceleration first.</li>
+            </ul>
+
+            <h3>How to Configure native-stt</h3>
+            <ol>
+                <li>In the STT panel, switch the backend to <strong>Whisper</strong> or <strong>SenseVoice</strong>.</li>
+                <li>Select the corresponding <strong>model file</strong> or model path.</li>
+                <li>Select the <strong>audio file</strong> you want to transcribe.</li>
+                <li>Click <strong>Transcribe File</strong>; partial and final results will be appended to the Raw Result area.</li>
+            </ol>
+
+            <h3>Model and Format Notes</h3>
+            <ul>
+                <li><strong>Whisper</strong>: commonly used with <code>.bin</code>, <code>.ggml</code>, or <code>.gguf</code> model files.</li>
+                <li><strong>SenseVoice</strong>: commonly used with <code>.bin</code> or <code>.gguf</code> model files.</li>
+                <li><strong>Language</strong>: in most cases, <code>auto</code> is recommended; manually locking language may improve stability for some files.</li>
+            </ul>
+
+            <div class="callout warning">
+                <div class="callout-icon">⚠️</div>
+                <div class="callout-content">
+                    <p><strong>Note:</strong> native-stt is currently positioned as an offline file-transcription feature, not a live microphone subtitle path. For speak-and-see workflows, continue using the default ONNX real-time STT pipeline.</p>
+                </div>
+            </div>
             <div class="doc-copyright">
                 <p>Copyright(c) ZimaBlueAI</p>
                 <p>齐码蓝智能（大理市 ）有限责任公司</p>
