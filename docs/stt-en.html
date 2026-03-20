@@ -50,12 +50,12 @@
             </figure>
 
             <h2>Real-time STT Introduction</h2>
-            <p>Boundless Flow uses the advanced SenseVoice ONNX local model for inference, supporting both real-time output and final result output. This means that as you speak, the text will immediately appear on the screen.</p>
+            <p>Boundless Flow supports both <strong>SenseVoice ONNX</strong> and <strong>FunASR</strong> for local real-time STT. Both paths provide interim streaming output and final sentence-level output, so text can appear while you are speaking.</p>
 
             <div class="callout info">
                 <div class="callout-icon">ℹ️</div>
                 <div class="callout-content">
-                    <p><strong>There are now two STT paths:</strong> microphone real-time recognition still uses local SenseVoice ONNX inference, while the upgraded <strong>native-stt</strong> path is designed for offline audio-file transcription with native Whisper / SenseVoice backends.</p>
+                    <p><strong>STT paths:</strong> real-time microphone STT supports <strong>SenseVoice ONNX</strong> and <strong>FunASR</strong>. The <strong>native-stt</strong> path is focused on offline file transcription with native Whisper / SenseVoice backends.</p>
                 </div>
             </div>
             
@@ -96,22 +96,24 @@
             <h2>Selecting and Configuring Different Models</h2>
             <p>For the speech recognition feature to work, a simple model configuration is required:</p>
             
-            <h3>Configure Model Directory</h3>
+            <h3>Select Backend and Configure Model Directory</h3>
             <ol>
                 <li>Open the main application interface and go to <strong>Settings</strong>.</li>
-                <li>Locate the <strong>Model Directory</strong> configuration item.</li>
-                <li>Select or enter the folder path where your SenseVoice model is located.</li>
+                <li>Select the STT backend you want to use (<strong>ONNX</strong> or <strong>FunASR</strong>).</li>
+                <li>Locate <strong>Model Directory</strong> and point it to the corresponding model folder.</li>
             </ol>
 
             <h3>Recommended Model Download (ModelScope)</h3>
             <p>Boundless Flow uses a local SenseVoice ONNX model by default. Recommended download via ModelScope (see <a href="https://www.modelscope.cn/docs/" target="_blank" rel="noopener noreferrer">ModelScope docs</a>; beginner steps: <a href="appendix-en.html#appendix-modelscope">Appendix A</a>):</p>
             <pre><code>modelscope download --model iic/SenseVoiceSmall --local_dir ./SenseVoiceSmall</code></pre>
             <p>After downloading, set <strong>Model Directory</strong> to the download folder (e.g., <code>./SenseVoiceSmall</code> or an absolute Windows path).</p>
+            <p>If you choose the <strong>FunASR</strong> backend, download the FunASR-Nano model and set <strong>Model Directory</strong> to that folder:</p>
+            <pre><code>modelscope download --model FunAudioLLM/Fun-ASR-Nano-2512 --local_dir ./Fun-ASR-Nano-2512</code></pre>
             
             <div class="callout warning">
                 <div class="callout-icon">⚠️</div>
                 <div class="callout-content">
-                    <p><strong>Note:</strong> Please ensure this folder contains the <code>model.onnx</code> and <code>tokens.json</code> files. If you haven't downloaded the model yet, please refer to the installation guide to get the model files.</p>
+                    <p><strong>Note:</strong> ONNX backend requires files such as <code>model.onnx</code> and <code>tokens.json</code>. FunASR backend requires the complete <code>Fun-ASR-Nano-2512</code> model directory (for example: <code>model.pt</code>, <code>config.yaml</code>, and tokenizer assets).</p>
                 </div>
             </div>
 
@@ -132,7 +134,7 @@
 
             <h3>Best-fit Scenarios and Behavior</h3>
             <ul>
-                <li><strong>Audio files only</strong>: it does not replace live microphone STT; real-time capture still uses the ONNX path.</li>
+                <li><strong>Audio files only</strong>: this path is for uploaded/local audio files. For live microphone STT, use ONNX or FunASR backend in real-time mode.</li>
                 <li><strong>Native backends</strong>: switch between <code>Whisper</code> and <code>SenseVoice</code> based on the model you want to run.</li>
                 <li><strong>Safer long-audio handling</strong>: long files are processed in chunks and appended incrementally to the Raw Result area.</li>
                 <li><strong>Interruptible</strong>: you can stop an in-progress transcription with the stop button.</li>
@@ -157,7 +159,7 @@
             <div class="callout warning">
                 <div class="callout-icon">⚠️</div>
                 <div class="callout-content">
-                    <p><strong>Note:</strong> native-stt is currently positioned as an offline file-transcription feature, not a live microphone subtitle path. For speak-and-see workflows, continue using the default ONNX real-time STT pipeline.</p>
+                    <p><strong>Note:</strong> native-stt is currently positioned as an offline file-transcription feature, not a live microphone subtitle path. For live speak-and-see workflows, use the real-time ONNX or FunASR pipeline.</p>
                 </div>
             </div>
             <div class="doc-copyright">

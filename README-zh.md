@@ -1,4 +1,4 @@
-﻿﻿<div align="center">
+﻿﻿﻿<div align="center">
 
 <picture>
   <img alt="BoundlessFlow" src="docs/images/banner.png" width="100%" height="auto">
@@ -23,7 +23,7 @@
 
 # 无界音流 / Boundless Flow
 
-一款专为提升创作与记录效率而设计的桌面端智能语音助手。基于 Tauri 2（Rust 后端）+ Vite（TypeScript 前端），提供流畅的实时 **STT（SenseVoice ONNX 本地推理）** 和强大的 **TTS（Rust libtorch + Python Bridge + 本地/云端模型）** 体验，全程运行在您的本地设备上，保护隐私。
+一款专为提升创作与记录效率而设计的桌面端智能语音助手。基于 Tauri 2（Rust 后端）+ Vite（TypeScript 前端），提供流畅的实时 **STT（SenseVoice ONNX / FunASR 本地推理）** 和强大的 **TTS（Rust libtorch + Python Bridge + 本地/云端模型）** 体验，全程运行在您的本地设备上，保护隐私。
 
 ## 项目概述
 
@@ -34,16 +34,21 @@
 ## 功能特性
 
 ###  实时语音转文字（STT）
-- SenseVoice ONNX 本地推理，支持实时输出与最终结果输出
+- SenseVoice ONNX 与 FunASR 本地推理，支持实时输出与最终结果输出
 - 升级后的 `native-stt` 支持离线音频文件转写，可切换 Whisper / SenseVoice 原生后端
 - 三种输出方式：**跟随光标注入**（推荐）/ **实时输出** / **最终自动回车**
 - 全局热键 `RightAlt` 随时开启/停止录音
 - 支持语言：`auto` / `zh` / `en` / `yue` / `ja` / `ko` / `nospeech`
 - Mini Mode：右下角悬浮实时字幕窗口
 
-下载STT模型：[SenseVoiceSmall](https://github.com/FunAudioLLM/SenseVoice)
+下载 STT 模型（SenseVoice ONNX）：[SenseVoiceSmall](https://github.com/FunAudioLLM/SenseVoice)
 ```
 modelscope download --model iic/SenseVoiceSmall --local_dir ./SenseVoiceSmall
+```
+
+下载 STT 模型（FunASR）：
+```
+modelscope download --model FunAudioLLM/Fun-ASR-Nano-2512 --local_dir ./Fun-ASR-Nano-2512
 ```
 
 ###  实时翻译
@@ -77,7 +82,7 @@ modelscope download --model iic/SenseVoiceSmall --local_dir ./SenseVoiceSmall
 ### 普通用户（Release）
 
 1. 下载并安装最新 Release 安装包，双击启动
-2. 打开设置，将 **模型目录** 指向 SenseVoice 模型文件夹（须包含 `model.onnx` 和 `tokens.json`）
+2. 打开设置，选择 STT 后端（`onnx` 或 `funasr`），并将 **模型目录** 指向对应模型文件夹
 3. 按下 `RightAlt` 开始录音
 
 如果您要转写现有音频文件，而不是实时麦克风输入，可在 STT 面板把后端切换到 `Whisper` 或 `SenseVoice`，再选择模型文件与音频文件。
@@ -100,8 +105,8 @@ pnpm run tauri:dev
 
 | 配置项 | 说明 | 建议 |
 | --- | --- | --- |
-| 模型目录 | SenseVoice 模型所在目录（须包含 `model.onnx`、`tokens.json`） | 指向具体模型目录 |
-| 后端 | `onnx` 用于实时麦克风识别，`whisper` / `sensevoice` 用于 native-stt 离线文件转写 | 实时字幕建议保持 `onnx` |
+| 模型目录 | ONNX 后端需包含 `model.onnx`、`tokens.json`；FunASR 后端需指向完整 `Fun-ASR-Nano-2512` 目录 | 指向具体模型目录 |
+| 后端 | `onnx` / `funasr` 用于实时麦克风识别，`whisper` / `sensevoice` 用于 native-stt 离线文件转写 | 实时字幕建议使用 `onnx` 或 `funasr` |
 | 发送帧间隔（ms） | 音频帧发送频率，越小越接近实时但更吃 CPU | `20ms` |
 | 识别语言 | auto/zh/en/yue/ja/ko/nospeech | `auto` |
 | TextNorm | 文本标准化 | `auto` |
@@ -109,7 +114,7 @@ pnpm run tauri:dev
 
 > 平台不支持时会自动降级（例如"跟随光标注入"在部分平台不可用）。
 >
-> `native-stt` 当前定位是上传音频文件后的离线转写能力，不替代实时麦克风字幕链路。
+> `native-stt` 当前定位是上传音频文件后的离线转写能力，不替代实时麦克风字幕链路；实时麦克风字幕请使用 `onnx` 或 `funasr`。
 
 ### 翻译配置项
 

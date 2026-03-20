@@ -50,12 +50,12 @@
             </figure>
 
             <h2>实时 STT 功能介绍</h2>
-            <p>无界音流使用先进的 SenseVoice ONNX 本地模型进行推理，支持实时输出和最终结果输出。这意味着您在说话的同时，文字就会立刻显示在屏幕上。</p>
+            <p>无界音流支持 <strong>SenseVoice ONNX</strong> 与 <strong>FunASR</strong> 两条本地实时 STT 路径。两者都支持临时流式结果与句级最终结果，您说话时即可持续看到文字上屏。</p>
 
             <div class="callout info">
                 <div class="callout-icon">ℹ️</div>
                 <div class="callout-content">
-                    <p><strong>当前 STT 分为两条路径：</strong> 麦克风实时识别继续使用 SenseVoice ONNX 本地推理；新增的 <strong>native-stt</strong> 则用于上传音频文件后的离线转写，支持 Whisper / SenseVoice 两种原生后端。</p>
+                    <p><strong>当前 STT 路径：</strong> 麦克风实时识别支持 <strong>SenseVoice ONNX</strong> 与 <strong>FunASR</strong>；新增的 <strong>native-stt</strong> 主要用于上传音频文件后的离线转写，支持 Whisper / SenseVoice 两种原生后端。</p>
                 </div>
             </div>
             
@@ -96,22 +96,24 @@
             <h2>选择与配置不同模型</h2>
             <p>为了让语音识别功能正常工作，您需要进行简单的模型配置：</p>
             
-            <h3>配置模型目录</h3>
+            <h3>选择后端并配置模型目录</h3>
             <ol>
                 <li>打开应用主界面，进入 <strong>设置 (Settings)</strong>。</li>
-                <li>找到 <strong>模型目录</strong> 配置项。</li>
-                <li>选择或输入您的 SenseVoice 模型所在的文件夹路径。</li>
+                <li>在 STT 后端中选择要使用的实时后端（<strong>ONNX</strong> 或 <strong>FunASR</strong>）。</li>
+                <li>在 <strong>模型目录</strong> 中选择对应后端的模型文件夹路径。</li>
             </ol>
 
             <h3>推荐模型下载（ModelScope）</h3>
             <p>无界音流默认使用 SenseVoice 本地模型（ONNX）。推荐使用 ModelScope 下载（参考 <a href="https://www.modelscope.cn/docs/" target="_blank" rel="noopener noreferrer">ModelScope 文档</a>；小白安装指南见 <a href="appendix.html#appendix-modelscope">附录 A</a>）：</p>
             <pre><code>modelscope download --model iic/SenseVoiceSmall --local_dir ./SenseVoiceSmall</code></pre>
             <p>下载完成后，将设置里的 <strong>模型目录</strong> 指向下载目录（例如 <code>./SenseVoiceSmall</code> 或 Windows 绝对路径）。</p>
+            <p>如果您选择 <strong>FunASR</strong> 后端，请下载 FunASR-Nano 模型，并将 <strong>模型目录</strong> 指向该目录：</p>
+            <pre><code>modelscope download --model FunAudioLLM/Fun-ASR-Nano-2512 --local_dir ./Fun-ASR-Nano-2512</code></pre>
             
             <div class="callout warning">
                 <div class="callout-icon">⚠️</div>
                 <div class="callout-content">
-                    <p><strong>注意：</strong> 请确保该文件夹内包含 <code>model.onnx</code> 和 <code>tokens.json</code> 文件。如果尚未下载模型，请参考安装指南获取模型文件。</p>
+                    <p><strong>注意：</strong> ONNX 后端请确保目录中包含 <code>model.onnx</code> 与 <code>tokens.json</code>；FunASR 后端请确保目录为完整的 <code>Fun-ASR-Nano-2512</code> 模型目录（例如包含 <code>model.pt</code>、<code>config.yaml</code>、tokenizer 相关文件）。</p>
                 </div>
             </div>
 
@@ -132,7 +134,7 @@
 
             <h3>适用场景与特点</h3>
             <ul>
-                <li><strong>仅用于音频文件转写</strong>：不替代实时麦克风识别；实时录音仍然使用 ONNX STT。</li>
+                <li><strong>仅用于音频文件转写</strong>：该路径用于上传/本地音频文件，不替代实时麦克风识别；实时录音请使用 ONNX 或 FunASR 实时后端。</li>
                 <li><strong>支持原生后端</strong>：可切换 <code>Whisper</code> 或 <code>SenseVoice</code>，按模型类型选择最适合的转写引擎。</li>
                 <li><strong>长音频更稳妥</strong>：应用会按片段处理较长文件，并把结果持续追加到“原始结果”区域。</li>
                 <li><strong>可中途中止</strong>：转写过程中可以点击停止按钮终止当前任务。</li>
@@ -157,7 +159,7 @@
             <div class="callout warning">
                 <div class="callout-icon">⚠️</div>
                 <div class="callout-content">
-                    <p><strong>注意：</strong> native-stt 当前定位为离线文件转写能力，不用于实时麦克风字幕。如果您希望边说边显示，请继续使用默认的 ONNX 实时 STT。</p>
+                    <p><strong>注意：</strong> native-stt 当前定位为离线文件转写能力，不用于实时麦克风字幕。如果您希望边说边显示，请使用 ONNX 或 FunASR 的实时 STT 路径。</p>
                 </div>
             </div>
             <div class="doc-copyright">

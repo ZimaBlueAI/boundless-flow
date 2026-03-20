@@ -1,4 +1,4 @@
-﻿<div align="center">
+<div align="center">
 
 <picture>
   <img alt="BoundlessFlow" src="docs/images/banner.png" width="100%" height="auto">
@@ -23,7 +23,7 @@
 
 # Boundless Flow (无界音流)
 
-An on-device intelligent voice assistant designed to boost creation and recording efficiency. Built with Tauri 2 (Rust backend) + Vite (TypeScript frontend), it delivers smooth realtime **STT (SenseVoice ONNX local inference)** and powerful **TTS (Rust libtorch + Python bridge + local/cloud models)** while running entirely on your local device to protect privacy.
+An on-device intelligent voice assistant designed to boost creation and recording efficiency. Built with Tauri 2 (Rust backend) + Vite (TypeScript frontend), it delivers smooth realtime **STT (SenseVoice ONNX / FunASR local inference)** and powerful **TTS (Rust libtorch + Python bridge + local/cloud models)** while running entirely on your local device to protect privacy.
 
 ## Project Overview
 
@@ -34,16 +34,21 @@ An on-device intelligent voice assistant designed to boost creation and recordin
 ## Features
 
 ### Realtime Speech-to-Text (STT)
-- SenseVoice ONNX local inference with realtime and final results
+- SenseVoice ONNX and FunASR local inference with realtime and final results
 - Upgraded `native-stt` path for offline audio-file transcription with Whisper / SenseVoice native backends
 - Three output modes: **cursor-follow injection** (recommended) / **realtime output** / **final auto-enter**
 - Global hotkey `RightAlt` to start/stop recording anytime
 - Supported languages: `auto` / `zh` / `en` / `yue` / `ja` / `ko` / `nospeech`
 - Mini Mode: floating realtime captions window at the bottom-right
 
-Download the STT model: [SenseVoiceSmall](https://github.com/FunAudioLLM/SenseVoice)
+Download STT model (SenseVoice ONNX): [SenseVoiceSmall](https://github.com/FunAudioLLM/SenseVoice)
 ```
 modelscope download --model iic/SenseVoiceSmall --local_dir ./SenseVoiceSmall
+```
+
+Download STT model (FunASR):
+```
+modelscope download --model FunAudioLLM/Fun-ASR-Nano-2512 --local_dir ./Fun-ASR-Nano-2512
 ```
 
 ### Realtime Translation
@@ -77,7 +82,7 @@ modelscope download --model iic/SenseVoiceSmall --local_dir ./SenseVoiceSmall
 ### Regular Users (Release)
 
 1. Download and install the latest Release package, then double-click to launch
-2. Open settings and point **Model Directory** to the SenseVoice model folder (must include `model.onnx` and `tokens.json`)
+2. Open settings, select STT backend (`onnx` or `funasr`), and point **Model Directory** to the corresponding model folder
 3. Press `RightAlt` to start recording
 
 If you want offline file transcription instead of live microphone STT, switch the STT backend to `Whisper` or `SenseVoice`, then select a model file and an audio file in the STT panel.
@@ -100,8 +105,8 @@ Full environment setup (Rust/MSVC, Python/TTS, Lite packages, packaging outputs)
 
 | Setting | Description | Recommendation |
 | --- | --- | --- |
-| Model Directory | SenseVoice model folder (must include `model.onnx`, `tokens.json`) | Point to the exact model directory |
-| Backend | `onnx` for realtime mic STT, `whisper` / `sensevoice` for native offline file transcription | Use `onnx` for live subtitles; switch only when transcribing files |
+| Model Directory | ONNX backend requires `model.onnx` and `tokens.json`; FunASR backend should point to the full `Fun-ASR-Nano-2512` model directory | Point to the exact model directory |
+| Backend | `onnx` / `funasr` for realtime mic STT, `whisper` / `sensevoice` for native offline file transcription | Use `onnx` or `funasr` for live subtitles; switch only when transcribing files |
 | Frame Interval (ms) | Audio frame send frequency; lower is more realtime but higher CPU | `20ms` |
 | Language | auto/zh/en/yue/ja/ko/nospeech | `auto` |
 | TextNorm | Text normalization | `auto` |
@@ -109,7 +114,7 @@ Full environment setup (Rust/MSVC, Python/TTS, Lite packages, packaging outputs)
 
 > Auto-downgrades if a platform does not support a feature (e.g., cursor-follow injection may be unavailable on some platforms).
 >
-> `native-stt` is currently designed for uploaded audio files, not live microphone subtitles.
+> `native-stt` is currently designed for uploaded audio files, not live microphone subtitles; for realtime mic subtitles use `onnx` or `funasr`.
 
 ### Translation Settings
 
