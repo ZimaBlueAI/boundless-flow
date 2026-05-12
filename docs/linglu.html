@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>灵录 · 实时分叉树纪要 - 无界音流</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="sidebar">
+            <a href="welcome.html" class="sidebar-logo">
+                <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    style="color: var(--primary-color)"
+                >
+                    <path
+                        d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"
+                    ></path>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                    <line x1="12" y1="19" x2="12" y2="22"></line>
+                </svg>
+                无界音流
+            </a>
+
+            <div class="sidebar-group">开始使用</div>
+            <ul>
+                <li><a href="welcome.html">什么是无界音流？</a></li>
+                <li><a href="onboarding.html">引导页配置向导</a></li>
+            </ul>
+
+            <div class="sidebar-group">核心功能</div>
+            <ul>
+                <li><a href="stt.html">实时 STT 与模型选择</a></li>
+                <li><a href="translation.html">实时翻译功能</a></li>
+                <li>
+                    <a href="proofreading-summary.html">AI 纠错与智能总结</a>
+                </li>
+                <li><a href="tts-voice-cloning.html">语音合成与声音克隆</a></li>
+                <li><a href="sts.html">STS 同传工作台</a></li>
+                <li>
+                    <a href="linglu.html" class="active"
+                        >灵录 · 实时分叉树纪要</a
+                    >
+                </li>
+            </ul>
+
+            <div class="sidebar-group">附录</div>
+            <ul>
+                <li><a href="appendix.html">小白指南</a></li>
+            </ul>
+
+            <div
+                style="
+                    margin-top: auto;
+                    padding-top: 1rem;
+                    border-top: 1px solid var(--border-color);
+                "
+            >
+                <a
+                    href="linglu-en.html"
+                    style="display: flex; align-items: center; gap: 0.5rem"
+                >
+                    <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                        <path
+                            d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+                        ></path>
+                    </svg>
+                    English Version
+                </a>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="content-wrapper">
+                <div class="page-kicker">
+                    <span class="kicker-dot"></span>
+                    <span>LINGLU · LIVE TOPIC TREE</span>
+                    <span class="version-badge">v0.4</span>
+                </div>
+                <h1>灵录 · 实时分叉树纪要</h1>
+                <p class="hero-subtitle">
+                    录音时自动生长主题分叉树，停止后导出 HTML
+                    报告。端侧优先（Ollama 本地）、多 LLM
+                    提供商可切、五套报告主题任选。
+                </p>
+
+                <ul class="feature-pill-list">
+                    <li class="accent">直播态：主题树 + "正在说"</li>
+                    <li class="violet">沉淀态：摘要 / 决策 / 行动项</li>
+                    <li class="teal">交付态：5 套主题 HTML 报告</li>
+                    <li class="warm">9 家 LLM 任选，Ollama 推荐</li>
+                </ul>
+
+                <h2>三态一体</h2>
+                <p>
+                    灵录把"开会/录音"这件事分成三个独立但联动的形态，三态共享同一份
+                    <code>LingLuDoc</code> 数据：
+                </p>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-icon">🌿</div>
+                        <h3>直播态 · 录音中</h3>
+                        <p>
+                            主界面"灵录"页 dock
+                            区实时长出主题分叉树。已收束的主题不会再被修改；当前活跃主题用朱砂边带突出；底部"当前正在聊…"区显示实时片段。
+                        </p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">📜</div>
+                        <h3>沉淀态 · 录音结束</h3>
+                        <p>
+                            自动整合摘要 / 关键决策 / 行动项；按 scenario
+                            字段决定是否输出商业类字段（个人录音/聚会场景不强行抽取
+                            action item）。
+                        </p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">📤</div>
+                        <h3>交付态 · 主题选择</h3>
+                        <p>
+                            工具栏选主题 → 点击 <code>👁 预览</code>（iframe
+                            沙盒）或 <code>⬇ 导出</code>（落到
+                            <code>session/&lt;id&gt;/reports/</code>）。5
+                            套主题：terminal-grade / keynote-stage / editorial /
+                            minimal-print / sumi-ink。
+                        </p>
+                    </div>
+                </div>
+
+                <h2>支持的 9 家 LLM Provider</h2>
+                <p>
+                    Boundless-Flow 是<strong>端侧产品</strong>，默认推荐 Ollama
+                    本地服务（无 API Key、零调用费用、隐私不出端）。其它 8
+                    家为云端选项，<strong
+                        >支持任意第三方 OpenAI 兼容代理 URL</strong
+                    >。
+                </p>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>🏠 Ollama · 本地推荐</h3>
+                        <p>
+                            默认 base URL
+                            <code>http://localhost:11434</code>；无需 API
+                            Key。也可填远程 Ollama 如
+                            <code>http://192.168.x.x:11434</code>。
+                        </p>
+                    </div>
+                    <div class="card">
+                        <h3>☁️ OpenAI 兼容</h3>
+                        <p>
+                            DeepSeek / Kimi (Moonshot) / GLM (智谱) / Volcengine
+                            (火山豆包) / MiniMax / OpenAI 原生 — 共 6 家走
+                            OpenAI 兼容 codec。
+                        </p>
+                    </div>
+                    <div class="card">
+                        <h3>☁️ Anthropic Claude</h3>
+                        <p>
+                            Messages API（<code>/v1/messages</code>）独立
+                            codec；<code>x-api-key</code> +
+                            <code>anthropic-version: 2023-06-01</code>；<code
+                                >max_tokens</code
+                            >
+                            必填。
+                        </p>
+                    </div>
+                    <div class="card">
+                        <h3>☁️ Google Gemini</h3>
+                        <p>
+                            v1beta <code>generateContent</code> /
+                            <code>streamGenerateContent?alt=sse</code>；<code
+                                >x-goog-api-key</code
+                            >
+                            鉴权；<code>systemInstruction</code> +
+                            <code>contents</code> body 形态。
+                        </p>
+                    </div>
+                </div>
+
+                <h2>八种场景 · 自动识别</h2>
+                <p>灵录按"场景"切换 prompt 策略，输出风格差异显著：</p>
+
+                <div class="config-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>代号</th>
+                                <th>场景</th>
+                                <th>默认主题</th>
+                                <th>语气特征</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>S0</td>
+                                <td>
+                                    <strong>generic</strong> · 通用 fallback
+                                </td>
+                                <td>minimal-print</td>
+                                <td>
+                                    中性记录，不假设场景；auto
+                                    低置信度时强制回退此项
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>S1</td>
+                                <td><strong>personal</strong> · 个人录音 ★</td>
+                                <td>sumi-ink</td>
+                                <td>
+                                    古典文人语气：「想到…」「觉得…」；古文章节名（录略/念想/断语）
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>S2</td>
+                                <td>
+                                    <strong>private_chat</strong> · 私聊 1-on-1
+                                </td>
+                                <td>minimal-print</td>
+                                <td>双方立场 + 承诺类语句（我会/我答应）</td>
+                            </tr>
+                            <tr>
+                                <td>S3</td>
+                                <td><strong>gathering</strong> · 私人聚会 ★</td>
+                                <td>sumi-ink</td>
+                                <td>
+                                    清谈雅集风；允许 small talk；不输出 action
+                                    item
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>S4</td>
+                                <td>
+                                    <strong>closed_meeting</strong> · 闭门会议
+                                </td>
+                                <td>terminal-grade</td>
+                                <td>动名词主题；优先识别"决定/通过/同意"</td>
+                            </tr>
+                            <tr>
+                                <td>S5</td>
+                                <td>
+                                    <strong>public_meeting</strong> · 公开会议
+                                </td>
+                                <td>keynote-stage</td>
+                                <td>议程式主题；强调公开承诺</td>
+                            </tr>
+                            <tr>
+                                <td>S6</td>
+                                <td><strong>business</strong> · 商业会议</td>
+                                <td>terminal-grade</td>
+                                <td>
+                                    KPI / 项目 / 客户名优先；保留数字/金额/时间
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>S7</td>
+                                <td><strong>academic</strong> · 学术研讨</td>
+                                <td>editorial</td>
+                                <td>论点 / 证据 / 反驳 / 引用</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p>
+                    ★ 个人录音 / 私人聚会用 sumi-ink 中式素雅主题（茶白纸面 +
+                    朱砂点缀 + 楷书章节名），文风文白参半、不出商业术语。
+                </p>
+
+                <div class="callout">
+                    <div class="callout-icon">💡</div>
+                    <div>
+                        <strong>auto 识别策略</strong>：场景留
+                        <code>auto</code> 时，前 ~90 秒转写到达后系统会用 cheap
+                        LLM 调用一次做识别；<strong
+                            >置信度 &lt; 0.5 强制回退
+                            <code>generic</code></strong
+                        >，避免把闲聊/私聊误转成"商业承诺"。
+                    </div>
+                </div>
+
+                <h2>五套报告主题</h2>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>🖥 terminal-grade</h3>
+                        <p>
+                            严肃执行向，深底 #0b0d10 + 暖金强调。KPI 卡 + ASCII
+                            主题树 + OPEN/CLOSED 状态。<strong
+                                >S4 闭门 / S6 商业默认</strong
+                            >。
+                        </p>
+                    </div>
+                    <div class="card">
+                        <h3>🎤 keynote-stage</h3>
+                        <p>
+                            演讲台风格，深空蓝渐变 + 金 + 青；居中 hero +
+                            三柱核心结论。<strong>S5 公开默认</strong>。
+                        </p>
+                    </div>
+                    <div class="card">
+                        <h3>📰 editorial</h3>
+                        <p>
+                            杂志风，纸白 + 朱砂；serif 标题 + 双栏摘要 +
+                            罗马字议题编号 + 大数字章节。<strong
+                                >S7 学术默认</strong
+                            >。
+                        </p>
+                    </div>
+                    <div class="card">
+                        <h3>📄 minimal-print</h3>
+                        <p>
+                            清淡 A4 可打印；纯白底 + 灰文 + 不用强调色；<code
+                                >@page</code
+                            >
+                            打印样式。<strong>S0 generic / S2 私聊默认</strong
+                            >。
+                        </p>
+                    </div>
+                    <div class="card">
+                        <h3>🖋 sumi-ink · 中式素雅</h3>
+                        <p>
+                            宋式色板：宣纸 #f4ede0 + 墨 #1b1a17 + 朱砂
+                            #8a3b2e；楷书章节名（题记 / 录略 / 念想 / 断语 /
+                            待办 / 跋）。<strong>S1 个人 / S3 聚会默认</strong
+                            >。
+                        </p>
+                    </div>
+                </div>
+
+                <p class="hero-subtitle" style="font-size: 0.95rem">
+                    全部主题强制注入
+                    <code>Content-Security-Policy</code> meta，禁用
+                    <code>&lt;script&gt;</code> / 外链 CSS / 外链图片 /
+                    iframe；LLM/transcript 字段全部 escape；自包含 &lt; 200
+                    KB；移动端 &lt; 640px 不破版。
+                </p>
+
+                <h2>快速开始</h2>
+
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>引导页配置（首次安装）</h3>
+                            <p>
+                                进入
+                                <strong>步骤 4 · API 提供商</strong
+                                >，滚动到下方"<strong
+                                    >灵录 API · 实时分叉树 + 报告生成</strong
+                                >"区。默认 Ollama +
+                                <code>http://localhost:11434</code
+                                >，填上模型名（如
+                                <code>qwen3.6:35b</code>）即可。
+                            </p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>主界面高级配置（任意时刻）</h3>
+                            <p>
+                                设置 → 高级 →
+                                <strong>灵录 API · 实时分叉树 + 报告生成</strong
+                                >（默认展开）。点 <strong>"填充默认"</strong> 按
+                                provider 自动填 base URL；点
+                                <strong>"测试连接"</strong> 一键验证。
+                            </p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>开始录音</h3>
+                            <p>
+                                按 <code>RightAlt</code> 或
+                                <code>开始录音</code>，到
+                                <strong>AI 会议视图</strong> 看 dock
+                                区"实时分叉树（直播态）"长树；点
+                                <strong>↗ 独立窗口</strong> 拉出悬浮窗放副屏。
+                            </p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3>导出主题报告</h3>
+                            <p>
+                                选 dock 区工具栏的主题下拉（按场景智能默认）→
+                                <code>👁 预览</code> 或
+                                <code>⬇ 导出</code>。报告落到
+                                <code
+                                    >session/&lt;id&gt;/reports/&lt;theme&gt;.html</code
+                                >，重启可见。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>配置项详解</h2>
+
+                <div class="config-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>字段</th>
+                                <th>说明</th>
+                                <th>示例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Provider</td>
+                                <td>9 选 1，Ollama 排首位</td>
+                                <td><code>ollama</code></td>
+                            </tr>
+                            <tr>
+                                <td>Base URL</td>
+                                <td>
+                                    支持任意第三方代理（如
+                                    oneapi.example.com）；Ollama 默认 localhost
+                                </td>
+                                <td><code>http://localhost:11434</code></td>
+                            </tr>
+                            <tr>
+                                <td>API Key</td>
+                                <td>Ollama 留空；其它必填</td>
+                                <td><code>sk-xxxxxxxx</code></td>
+                            </tr>
+                            <tr>
+                                <td>Model</td>
+                                <td>模型 id，含 tag</td>
+                                <td>
+                                    <code>qwen3.6:35b</code> /
+                                    <code>deepseek-chat</code> /
+                                    <code>claude-3-5-haiku-20241022</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>场景</td>
+                                <td>
+                                    auto + 8 场景；auto 低置信度回退 generic
+                                </td>
+                                <td><code>auto</code></td>
+                            </tr>
+                            <tr>
+                                <td>报告主题</td>
+                                <td>5 主题；按场景智能默认</td>
+                                <td><code>sumi-ink</code></td>
+                            </tr>
+                            <tr>
+                                <td>温度</td>
+                                <td>0.0–1.0，纪要场景建议 0.1–0.3</td>
+                                <td><code>0.2</code></td>
+                            </tr>
+                            <tr>
+                                <td>Max tokens</td>
+                                <td>
+                                    推理模型（含 chain-of-thought）建议 ≥ 2048
+                                </td>
+                                <td><code>4096</code></td>
+                            </tr>
+                            <tr>
+                                <td>触发频率（秒）</td>
+                                <td>
+                                    下限 10，默认 60；越短越实时但调用越频繁
+                                </td>
+                                <td><code>60</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2>会话目录结构</h2>
+
+                <p>
+                    录音 stop 后产物落到
+                    <code>sessions/&lt;YYYYMMDD_HHMMSS_slug&gt;/</code>：
+                </p>
+
+                <div class="config-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>文件</th>
+                                <th>用途</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>audio.wav</code></td>
+                                <td>录音源文件（已有）</td>
+                            </tr>
+                            <tr>
+                                <td><code>enriched_transcript.json</code></td>
+                                <td>带 speaker 标签的逐字稿（已有）</td>
+                            </tr>
+                            <tr>
+                                <td><code>minutes.json</code></td>
+                                <td>
+                                    规则版纪要（已有 +
+                                    灵录新字段：topic_tree_ref / scenario /
+                                    theme_id / llm_provider / llm_model /
+                                    linglu_schema）
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><code>minutes.html</code></td>
+                                <td>
+                                    纪要 HTML —
+                                    <strong>v0.4 起按场景用新主题</strong
+                                    >渲染（不再是旧蓝绿）
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><code>linglu.json</code></td>
+                                <td>
+                                    <strong>新增</strong>：完整 LingLuDoc，含
+                                    topics / liveTail / runtime /
+                                    providerSnapshot
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><code>reports/&lt;theme&gt;.html</code></td>
+                                <td>
+                                    <strong>新增</strong
+                                    >：用户手动导出的主题报告
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2>安全与隐私</h2>
+
+                <ul>
+                    <li>
+                        <strong>不发送原音频</strong>：发往 LLM 的只有
+                        transcript + speaker label + 时间戳
+                    </li>
+                    <li>
+                        <strong>不持久化 api_key</strong>：providerSnapshot 只存
+                        provider / model / endpoint host，不存 key
+                    </li>
+                    <li>
+                        <strong>日志强制 redact</strong>：所有 eprintln!
+                        路径都过 <code>redact_auth_header</code>，覆盖
+                        <code>sk-*</code> / <code>Bearer *</code> /
+                        <code>x-api-key</code> / Gemini <code>?key=</code>
+                    </li>
+                    <li>
+                        <strong>HTML 报告强制 CSP</strong>：<code
+                            >default-src 'none'</code
+                        >
+                        + 禁 script/外链；前端预览 iframe 用
+                        <code>sandbox="allow-same-origin"</code>（不给
+                        allow-scripts），双层保护
+                    </li>
+                    <li>
+                        <strong>scenario auto 低置信度强制 generic</strong
+                        >：避免把私聊误转成商业承诺
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>

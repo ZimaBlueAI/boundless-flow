@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STS Speech Workbench - Boundless Flow</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <a href="welcome-en.html" class="sidebar-logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color);"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>
+            Boundless Flow
+        </a>
+
+        <div class="sidebar-group">Getting Started</div>
+        <ul>
+            <li><a href="welcome-en.html">What is Boundless Flow?</a></li>
+            <li><a href="onboarding-en.html">Onboarding Wizard</a></li>
+        </ul>
+
+        <div class="sidebar-group">Core Features</div>
+        <ul>
+            <li><a href="stt-en.html">Realtime STT &amp; Models</a></li>
+            <li><a href="translation-en.html">Realtime Translation</a></li>
+            <li><a href="proofreading-summary-en.html">AI Correction &amp; Summary</a></li>
+            <li><a href="tts-voice-cloning-en.html">TTS &amp; Voice Cloning</a></li>
+            <li><a href="sts-en.html" class="active">STS Speech Workbench</a></li>
+            <li><a href="linglu-en.html">LingLu · Live Topic Tree</a></li>
+        </ul>
+
+        <div class="sidebar-group">Appendix</div>
+        <ul>
+            <li><a href="appendix-en.html">Beginner Guide</a></li>
+        </ul>
+
+        <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+            <a href="sts.html" style="display: flex; align-items: center; gap: 0.5rem;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                中文版
+            </a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="content-wrapper">
+            <div class="page-kicker">
+                <span class="kicker-dot"></span>
+                <span>SPEECH TRANSLATION STUDIO</span>
+                <span class="version-badge">v0.4</span>
+            </div>
+            <h1>STS Speech Workbench</h1>
+            <p class="hero-subtitle">Speak → live ASR → translation → target-language TTS, in one independent pipeline that can preserve your timbre.</p>
+
+            <ul class="feature-pill-list">
+                <li class="accent">Standalone config, separate from main STT/TTS</li>
+                <li class="violet">Automatic voice cloning</li>
+                <li class="teal">One-key RightAlt operation</li>
+                <li class="warm">Floating Mini mode</li>
+            </ul>
+
+            <div class="page-toc">
+                <div class="page-toc-title">On this page</div>
+                <ol>
+                    <li><a href="#what">What is STS</a></li>
+                    <li><a href="#pipeline">Pipeline overview</a></li>
+                    <li><a href="#workbench">Workbench UI tour</a></li>
+                    <li><a href="#combos">Minimal working setups</a></li>
+                    <li><a href="#params">Parameter reference</a></li>
+                    <li><a href="#hotkey">Operation sequence</a></li>
+                    <li><a href="#troubleshoot">Troubleshooting</a></li>
+                </ol>
+            </div>
+
+            <h2 id="what">What is STS</h2>
+            <p>STS = <strong>Speech-to-Speech</strong>. The Boundless Flow STS workbench is an independent simultaneous-interpretation pipeline: you speak in Chinese, and a few seconds later the same voice reads the sentence back in English (or Japanese, Korean…). Use it for stage interpretation, bilingual meetings, draft voiceovers for video.</p>
+
+            <div class="callout info">
+                <div class="callout-icon">ℹ️</div>
+                <div class="callout-content">
+                    <p>STS is "stop, then process" — not true streaming. While processing, pressing RightAlt again cancels the job and starts a new recording — perfect for sentence-by-sentence interpretation.</p>
+                </div>
+            </div>
+
+            <h2 id="pipeline">Pipeline overview</h2>
+            <div class="pipeline-flow">
+                <svg viewBox="0 0 720 200" preserveAspectRatio="xMidYMid meet" role="img" aria-label="STS pipeline">
+                    <defs>
+                        <linearGradient id="stsGradAen" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stop-color="#06b6d4"/>
+                            <stop offset="100%" stop-color="#3b82f6"/>
+                        </linearGradient>
+                        <linearGradient id="stsGradBen" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stop-color="#3b82f6"/>
+                            <stop offset="100%" stop-color="#8b5cf6"/>
+                        </linearGradient>
+                        <linearGradient id="stsGradCen" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stop-color="#8b5cf6"/>
+                            <stop offset="100%" stop-color="#ec4899"/>
+                        </linearGradient>
+                        <marker id="stsArrowEn" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+                            <path d="M0 0 L8 4 L0 8 Z" fill="#94a3b8"/>
+                        </marker>
+                    </defs>
+                    <g font-family="Inter, sans-serif" font-size="12" fill="#0f172a">
+                        <g>
+                            <rect x="10" y="60" width="120" height="80" rx="14" fill="url(#stsGradAen)" opacity="0.94"/>
+                            <text x="70" y="100" text-anchor="middle" fill="#fff" font-weight="700">Microphone</text>
+                            <text x="70" y="118" text-anchor="middle" fill="#e0f2fe" font-size="10">source audio</text>
+                        </g>
+                        <line x1="130" y1="100" x2="170" y2="100" stroke="#94a3b8" stroke-width="2" marker-end="url(#stsArrowEn)"/>
+                        <g>
+                            <rect x="170" y="60" width="130" height="80" rx="14" fill="#fff" stroke="#0891b2" stroke-width="2"/>
+                            <text x="235" y="92" text-anchor="middle" font-weight="700" fill="#0e7490">Live STT</text>
+                            <text x="235" y="110" text-anchor="middle" font-size="10" fill="#64748b">sensevoice / funasr</text>
+                            <text x="235" y="124" text-anchor="middle" font-size="10" fill="#64748b">onnx / whisper</text>
+                        </g>
+                        <line x1="300" y1="100" x2="340" y2="100" stroke="#94a3b8" stroke-width="2" marker-end="url(#stsArrowEn)"/>
+                        <g>
+                            <rect x="340" y="60" width="130" height="80" rx="14" fill="url(#stsGradBen)" opacity="0.94"/>
+                            <text x="405" y="92" text-anchor="middle" font-weight="700" fill="#fff">LLM Translate</text>
+                            <text x="405" y="110" text-anchor="middle" font-size="10" fill="#e0e7ff">OpenAI-compat</text>
+                            <text x="405" y="124" text-anchor="middle" font-size="10" fill="#e0e7ff">qwen / deepseek</text>
+                        </g>
+                        <line x1="470" y1="100" x2="510" y2="100" stroke="#94a3b8" stroke-width="2" marker-end="url(#stsArrowEn)"/>
+                        <g>
+                            <rect x="510" y="60" width="130" height="80" rx="14" fill="url(#stsGradCen)" opacity="0.94"/>
+                            <text x="575" y="92" text-anchor="middle" font-weight="700" fill="#fff">TTS Speak</text>
+                            <text x="575" y="110" text-anchor="middle" font-size="10" fill="#fce7f3">qwen3_tts / voxcpm</text>
+                            <text x="575" y="124" text-anchor="middle" font-size="10" fill="#fce7f3">index_tts2 / volc</text>
+                        </g>
+                        <line x1="640" y1="100" x2="690" y2="100" stroke="#94a3b8" stroke-width="2" marker-end="url(#stsArrowEn)"/>
+                        <g>
+                            <circle cx="704" cy="100" r="14" fill="#fff" stroke="#0f172a" stroke-width="1.5"/>
+                            <path d="M698 96 L710 96 L714 92 L714 108 L710 104 L698 104 Z" fill="#0f172a"/>
+                        </g>
+                    </g>
+                    <g font-family="Inter, sans-serif" font-size="10" fill="#475569">
+                        <text x="70" y="42" text-anchor="middle">1. Record</text>
+                        <text x="235" y="42" text-anchor="middle">2. Text</text>
+                        <text x="405" y="42" text-anchor="middle">3. Translation</text>
+                        <text x="575" y="42" text-anchor="middle">4. Synthesize</text>
+                    </g>
+                    <g>
+                        <path d="M70 140 C 70 170, 575 170, 575 140" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 4" fill="none"/>
+                        <text x="322" y="186" text-anchor="middle" font-size="10" fill="#64748b" font-style="italic">source audio is fed back to TTS for voice cloning</text>
+                    </g>
+                </svg>
+                <div class="pipeline-flow-caption">Four-stage pipeline · dashed line: source audio loops back to TTS for voice cloning</div>
+            </div>
+
+            <h2 id="workbench">Workbench UI tour</h2>
+            <p>After completing the wizard, click the STS icon in the main panel's top toolbar. The workbench has three accordion sections:</p>
+
+            <div class="doc-image-grid">
+                <figure class="doc-image">
+                    <img src="images/img10-1.png" alt="STS workbench config panel">
+                    <figcaption>Workbench: realtime STS parameters</figcaption>
+                </figure>
+                <figure class="doc-image">
+                    <img src="images/img10-2.png" alt="STS floating Mini">
+                    <figcaption>Floating Mini · record / process / play</figcaption>
+                </figure>
+            </div>
+
+            <div class="cap-matrix">
+                <div class="cap-card">
+                    <div class="cap-card-head"><span class="cap-tag realtime">REALTIME</span><span class="cap-card-title">Live translation</span></div>
+                    <ul>
+                        <li>Source / Target language</li>
+                        <li>STT backend + Translation model + TTS model</li>
+                        <li>Per-route model dirs, devices, RPC host/port</li>
+                        <li>VoxCPM, Volcengine TTS specific params</li>
+                    </ul>
+                </div>
+                <div class="cap-card">
+                    <div class="cap-card-head"><span class="cap-tag asr">MINI</span><span class="cap-card-title">Floating Mini</span></div>
+                    <ul>
+                        <li>Click "Open Floating Mini" to summon the minimal controller</li>
+                        <li>Lower previews show subtitle text + translated voice status</li>
+                        <li>Workbench only configures; recording/processing happen in Mini</li>
+                    </ul>
+                </div>
+                <div class="cap-card">
+                    <div class="cap-card-head"><span class="cap-tag llm">RECIPES</span><span class="cap-card-title">Minimal setups</span></div>
+                    <ul>
+                        <li>Combo A: local STT + OpenAI translate + Volcengine TTS</li>
+                        <li>Combo B: local STT + OpenAI translate + Qwen3-TTS / Index-TTS2</li>
+                        <li>5-step verification checklist</li>
+                    </ul>
+                </div>
+                <div class="cap-card">
+                    <div class="cap-card-head"><span class="cap-tag tts">HISTORY</span><span class="cap-card-title">Job replay</span></div>
+                    <ul>
+                        <li>Historical jobs (jobId / source → target / duration / status)</li>
+                        <li>Export bilingual subtitles as srt / txt</li>
+                        <li>Download merged audio as mp3 / wav</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2 id="combos">Minimal working setups (two recommended)</h2>
+
+            <h3>Combo A · Fastest integration</h3>
+            <p>Goal: first playable interpreted audio in five minutes.</p>
+            <table class="spec-table">
+                <thead><tr><th>Field</th><th>Value</th><th>Note</th></tr></thead>
+                <tbody>
+                    <tr><td>STT backend</td><td><code>onnx</code> or <code>funasr</code></td><td>Whichever local realtime model you have</td></tr>
+                    <tr><td>STT model dir</td><td>Local SenseVoice / Fun-ASR-Nano folder</td><td>See <a href="stt-en.html">STT docs</a></td></tr>
+                    <tr><td>Translation Base URL</td><td><code>https://api.openai.com/v1</code></td><td>Or any OpenAI-compatible endpoint</td></tr>
+                    <tr><td>Translation model</td><td><code>gpt-4o-mini</code> / <code>deepseek-chat</code></td><td>Speed-first</td></tr>
+                    <tr><td>TTS model</td><td><code>volcengine_tts</code></td><td>No local download — AppId + Token only</td></tr>
+                    <tr><td>Clone reference</td><td>This recording (auto)</td><td>No need to pick a separate voice file</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Combo B · Voice cloning first</h3>
+            <p>Goal: target-language playback preserves your timbre.</p>
+            <table class="spec-table">
+                <thead><tr><th>Field</th><th>Value</th><th>Note</th></tr></thead>
+                <tbody>
+                    <tr><td>STT backend</td><td><code>onnx</code> or <code>funasr</code></td><td>Same as Combo A</td></tr>
+                    <tr><td>Translation model</td><td>Any OpenAI-compatible model</td><td>—</td></tr>
+                    <tr><td>TTS model</td><td><code>qwen3_tts</code> or <code>index_tts2</code></td><td>Needs the corresponding model dir</td></tr>
+                    <tr><td>TTS model dir</td><td>Local path</td><td>See <a href="tts-voice-cloning-en.html">TTS docs</a></td></tr>
+                    <tr><td>Clone reference</td><td>This recording + transcript (auto)</td><td>No need to pick a separate timbre file</td></tr>
+                </tbody>
+            </table>
+
+            <h2 id="params">Parameter reference (excerpt)</h2>
+            <table class="spec-table">
+                <thead><tr><th>Field</th><th>Default</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>sourceLanguage</code></td><td>zh</td><td>auto/zh/en/ja/ko/yue/fr/de/es</td></tr>
+                    <tr><td><code>targetLanguage</code></td><td>en</td><td>Same enum (no auto)</td></tr>
+                    <tr><td><code>sttBackend</code></td><td>sensevoice</td><td>onnx / whisper / sensevoice / funasr</td></tr>
+                    <tr><td><code>sttChunkIntervalMs</code></td><td>20</td><td>Frame step in ms; smaller = lower latency, higher CPU</td></tr>
+                    <tr><td><code>translationApiBaseUrl</code></td><td>—</td><td>OpenAI-compatible base URL</td></tr>
+                    <tr><td><code>translationApiKey</code></td><td>—</td><td>Translation LLM key</td></tr>
+                    <tr><td><code>translationModel</code></td><td>—</td><td>Model name, e.g. gpt-4o-mini / qwen-plus</td></tr>
+                    <tr><td><code>ttsModel</code></td><td>auto</td><td>auto / qwen3_tts / voxcpm / index_tts2 / vibevoice / volcengine_tts</td></tr>
+                    <tr><td><code>ttsModelDir</code></td><td>—</td><td>Local TTS model directory</td></tr>
+                    <tr><td><code>ttsDevice</code></td><td>—</td><td><code>cuda / cpu / mps</code></td></tr>
+                    <tr><td><code>ttsRpcHost / ttsRpcPort</code></td><td>localhost / 17860</td><td>Local TTS RPC service</td></tr>
+                    <tr><td><code>ttsVoxcpmRuntimeDir</code></td><td>—</td><td>VoxCPM-specific runtime path</td></tr>
+                    <tr><td><code>ttsVolcengine.*</code></td><td>—</td><td>Volcengine TTS AppId / Token / Cluster / VoiceType</td></tr>
+                </tbody>
+            </table>
+
+            <h2 id="hotkey">Operation sequence</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Open the floating Mini</h3>
+                        <p>STS workbench → "Open Floating Mini". The minimal controller pops at the bottom-center of the screen.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Press <span class="kbd">Right Alt</span> to record</h3>
+                        <p>Mini enters "Recording"; the waveform bars animate.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Press <span class="kbd">Right Alt</span> again to stop</h3>
+                        <p>Enters "Processing": ASR → translate → voice clone → TTS synthesis.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Auto playback</h3>
+                        <p>Once synthesized, Mini switches to "Playing", reads the translation, then returns to idle.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>Press during processing = cancel &amp; re-record</h3>
+                        <p>If the sentence felt off, just press the hotkey again — no need to wait for the current job.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h2 id="troubleshoot">Troubleshooting</h2>
+            <div class="callout warning">
+                <div class="callout-icon">⚠️</div>
+                <div class="callout-content">
+                    <p><strong>Stuck on "processing"?</strong> Verify translation / TTS credentials are filled. Cancel from Mini, then check the "Subtitle text / Translated voice" preview logs in the workbench.</p>
+                </div>
+            </div>
+            <div class="callout warning">
+                <div class="callout-icon">⚠️</div>
+                <div class="callout-content">
+                    <p><strong>Timbre not preserved?</strong> Make sure TTS model is one of <code>qwen3_tts / index_tts2 / voxcpm</code> with the local model dir set. <code>volcengine_tts</code> uses VoiceType from the Volcengine console — voice cloning requires creating a custom voice there first.</p>
+                </div>
+            </div>
+            <div class="callout info">
+                <div class="callout-icon">💡</div>
+                <div class="callout-content">
+                    <p><strong>Want "speak while it translates"?</strong> Current STS is the "stop-then-process" model. True streaming interpretation is on the roadmap via LLM-side Realtime APIs (e.g. GPT-Realtime-Translate) as a sub-mode.</p>
+                </div>
+            </div>
+
+            <div class="doc-copyright">
+                <p>Copyright(c) ZimaBlueAI</p>
+                <p>ZimaBlueAI (Dali) Co., Ltd.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

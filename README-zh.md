@@ -1,4 +1,4 @@
-﻿﻿﻿<div align="center">
+﻿﻿<div align="center">
 
 <picture>
   <img alt="BoundlessFlow" src="docs/images/banner.png" width="100%" height="auto">
@@ -51,6 +51,19 @@ modelscope download --model iic/SenseVoiceSmall --local_dir ./SenseVoiceSmall
 modelscope download --model FunAudioLLM/Fun-ASR-Nano-2512 --local_dir ./Fun-ASR-Nano-2512
 ```
 
+**说话人分离（可选，sherpa-onnx）** —— 如果你希望在实时 STT 中区分 `Speaker_1 / Speaker_2 / Speaker_3`，除了主 STT 模型外，还需要由 [sherpa-onnx](https://github.com/k2-fsa/sherpa-onnx.git) 驱动的两枚额外 ONNX 模型：
+
+- `segmentation.onnx`（分段模型，推荐 `sherpa-onnx-pyannote-segmentation-3-0`）
+- `embedding.onnx`（声纹嵌入模型，推荐 `3dspeaker_speech_eres2net_base_sv_zh-cn_3dspeaker_16k.onnx`）
+
+请从 sherpa-onnx 的 GitHub Release 直接下载：
+
+- 分段模型下载页：<https://github.com/k2-fsa/sherpa-onnx/releases/tag/speaker-segmentation-models>
+- 嵌入模型下载页：<https://github.com/k2-fsa/sherpa-onnx/releases/tag/speaker-recongition-models>
+- 官方模型说明：<https://k2-fsa.github.io/sherpa/onnx/speaker-diarization/models.html>
+
+把两个文件放在同一目录（例如 `./speaker-diarization/`），在设置里把 **说话人分段模型** 与 **声纹嵌入模型** 分别指向对应的 `.onnx` 文件即可（也可以把两个字段都指向该目录，程序会自动识别）。完整小白步骤见 [docs/html/appendix.html](docs/html/appendix.html#appendix-speaker-diarization)。
+
 ###  实时翻译
 - 内置翻译代理，支持 Ollama / OpenAI 兼容接口
 - 推荐本地翻译模型：`ZimaBlueAI/HY-MT1.5-1.8`（Ollama）
@@ -61,6 +74,16 @@ modelscope download --model FunAudioLLM/Fun-ASR-Nano-2512 --local_dir ./Fun-ASR-
 - **AI 纠错**（"智能校对"功能）：自动润色识别文字，可配置并发线程数（默认 2，最大 4）
 - **智能总结**：定时生成会议/录音摘要（建议间隔 60 秒），结果以树状或队列形式展示
 - 支持 OpenAI / Ollama / 火山引擎 等后端；推荐本地模型：`qwen3:4b`
+
+###  灵录 · 实时分叉树纪要（v0.4 新增）
+- **直播态**：录音过程中主界面"灵录"页 dock 区实时长出**主题分叉树**；已收束主题不抖动，活跃主题用朱砂边带突出；可拉出为独立悬浮窗放副屏
+- **沉淀态**：录音 stop 后自动整合摘要 / 关键决策 / 行动项，按 scenario 智能取舍商业类字段（个人录音/聚会不强行抽 action）
+- **交付态**：5 套 HTML 报告主题任选（terminal-grade / keynote-stage / editorial / minimal-print / **sumi-ink 中式素雅**），后端受控渲染 + CSP + XSS 防御
+- **9 家 LLM Provider**：Ollama / OpenAI / DeepSeek / Kimi / GLM / 火山豆包 / MiniMax / Anthropic Claude / Google Gemini — 全部支持第三方 OpenAI 兼容代理 URL
+- **8 个场景模板**：通用 / 个人录音 / 私聊 / 私人聚会 / 闭门会议 / 公开会议 / 商业会议 / 学术研讨；scenario=auto 自动识别（置信度 < 0.5 强制回退 generic）
+- **端侧优先**：默认推荐 Ollama 本地服务（无 API Key、零调用费用、隐私不出端）
+- **会话归档**：录音 stop 后产物落到 `session/<id>/linglu.json` + `session/<id>/reports/<theme>.html`，重启可恢复
+- 详见 [docs/html/linglu.html](docs/html/linglu.html) 与 [docs/v0.4-linglu/](docs/v0.4-linglu/)
 
 ###  语音合成与声音克隆（TTS）
 - **Qwen3-TTS**  三种模式：
@@ -73,6 +96,14 @@ modelscope download --model FunAudioLLM/Fun-ASR-Nano-2512 --local_dir ./Fun-ASR-
   - OpenAI TTS：alloy / echo / fable / onyx / nova / shimmer
   - MiniMax：极具表现力的语音大模型
 - TTS 运行时可打入完整安装包，也支持 Lite 包 + 按需下载
+
+###  同声传译（STS Mini）
+- 独立 `STS 同传工作台`，不复用主 `STT / TTS` 配置
+- 先配置，再点击 `打开 Mini 控件`
+- `Mini` 小控件支持点击或 `RightAlt` 开始录音
+- 再次点击或再次按 `RightAlt` 停止录音
+- 停止后才执行翻译、声音克隆和自动播放
+- 处理中再次点击可取消当前任务并重新录音
 
 ###  其他
 - 系统托盘：关闭窗口可隐藏到托盘，随时从托盘菜单恢复或退出
@@ -120,10 +151,27 @@ pnpm run tauri:dev
 
 | 配置项 | 示例值 |
 | --- | --- |
-| 翻译 API Base URL | `http://localhost:11434/v1`（Ollama）/ `https://api.openai.com/v1` |
-| 翻译模型 | `ZimaBlueAI/HY-MT1.5-1.8` / `gpt-4o-mini` / `translategemma` |
+| 翻译 API Base URL | Ollama：`http://localhost:11434`（不带 `/v1`，自动调用 `/api/chat`；带 `/v1` 也兼容，程序会自动剥离）。OpenAI 兼容：`https://api.openai.com/v1` |
+| 翻译模型 | Ollama 模型需带 `:tag` 后缀，如 `ZimaBlueAI/HY-MT1.5-1.8:1.8b`；OpenAI 兼容：`gpt-4o-mini` / `translategemma` |
 | 翻译 API Key | Ollama 可留空 |
 | 流式输出 | 推荐开启（本地模型体验更平滑） |
+
+### STS Mini 最小联调组合
+
+| 目标 | 推荐组合 |
+| --- | --- |
+| 最快跑通链路 | 本地 `onnx/funasr` + OpenAI 兼容翻译 + `volcengine_tts` |
+| 优先验证声音克隆 | 本地 `onnx/funasr` + OpenAI 兼容翻译 + `qwen3_tts/index_tts2` + 参考音频 |
+
+推荐顺序：
+
+1. 先跑“最快跑通链路”，确认录音、翻译、播放都正常
+2. 再切“声音克隆优先”，验证参考音频和参考文本
+3. 最后再替换成目标模型组合
+
+更完整的 `STS Mini` 字段建议、验证步骤与排查方法见：
+
+- [docs/v0.4-sts/05-mini-runtime-checklist.md](docs/v0.4-sts/05-mini-runtime-checklist.md)
 
 ### AI 纠错与总结配置项
 
@@ -131,10 +179,29 @@ pnpm run tauri:dev
 | --- | --- | --- |
 | 启用纠错及文字总结（LLM） | 总开关 | 勾选 |
 | 总结服务商 | OpenAI / Ollama / 火山引擎 | Ollama |
-| 总结 API Base URL | 服务地址 | `http://localhost:11434/v1` |
+| 总结 API Base URL | 服务地址（Ollama 不带 `/v1`） | `http://localhost:11434` |
 | 总结模型 | 模型标识 | `qwen3:4b` / `doubao-seed-1-6` |
 | 纠错并发线程数 | 1-4 | `2` |
 | 总结更新间隔（秒） | 生成摘要的频率 | `60` |
+
+### 灵录 API 配置项（v0.4 · 共享上面"总结"那组 key）
+
+设置入口：**主面板 → 高级 → 灵录 API · 实时分叉树 + 报告生成**（默认展开）。也可在引导页步骤 4 一次性填好。
+
+| 配置项 | 说明 | 推荐 |
+| --- | --- | --- |
+| Provider | 9 选 1，Ollama 排首位"本地（推荐）" | `ollama` |
+| Base URL | 支持任意第三方 OpenAI 兼容代理 | `http://localhost:11434` 或 `http://192.168.x.x:11434` |
+| API Key | Ollama 留空；其它必填 | — |
+| Model | 模型 id（含 tag） | `qwen3.6:35b` / `deepseek-chat` / `claude-3-5-haiku-20241022` |
+| 场景 | auto + 8 场景；置信度 < 0.5 自动回退 generic | `auto` |
+| 报告主题 | 5 主题；按场景智能默认 | `sumi-ink`（个人/聚会）/ `terminal-grade`（商业） |
+| 温度 | 0.0–1.0；纪要建议 0.1–0.3 | `0.2` |
+| Max tokens | 推理模型（chain-of-thought 占额）建议 ≥ 2048 | `4096` |
+| 触发频率（秒） | 下限 10，默认 60 | `60` |
+
+> 详细原理与 8 场景 prompt 模板见 [docs/html/linglu.html](docs/html/linglu.html)。
+> 设计文档（需求 / 架构 / 实施计划 / 评审）见 [docs/v0.4-linglu/](docs/v0.4-linglu/)。
 
 ### TTS 模型下载（ModelScope）
 
@@ -192,7 +259,7 @@ Boundless Flow 前端通过 Tauri `invoke` 调用后端命令，关键命令包�
 - `docs/translation.html`：实时翻译流程与设置项
 - `docs/proofreading-summary.html`：AI 纠错与智能总结
 - `docs/tts-voice-cloning.html`：语音合成与声音克隆
-- `docs/appendix.html`：模型下载、API 配置小白指南
+- `docs/appendix.html`：模型下载、sherpa-onnx 说话人分离与 API 配置小白指南
 - `docs/context-landing.html`：设计哲学、快速开始与最佳实践展示页
 
 英文版文档位于同目录下的 `*-en.html`。

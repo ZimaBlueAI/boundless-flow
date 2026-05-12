@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>引导页配置向导 - 无界音流</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <a href="welcome.html" class="sidebar-logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color);"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>
+            无界音流
+        </a>
+
+        <div class="sidebar-group">开始使用</div>
+        <ul>
+            <li><a href="welcome.html">什么是无界音流？</a></li>
+            <li><a href="onboarding.html" class="active">引导页配置向导</a></li>
+        </ul>
+
+        <div class="sidebar-group">核心功能</div>
+        <ul>
+            <li><a href="stt.html">实时 STT 与模型选择</a></li>
+            <li><a href="translation.html">实时翻译功能</a></li>
+            <li><a href="proofreading-summary.html">AI 纠错与智能总结</a></li>
+            <li><a href="tts-voice-cloning.html">语音合成与声音克隆</a></li>
+            <li><a href="sts.html">STS 同传工作台</a></li>
+            <li><a href="linglu.html">灵录 · 实时分叉树纪要</a></li>
+        </ul>
+
+        <div class="sidebar-group">附录</div>
+        <ul>
+            <li><a href="appendix.html">小白指南</a></li>
+        </ul>
+
+        <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+            <a href="onboarding-en.html" style="display: flex; align-items: center; gap: 0.5rem;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                English Version
+            </a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="content-wrapper">
+            <div class="page-kicker">
+                <span class="kicker-dot"></span>
+                <span>FIRST-RUN SETUP</span>
+                <span class="version-badge">v0.4</span>
+            </div>
+            <h1>引导页配置向导</h1>
+            <p class="hero-subtitle">5 步走完，把麦克风、快捷键、模型、API 与使用心法一次搞清楚。</p>
+
+            <ul class="feature-pill-list">
+                <li class="accent">首装自动弹出</li>
+                <li class="violet">支持版本变更后再弹</li>
+                <li>所有参数写入 <code>~/.zimablueai_config/config.json</code></li>
+                <li class="warm">主面板「配置引导页」可随时重开</li>
+            </ul>
+
+            <div class="page-toc">
+                <div class="page-toc-title">本页目录</div>
+                <ol>
+                    <li><a href="#overview">整体认知</a></li>
+                    <li><a href="#trigger">触发与跳过逻辑</a></li>
+                    <li><a href="#step1">Step 1 · 系统麦克风</a></li>
+                    <li><a href="#step2">Step 2 · 快捷键</a></li>
+                    <li><a href="#step3">Step 3 · 模型与参数</a></li>
+                    <li><a href="#step4">Step 4 · API 提供商</a></li>
+                    <li><a href="#step5">Step 5 · 使用说明</a></li>
+                    <li><a href="#config-file">配置文件结构参考</a></li>
+                </ol>
+            </div>
+
+            <h2 id="overview">整体认知</h2>
+            <p>引导页是一张铺满当前应用窗口的「全屏向导」。打开时窗口会自动调整为合适大小（约当前显示器 85% × 88%，最大 1240 × 840 逻辑像素）并居中；左侧 5 个步骤胶囊导航，右侧主区显示当前步骤的卡片，所有非交互区域均可拖动以移动窗口。</p>
+
+            <div class="wizard-preview" aria-hidden="true">
+                <div class="wizard-preview-shell">
+                    <div class="wizard-preview-sidebar">
+                        <div class="wizard-preview-brand">BOUNDLESS-FLOW</div>
+                        <div style="color:#2563eb; font-weight:700; font-size:0.78rem; margin-top:0.5rem;">Step 1</div>
+                        <h3 class="wizard-preview-headline">系统麦克风</h3>
+                        <div style="font-size:0.7rem; color:#94a3b8; letter-spacing:0.04em;">安装后启动引导</div>
+                        <div class="wizard-preview-progress">1 / 5</div>
+                        <div class="wizard-preview-pill active"><span class="wizard-preview-num">1</span>系统麦克风</div>
+                        <div class="wizard-preview-pill"><span class="wizard-preview-num">2</span>快捷键</div>
+                        <div class="wizard-preview-pill"><span class="wizard-preview-num">3</span>模型与参数</div>
+                        <div class="wizard-preview-pill"><span class="wizard-preview-num">4</span>API 配置</div>
+                        <div class="wizard-preview-pill"><span class="wizard-preview-num">5</span>使用说明</div>
+                    </div>
+                    <div class="wizard-preview-main">
+                        <div class="wizard-preview-crumb"><span class="crumb-active">首次配置</span> &nbsp;—&nbsp; 简洁配置，所见即所得</div>
+                        <div class="wizard-preview-card">
+                            <div class="wizard-preview-card-title">说话检测麦克风</div>
+                            <div class="wizard-preview-card-sub">当页直接完成设备选择、状态确认与实时测试，不需要跳转二级面板。</div>
+                        </div>
+                        <div class="wizard-preview-foot">
+                            <button class="wizard-preview-btn">跳过</button>
+                            <button class="wizard-preview-btn">上一步</button>
+                            <button class="wizard-preview-btn primary">下一步</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 id="trigger">触发与跳过逻辑</h2>
+            <p>引导页是否自动弹出，取决于配置文件中 <code>onboarding.completed</code> 与 <code>onboarding.appVersion</code> 两个字段。</p>
+
+            <table class="spec-table">
+                <thead>
+                    <tr><th>场景</th><th>触发条件</th><th>结果</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>首次安装 / 清空配置</td>
+                        <td>config.json 不存在</td>
+                        <td>启动后自动打开引导页</td>
+                    </tr>
+                    <tr>
+                        <td>升级安装（版本变化）</td>
+                        <td><code>onboarding.appVersion</code> ≠ 当前应用版本</td>
+                        <td>自动打开（迁移、补差异）</td>
+                    </tr>
+                    <tr>
+                        <td>已完成且版本匹配</td>
+                        <td><code>completed: true</code> 且版本一致</td>
+                        <td>不打开（静默启动）</td>
+                    </tr>
+                    <tr>
+                        <td>用户主动重新配置</td>
+                        <td>主面板点击「配置引导页」按钮</td>
+                        <td>从最新配置预填表单并打开</td>
+                    </tr>
+                    <tr>
+                        <td>用户跳过</td>
+                        <td>点击「跳过」</td>
+                        <td>写入 <code>skipped: true</code>，本版本不再弹</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="callout info">
+                <div class="callout-icon">💡</div>
+                <div class="callout-content">
+                    <p><strong>提示：</strong> 主面板顶部「配置引导页」按钮使用紫色渐变样式，与其他普通按钮区别明显，找不到时可注意「配置」卡片右上角。</p>
+                </div>
+            </div>
+
+            <h2 id="step1">Step 1 · 系统麦克风</h2>
+            <p>这一步把"录音是否能用"先做掉。</p>
+            <ul>
+                <li><strong>系统输入设备</strong>：下拉框列出 <code>list_audio_input_devices</code> 后端返回的所有麦克风，默认设备会标注「默认」。</li>
+                <li><strong>已检测设备 / 已选择 / 权限状态</strong>：三块状态卡，权限状态可为「未检测 / 已允许 / 未授权」。</li>
+                <li><strong>重新扫描设备</strong>：调用一次后端 API，热插拔的耳机/麦克风会被刷新进来。</li>
+                <li><strong>请求麦克风权限</strong>：调用 <code>getUserMedia</code>，授权成功后进入实时波形测试；如果失败，权限状态会切到「未授权」并提示。</li>
+                <li><strong>实时波形测试</strong>：Canvas 上 64 条频带条实时显示麦克风能量条。能看到条形跳动即说明麦克风可用。</li>
+            </ul>
+            <div class="callout warning">
+                <div class="callout-icon">⚠️</div>
+                <div class="callout-content">
+                    <p><strong>注意：</strong> 切换页面或关闭引导页时麦克风会立即释放，不会长期占用音频设备。</p>
+                </div>
+            </div>
+
+            <h2 id="step2">Step 2 · 快捷键</h2>
+            <p>用一个稳定的「物理按键」来开启 / 停止录音。当前仅支持 6 种推荐键位，不接受任意字母组合（避免与全局快捷键冲突）。</p>
+
+            <table class="spec-table">
+                <thead>
+                    <tr><th>键位</th><th>Mac 等价</th><th>说明</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><span class="kbd">Right Alt</span> ★ 推荐</td><td>⌥ Right Option</td><td>单手不冲突，是默认值</td></tr>
+                    <tr><td><span class="kbd">Left Alt</span></td><td>⌥ Left Option</td><td>左手习惯</td></tr>
+                    <tr><td><span class="kbd">Right Ctrl</span></td><td>⌃ Right Control</td><td>右手区低冲突</td></tr>
+                    <tr><td><span class="kbd">Left Ctrl</span></td><td>⌃ Left Control</td><td>可能与编辑器冲突</td></tr>
+                    <tr><td><span class="kbd">Right Shift</span></td><td>⇧ Right Shift</td><td>与输入法可能冲突</td></tr>
+                    <tr><td><span class="kbd">Left Shift</span></td><td>⇧ Left Shift</td><td>与输入法可能冲突</td></tr>
+                </tbody>
+            </table>
+
+            <p><strong>实时按键预览</strong>：把鼠标点到深色面板里，按下任意键即可在底部预览。使用 <code>KeyboardEvent.code</code>（AltLeft/AltRight/ControlLeft/...）精确区分左右键；如果按下不支持的键（例如 Win/⌘ 或字母键），只会显示 "(unsupported)"，不会写入状态。</p>
+
+            <div class="callout warning">
+                <div class="callout-icon">⚠️</div>
+                <div class="callout-content">
+                    <p><strong>为何不开放 Win / Cmd？</strong> Windows 的 Win 键与 macOS 的 ⌘ 都会触发系统级菜单，作为应用快捷键容易导致弹窗 / 切窗口等副作用。已从可选项中移除。</p>
+                </div>
+            </div>
+
+            <h2 id="step3">Step 3 · 模型与参数</h2>
+            <p>三块基础模型一次配齐，后续在主面板还能精细调整：</p>
+
+            <div class="cap-matrix">
+                <div class="cap-card">
+                    <div class="cap-card-head"><span class="cap-tag asr">STT</span><span class="cap-card-title">语音识别</span></div>
+                    <ul>
+                        <li>识别后端：<code>onnx / whisper / sensevoice / funasr</code></li>
+                        <li>模型目录：本地模型所在文件夹（含 <code>model.onnx + tokens.json</code> 或 <code>model.pt + config.yaml</code>）</li>
+                    </ul>
+                </div>
+                <div class="cap-card">
+                    <div class="cap-card-head"><span class="cap-tag tts">TTS</span><span class="cap-card-title">语音合成</span></div>
+                    <ul>
+                        <li>TTS 模型：<code>auto / qwen3_tts / voxcpm / index_tts2 / vibevoice / volcengine_tts</code></li>
+                        <li>模型目录：对应模型的本地路径</li>
+                    </ul>
+                </div>
+                <div class="cap-card">
+                    <div class="cap-card-head"><span class="cap-tag realtime">STS</span><span class="cap-card-title">同传源 / 目标语言</span></div>
+                    <ul>
+                        <li>源语言：<code>auto / zh / en / ja / ko / yue / fr / de / es</code></li>
+                        <li>目标语言：同上枚举（不含 auto）</li>
+                    </ul>
+                </div>
+                <div class="cap-card">
+                    <div class="cap-card-head"><span class="cap-tag llm">LLM</span><span class="cap-card-title">何时填？</span></div>
+                    <ul>
+                        <li>翻译 / 总结 / 实时纠错的 LLM 路径，在 Step 4 选择 Provider 后自动写入</li>
+                        <li>本步骤聚焦本地模型，云端凭据下一步统一管理</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2 id="step4">Step 4 · API 提供商</h2>
+            <p>11 个开箱即用的 Provider，每个卡片展开后填 Base URL、API Key、以及该 Provider 支持的能力（LLM / ASR / TTS / Realtime）对应的模型名。填了 API Key 视为「启用」。</p>
+
+            <div class="provider-grid-doc">
+                <a class="provider-tile" href="https://platform.openai.com/docs" target="_blank" rel="noopener">
+                    <span class="provider-tile-logo"><img src="../../public/icons/openai.png" alt="OpenAI" onerror="this.style.opacity='0.2'"/></span>
+                    <span class="provider-tile-name">OpenAI</span>
+                    <span class="provider-tile-caps">LLM · ASR · TTS · Realtime</span>
+                </a>
+                <a class="provider-tile" href="https://www.volcengine.com/docs/" target="_blank" rel="noopener">
+                    <span class="provider-tile-logo"><img src="../../public/icons/volcengine.png" alt="Volcengine" onerror="this.style.opacity='0.2'"/></span>
+                    <span class="provider-tile-name">火山 Volcengine</span>
+                    <span class="provider-tile-caps">LLM · ASR · TTS</span>
+                </a>
+                <a class="provider-tile" href="https://platform.minimax.io/docs/api-reference/api-overview" target="_blank" rel="noopener">
+                    <span class="provider-tile-logo"><img src="../../public/icons/minimax.png" alt="MiniMax" onerror="this.style.opacity='0.2'"/></span>
+                    <span class="provider-tile-name">MiniMax</span>
+                    <span class="provider-tile-caps">LLM · ASR · TTS</span>
+                </a>
+                <a class="provider-tile" href="https://help.aliyun.com/" target="_blank" rel="noopener">
+                    <span class="provider-tile-logo"><img src="../../public/icons/aliyun.png" alt="Aliyun" onerror="this.style.opacity='0.2'"/></span>
+                    <span class="provider-tile-name">阿里云 Aliyun</span>
+                    <span class="provider-tile-caps">LLM · ASR · TTS</span>
+                </a>
+                <a class="provider-tile" href="https://www.xfyun.cn/doc/asr/rtasr/API.html" target="_blank" rel="noopener">
+                    <span class="provider-tile-logo"><img src="../../public/icons/iFLY.png" alt="iFlytek" onerror="this.style.opacity='0.2'"/></span>
+                    <span class="provider-tile-name">讯飞 iFLYTEK</span>
+                    <span class="provider-tile-caps">LLM · ASR · TTS</span>
+                </a>
+                <a class="provider-tile" href="https://api-docs.deepseek.com/" target="_blank" rel="noopener">
+                    <span class="provider-tile-logo"><img src="../../public/icons/deepseek.png" alt="DeepSeek" onerror="this.style.opacity='0.2'"/></span>
+                    <span class="provider-tile-name">DeepSeek</span>
+                    <span class="provider-tile-caps">LLM</span>
+                </a>
+                <a class="provider-tile" href="https://github.com/ollama/ollama" target="_blank" rel="noopener">
+                    <span class="provider-tile-logo"><img src="../../public/icons/ollama.png" alt="Ollama" onerror="this.style.opacity='0.2'"/></span>
+                    <span class="provider-tile-name">Ollama</span>
+                    <span class="provider-tile-caps">LLM 本地</span>
+                </a>
+                <a class="provider-tile" href="https://docs.vllm.ai/" target="_blank" rel="noopener">
+                    <span class="provider-tile-logo"><img src="../../public/icons/vLLM.png" alt="vLLM" onerror="this.style.opacity='0.2'"/></span>
+                    <span class="provider-tile-name">vLLM</span>
+                    <span class="provider-tile-caps">LLM 本地</span>
+                </a>
+                <a class="provider-tile" href="https://github.com/ml-explore/mlx" target="_blank" rel="noopener">
+                    <span class="provider-tile-logo"><img src="../../public/icons/mlx.png" alt="MLX" onerror="this.style.opacity='0.2'"/></span>
+                    <span class="provider-tile-name">MLX</span>
+                    <span class="provider-tile-caps">LLM 本地</span>
+                </a>
+                <a class="provider-tile" href="https://github.com/sgl-project/sglang" target="_blank" rel="noopener">
+                    <span class="provider-tile-logo"><img src="../../public/icons/sglang.png" alt="SGLang" onerror="this.style.opacity='0.2'"/></span>
+                    <span class="provider-tile-name">SGLang</span>
+                    <span class="provider-tile-caps">LLM 本地</span>
+                </a>
+                <a class="provider-tile" href="https://llamaedge.com/" target="_blank" rel="noopener">
+                    <span class="provider-tile-logo"><img src="../../public/icons/LlamaEdge.png" alt="LlamaEdge" onerror="this.style.opacity='0.2'"/></span>
+                    <span class="provider-tile-name">LlamaEdge</span>
+                    <span class="provider-tile-caps">LLM 本地</span>
+                </a>
+            </div>
+
+            <h3>能力填写要点</h3>
+            <ul>
+                <li><strong>LLM 模型字段</strong> 自动写入 <code>translateApiBaseUrl / translateApiKey / translateModel</code>，主面板"翻译"模块即时可用</li>
+                <li><strong>TTS 模型字段</strong> 自动写入 <code>cfg.tts.cloudTtsModel</code>，作为云端 TTS 备用通道（不会覆盖你 Step 3 设的本地 TTS）</li>
+                <li><strong>ASR / Realtime</strong> 暂存在 <code>cfg.onboarding.providers</code>，等主面板对应模块读取</li>
+                <li>所有字段可逗号分隔多模型，留空时使用 Provider 的默认值</li>
+            </ul>
+
+            <h2 id="step5">Step 5 · 使用说明</h2>
+            <p>3 张 SVG 动效卡片帮你 30 秒了解三大场景：</p>
+            <ol>
+                <li><strong>一键录音 → 转写</strong>：按下 <span class="kbd">Right Alt</span> 开录，再按结束，识别结果实时跟随光标输出。</li>
+                <li><strong>语音合成 TTS</strong>：在主面板输入文本或选择历史片段，一键朗读，支持声纹克隆。</li>
+                <li><strong>同声传译 STS</strong>：工作台模式，源语音 → 实时识别 → 目标语言 → TTS 朗读，可保留原始音色。</li>
+            </ol>
+
+            <h2 id="config-file">配置文件结构参考</h2>
+            <p>引导页保存后会写入 <code>~/.zimablueai_config/config.json</code>，关键字段：</p>
+            <pre><code>{
+  "stt": {
+    "inputDeviceName": "耳机式麦克风 (MCP01)",
+    "backend": "sensevoice",
+    "modelDir": "D:/models/SenseVoiceSmall",
+    "hotkey": "RightAlt"
+  },
+  "tts": {
+    "ttsModel": "qwen3_tts",
+    "modelDir": "D:/models/qwen3-tts",
+    "cloudTtsModel": "speech-01-v2"
+  },
+  "sts": {
+    "sourceLanguage": "zh",
+    "targetLanguage": "en"
+  },
+  "translateApiBaseUrl": "https://api.openai.com/v1",
+  "translateApiKey": "sk-***",
+  "translateModel": "gpt-4o-mini",
+  "translateEnabled": true,
+  "onboarding": {
+    "completed": true,
+    "skipped": false,
+    "version": 1,
+    "appVersion": "0.4.0",
+    "completedAt": "2026-05-11T08:42:13.000Z",
+    "providers": {
+      "openai": {
+        "enabled": true,
+        "baseUrl": "https://api.openai.com/v1",
+        "apiKey": "sk-***",
+        "models": { "llm": "gpt-4o-mini", "tts": "tts-1" }
+      }
+    }
+  }
+}</code></pre>
+
+            <div class="callout info">
+                <div class="callout-icon">📎</div>
+                <div class="callout-content">
+                    <p><strong>需要重置？</strong> 删除 <code>~/.zimablueai_config/config.json</code> 或将 <code>onboarding.appVersion</code> 改成空字符串即可在下次启动重新弹出引导页。</p>
+                </div>
+            </div>
+
+            <div class="doc-copyright">
+                <p>Copyright(c) ZimaBlueAI</p>
+                <p>齐码蓝智能（大理市）有限责任公司</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

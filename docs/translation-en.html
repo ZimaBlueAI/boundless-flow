@@ -16,6 +16,7 @@
         <div class="sidebar-group">Getting Started</div>
         <ul>
             <li><a href="welcome-en.html">What is Boundless Flow?</a></li>
+            <li><a href="onboarding-en.html">Onboarding Wizard</a></li>
         </ul>
 
         <div class="sidebar-group">Core Features</div>
@@ -24,6 +25,8 @@
             <li><a href="translation-en.html" class="active">Real-time Translation</a></li>
             <li><a href="proofreading-summary-en.html">AI Proofreading & Summary</a></li>
             <li><a href="tts-voice-cloning-en.html">TTS & Voice Cloning</a></li>
+            <li><a href="sts-en.html">STS Speech Workbench</a></li>
+            <li><a href="linglu-en.html">LingLu · Live Topic Tree</a></li>
         </ul>
 
         <div class="sidebar-group">Appendix</div>
@@ -94,11 +97,11 @@
 
             <h2>Recommended Translation Model (Ollama)</h2>
             <p>If you want to run translation locally (offline/LAN), a recommended setup is to pull a translation model via Ollama (see <a href="https://docs.ollama.com/" target="_blank" rel="noopener noreferrer">Ollama docs</a>; beginner steps: <a href="appendix-en.html#appendix-ollama">Appendix B</a>):</p>
-            <pre><code>ollama pull ZimaBlueAI/HY-MT1.5-1.8</code></pre>
+            <pre><code>ollama pull ZimaBlueAI/HY-MT1.5-1.8:1.8b   # or :7b</code></pre>
             <p>Then configure in Boundless Flow settings:</p>
             <ul>
-                <li><strong>Translation API Base URL</strong>: <code>http://localhost:11434/v1</code></li>
-                <li><strong>Translation Model</strong>: <code>ZimaBlueAI/HY-MT1.5-1.8</code></li>
+                <li><strong>Translation API Base URL</strong>: <code>http://localhost:11434</code> (local) or <code>http://&lt;LAN-IP&gt;:11434</code> (LAN). <strong>Do NOT append <code>/v1</code></strong> — Boundless Flow will call Ollama's native <code>/api/chat</code> automatically. If you're used to the OpenAI-compat style, a trailing <code>/v1</code> is still accepted (it is stripped internally).</li>
+                <li><strong>Translation Model</strong>: <code>ZimaBlueAI/HY-MT1.5-1.8:1.8b</code> (the <code>:tag</code> suffix is required, otherwise Ollama returns <code>model not found</code>)</li>
                 <li><strong>Translation API Key</strong>: optional for local Ollama</li>
             </ul>
 

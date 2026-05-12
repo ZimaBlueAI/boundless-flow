@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STS 同传工作台 - 无界音流</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <a href="welcome.html" class="sidebar-logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color);"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>
+            无界音流
+        </a>
+
+        <div class="sidebar-group">开始使用</div>
+        <ul>
+            <li><a href="welcome.html">什么是无界音流？</a></li>
+            <li><a href="onboarding.html">引导页配置向导</a></li>
+        </ul>
+
+        <div class="sidebar-group">核心功能</div>
+        <ul>
+            <li><a href="stt.html">实时 STT 与模型选择</a></li>
+            <li><a href="translation.html">实时翻译功能</a></li>
+            <li><a href="proofreading-summary.html">AI 纠错与智能总结</a></li>
+            <li><a href="tts-voice-cloning.html">语音合成与声音克隆</a></li>
+            <li><a href="sts.html" class="active">STS 同传工作台</a></li>
+            <li><a href="linglu.html">灵录 · 实时分叉树纪要</a></li>
+        </ul>
+
+        <div class="sidebar-group">附录</div>
+        <ul>
+            <li><a href="appendix.html">小白指南</a></li>
+        </ul>
+
+        <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+            <a href="sts-en.html" style="display: flex; align-items: center; gap: 0.5rem;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                English Version
+            </a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="content-wrapper">
+            <div class="page-kicker">
+                <span class="kicker-dot"></span>
+                <span>SPEECH TRANSLATION STUDIO</span>
+                <span class="version-badge">v0.4</span>
+            </div>
+            <h1>STS 同传工作台</h1>
+            <p class="hero-subtitle">说话 → 实时识别 → 翻译 → 目标语种朗读，一条独立流水线，可保留原始音色。</p>
+
+            <ul class="feature-pill-list">
+                <li class="accent">独立配置，不复用主 STT/TTS</li>
+                <li class="violet">自动声音克隆</li>
+                <li class="teal">RightAlt 一键操作</li>
+                <li class="warm">浮动 Mini 模式</li>
+            </ul>
+
+            <div class="page-toc">
+                <div class="page-toc-title">本页目录</div>
+                <ol>
+                    <li><a href="#what">什么是 STS</a></li>
+                    <li><a href="#pipeline">流水线总览</a></li>
+                    <li><a href="#workbench">工作台 UI 速览</a></li>
+                    <li><a href="#combos">最小可跑配置</a></li>
+                    <li><a href="#params">参数说明</a></li>
+                    <li><a href="#hotkey">操作时序与热键</a></li>
+                    <li><a href="#troubleshoot">常见问题</a></li>
+                </ol>
+            </div>
+
+            <h2 id="what">什么是 STS</h2>
+            <p>STS = <strong>Speech-to-Speech</strong>。无界音流的 STS 工作台是一个独立的「同声传译」流水线：你说一句中文，几秒后用同样音色、目标语言（英文 / 日文 / 韩文…）把这句话朗读出来。可以用在演讲同传、双语会议、视频配音的草稿生成等场景。</p>
+
+            <div class="callout info">
+                <div class="callout-icon">ℹ️</div>
+                <div class="callout-content">
+                    <p>STS 是「先停止录音、再处理」的模式，不是边说边输出的真同步。处理中再次按下 RightAlt 会取消并立刻重新录音，适合一句一句翻。</p>
+                </div>
+            </div>
+
+            <h2 id="pipeline">流水线总览</h2>
+            <div class="pipeline-flow">
+                <svg viewBox="0 0 720 200" preserveAspectRatio="xMidYMid meet" role="img" aria-label="STS pipeline">
+                    <defs>
+                        <linearGradient id="stsGradA" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stop-color="#06b6d4"/>
+                            <stop offset="100%" stop-color="#3b82f6"/>
+                        </linearGradient>
+                        <linearGradient id="stsGradB" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stop-color="#3b82f6"/>
+                            <stop offset="100%" stop-color="#8b5cf6"/>
+                        </linearGradient>
+                        <linearGradient id="stsGradC" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stop-color="#8b5cf6"/>
+                            <stop offset="100%" stop-color="#ec4899"/>
+                        </linearGradient>
+                        <marker id="stsArrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+                            <path d="M0 0 L8 4 L0 8 Z" fill="#94a3b8"/>
+                        </marker>
+                    </defs>
+                    <!-- nodes -->
+                    <g font-family="Inter, sans-serif" font-size="12" fill="#0f172a">
+                        <g>
+                            <rect x="10" y="60" width="120" height="80" rx="14" fill="url(#stsGradA)" opacity="0.94"/>
+                            <text x="70" y="100" text-anchor="middle" fill="#fff" font-weight="700">麦克风</text>
+                            <text x="70" y="118" text-anchor="middle" fill="#e0f2fe" font-size="10">源语种音频</text>
+                        </g>
+                        <line x1="130" y1="100" x2="170" y2="100" stroke="#94a3b8" stroke-width="2" marker-end="url(#stsArrow)"/>
+                        <g>
+                            <rect x="170" y="60" width="130" height="80" rx="14" fill="#fff" stroke="#0891b2" stroke-width="2"/>
+                            <text x="235" y="92" text-anchor="middle" font-weight="700" fill="#0e7490">STT 实时识别</text>
+                            <text x="235" y="110" text-anchor="middle" font-size="10" fill="#64748b">sensevoice / funasr</text>
+                            <text x="235" y="124" text-anchor="middle" font-size="10" fill="#64748b">onnx / whisper</text>
+                        </g>
+                        <line x1="300" y1="100" x2="340" y2="100" stroke="#94a3b8" stroke-width="2" marker-end="url(#stsArrow)"/>
+                        <g>
+                            <rect x="340" y="60" width="130" height="80" rx="14" fill="url(#stsGradB)" opacity="0.94"/>
+                            <text x="405" y="92" text-anchor="middle" font-weight="700" fill="#fff">LLM 翻译</text>
+                            <text x="405" y="110" text-anchor="middle" font-size="10" fill="#e0e7ff">OpenAI-compat</text>
+                            <text x="405" y="124" text-anchor="middle" font-size="10" fill="#e0e7ff">qwen / deepseek</text>
+                        </g>
+                        <line x1="470" y1="100" x2="510" y2="100" stroke="#94a3b8" stroke-width="2" marker-end="url(#stsArrow)"/>
+                        <g>
+                            <rect x="510" y="60" width="130" height="80" rx="14" fill="url(#stsGradC)" opacity="0.94"/>
+                            <text x="575" y="92" text-anchor="middle" font-weight="700" fill="#fff">TTS 朗读</text>
+                            <text x="575" y="110" text-anchor="middle" font-size="10" fill="#fce7f3">qwen3_tts / voxcpm</text>
+                            <text x="575" y="124" text-anchor="middle" font-size="10" fill="#fce7f3">index_tts2 / volc</text>
+                        </g>
+                        <line x1="640" y1="100" x2="690" y2="100" stroke="#94a3b8" stroke-width="2" marker-end="url(#stsArrow)"/>
+                        <g>
+                            <circle cx="704" cy="100" r="14" fill="#fff" stroke="#0f172a" stroke-width="1.5"/>
+                            <path d="M698 96 L710 96 L714 92 L714 108 L710 104 L698 104 Z" fill="#0f172a"/>
+                        </g>
+                    </g>
+                    <!-- labels above -->
+                    <g font-family="Inter, sans-serif" font-size="10" fill="#475569">
+                        <text x="70" y="42" text-anchor="middle">1. 录音</text>
+                        <text x="235" y="42" text-anchor="middle">2. 文本</text>
+                        <text x="405" y="42" text-anchor="middle">3. 译文</text>
+                        <text x="575" y="42" text-anchor="middle">4. 合成</text>
+                    </g>
+                    <!-- voice clone branch -->
+                    <g>
+                        <path d="M70 140 C 70 170, 575 170, 575 140" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 4" fill="none"/>
+                        <text x="322" y="186" text-anchor="middle" font-size="10" fill="#64748b" font-style="italic">自动取本次录音音频做声纹克隆</text>
+                    </g>
+                </svg>
+                <div class="pipeline-flow-caption">STS 四段式流水线 · 虚线代表源音频会自动喂回 TTS 做声纹克隆</div>
+            </div>
+
+            <h2 id="workbench">工作台 UI 速览</h2>
+            <p>引导页跑完后，主面板右上区域点开 STS 图标即可进入工作台。整个面板分三大手风琴块：</p>
+
+            <div class="doc-image-grid">
+                <figure class="doc-image">
+                    <img src="images/img10-1.png" alt="STS 工作台配置面板">
+                    <figcaption>工作台：实时同传 · 参数配置</figcaption>
+                </figure>
+                <figure class="doc-image">
+                    <img src="images/img10-2.png" alt="STS 浮动 Mini 控件">
+                    <figcaption>浮动 Mini · 录音 / 处理 / 播放态</figcaption>
+                </figure>
+            </div>
+
+            <div class="cap-matrix">
+                <div class="cap-card">
+                    <div class="cap-card-head"><span class="cap-tag realtime">REALTIME</span><span class="cap-card-title">实时同传</span></div>
+                    <ul>
+                        <li>源语言 / 目标语言</li>
+                        <li>STT 后端 + 翻译模型 + TTS 模型</li>
+                        <li>各路径模型目录、设备、RPC 主机 / 端口</li>
+                        <li>VoxCPM、火山 TTS 等模型专属参数</li>
+                    </ul>
+                </div>
+                <div class="cap-card">
+                    <div class="cap-card-head"><span class="cap-tag asr">MINI</span><span class="cap-card-title">浮动 Mini 控件</span></div>
+                    <ul>
+                        <li>点「打开独立悬浮 Mini」唤出极简控件</li>
+                        <li>底部预览字幕文本 + 同传语音状态</li>
+                        <li>主面板只做配置，录音 / 处理在 Mini</li>
+                    </ul>
+                </div>
+                <div class="cap-card">
+                    <div class="cap-card-head"><span class="cap-tag llm">RECIPES</span><span class="cap-card-title">最小可跑配置</span></div>
+                    <ul>
+                        <li>组合 A：本地 STT + OpenAI 翻译 + 火山 TTS</li>
+                        <li>组合 B：本地 STT + OpenAI 翻译 + Qwen3-TTS / Index-TTS2</li>
+                        <li>5 步验证清单</li>
+                    </ul>
+                </div>
+                <div class="cap-card">
+                    <div class="cap-card-head"><span class="cap-tag tts">HISTORY</span><span class="cap-card-title">作业回放</span></div>
+                    <ul>
+                        <li>历史 Job 列表（jobId / 源 → 目标 / 时长 / 状态）</li>
+                        <li>双语字幕导出 srt / txt</li>
+                        <li>合并音频 mp3 / wav 下载</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2 id="combos">最小可跑配置（推荐两套）</h2>
+
+            <h3>组合 A · 最快联调</h3>
+            <p>目标：5 分钟内拿到第一条可播放的同传音频。</p>
+            <table class="spec-table">
+                <thead><tr><th>位置</th><th>取值</th><th>说明</th></tr></thead>
+                <tbody>
+                    <tr><td>STT 后端</td><td><code>onnx</code> 或 <code>funasr</code></td><td>选你已下载好的本地实时模型</td></tr>
+                    <tr><td>STT 模型目录</td><td>本地 SenseVoice / Fun-ASR-Nano 目录</td><td>参考 <a href="stt.html">实时 STT 文档</a></td></tr>
+                    <tr><td>翻译 Base URL</td><td><code>https://api.openai.com/v1</code></td><td>或任意 OpenAI 兼容地址</td></tr>
+                    <tr><td>翻译模型</td><td><code>gpt-4o-mini</code> 或 <code>deepseek-chat</code></td><td>速度优先</td></tr>
+                    <tr><td>TTS 模型</td><td><code>volcengine_tts</code></td><td>免本地下载，AppId + Token 即可</td></tr>
+                    <tr><td>克隆参考</td><td>自动取本次录音</td><td>不需要单独选文件</td></tr>
+                </tbody>
+            </table>
+
+            <h3>组合 B · 声纹克隆优先</h3>
+            <p>目标：让目标语种朗读保留你的音色。</p>
+            <table class="spec-table">
+                <thead><tr><th>位置</th><th>取值</th><th>说明</th></tr></thead>
+                <tbody>
+                    <tr><td>STT 后端</td><td><code>onnx</code> 或 <code>funasr</code></td><td>同组合 A</td></tr>
+                    <tr><td>翻译模型</td><td>任一 OpenAI 兼容模型</td><td>—</td></tr>
+                    <tr><td>TTS 模型</td><td><code>qwen3_tts</code> 或 <code>index_tts2</code></td><td>需要对应模型目录</td></tr>
+                    <tr><td>TTS 模型目录</td><td>本地路径</td><td>参考 <a href="tts-voice-cloning.html">TTS 文档</a></td></tr>
+                    <tr><td>克隆参考</td><td>自动取本次录音 + 识别文本</td><td>不需要单独选音色文件</td></tr>
+                </tbody>
+            </table>
+
+            <h2 id="params">参数说明（节选）</h2>
+            <table class="spec-table">
+                <thead><tr><th>字段</th><th>默认</th><th>说明</th></tr></thead>
+                <tbody>
+                    <tr><td><code>sourceLanguage</code></td><td>zh</td><td>麦克风识别语种；可选 auto/zh/en/ja/ko/yue/fr/de/es</td></tr>
+                    <tr><td><code>targetLanguage</code></td><td>en</td><td>目标语种；与 sourceLanguage 同枚举（除 auto）</td></tr>
+                    <tr><td><code>sttBackend</code></td><td>sensevoice</td><td>onnx / whisper / sensevoice / funasr 任选一</td></tr>
+                    <tr><td><code>sttChunkIntervalMs</code></td><td>20</td><td>每帧送入识别的步长；越小越实时，CPU 占用越高</td></tr>
+                    <tr><td><code>translationApiBaseUrl</code></td><td>—</td><td>OpenAI 兼容 base url</td></tr>
+                    <tr><td><code>translationApiKey</code></td><td>—</td><td>翻译 LLM 的 API Key</td></tr>
+                    <tr><td><code>translationModel</code></td><td>—</td><td>模型名，如 gpt-4o-mini / qwen-plus</td></tr>
+                    <tr><td><code>ttsModel</code></td><td>auto</td><td>auto / qwen3_tts / voxcpm / index_tts2 / vibevoice / volcengine_tts</td></tr>
+                    <tr><td><code>ttsModelDir</code></td><td>—</td><td>本地 TTS 模型目录</td></tr>
+                    <tr><td><code>ttsDevice</code></td><td>—</td><td><code>cuda / cpu / mps</code></td></tr>
+                    <tr><td><code>ttsRpcHost / ttsRpcPort</code></td><td>localhost / 17860</td><td>本地 TTS RPC 服务地址</td></tr>
+                    <tr><td><code>ttsVoxcpmRuntimeDir</code></td><td>—</td><td>VoxCPM 专属运行时目录</td></tr>
+                    <tr><td><code>ttsVolcengine.*</code></td><td>—</td><td>火山 TTS 的 AppId / Token / Cluster / VoiceType</td></tr>
+                </tbody>
+            </table>
+
+            <h2 id="hotkey">操作时序与热键</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>打开浮动 Mini</h3>
+                        <p>STS 工作台 → 「打开独立悬浮 Mini」。Mini 控件出现在屏幕底部正中，处理中状态会有动效。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>按 <span class="kbd">Right Alt</span> 开始录音</h3>
+                        <p>Mini 进入「录音中」，波形条跳动。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>再按 <span class="kbd">Right Alt</span> 停止</h3>
+                        <p>立即进入「处理中」：识别 → 翻译 → 声纹克隆 → TTS 合成。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>自动播放</h3>
+                        <p>合成完成后 Mini 进入「播放中」，目标语种朗读完毕回到待命态。</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>处理中再按一次 = 取消重录</h3>
+                        <p>觉得这一句不对劲，直接按热键重新录即可，不会等当前作业完成。</p>
+                    </div>
+                </div>
+            </div>
+
+            <h2 id="troubleshoot">常见问题</h2>
+            <div class="callout warning">
+                <div class="callout-icon">⚠️</div>
+                <div class="callout-content">
+                    <p><strong>处理中卡住？</strong> 检查翻译 / TTS 凭据是否填了；可在 Mini 上点取消，回到工作台看「字幕文本 / 同传语音」预览的日志。</p>
+                </div>
+            </div>
+            <div class="callout warning">
+                <div class="callout-icon">⚠️</div>
+                <div class="callout-content">
+                    <p><strong>没有保留音色？</strong> 确认 TTS 模型选了 <code>qwen3_tts / index_tts2 / voxcpm</code> 之一并指向本地模型目录；<code>volcengine_tts</code> 默认音色由 VoiceType 决定，需要在火山控制台另开声纹克隆音色。</p>
+                </div>
+            </div>
+            <div class="callout info">
+                <div class="callout-icon">💡</div>
+                <div class="callout-content">
+                    <p><strong>想"边说边出"？</strong> 当前 STS 是「停下来再处理」的同传模式，真正的 streaming 同步翻译由 LLM 端的 Realtime API（如 GPT-Realtime-Translate）支持，未来会以独立子模式接入工作台。</p>
+                </div>
+            </div>
+
+            <div class="doc-copyright">
+                <p>Copyright(c) ZimaBlueAI</p>
+                <p>齐码蓝智能（大理市）有限责任公司</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

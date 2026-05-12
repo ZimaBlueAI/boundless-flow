@@ -333,6 +333,10 @@ pre code {
     margin: 1.25rem 0 1.5rem;
 }
 
+.doc-image-grid--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 .doc-image-grid .doc-image {
     margin: 0;
     display: flex;
@@ -354,7 +358,8 @@ pre code {
 }
 
 @media (max-width: 768px) {
-    .doc-image-grid {
+    .doc-image-grid,
+    .doc-image-grid--3 {
         grid-template-columns: 1fr;
     }
 
@@ -1158,3 +1163,353 @@ body.context-landing h3 {
         transition: none;
     }
 }
+
+/* =============================================================
+   v0.4 docs additions — onboarding wizard & STS speech workbench
+   ============================================================= */
+
+/* page kicker: an eyebrow + version badge above an h1 */
+.page-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+.page-kicker .kicker-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--primary-color);
+}
+.version-badge {
+    display: inline-block;
+    padding: 0.15rem 0.55rem;
+    border-radius: 999px;
+    border: 1px solid var(--border-color);
+    background: linear-gradient(135deg, #eff6ff 0%, #ede9fe 100%);
+    color: #1d4ed8;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+/* feature highlight list — colored pills */
+.feature-pill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0 0 1.5rem;
+    padding: 0;
+    list-style: none;
+}
+.feature-pill-list li {
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    background: #f1f5f9;
+    color: #1e293b;
+    font-size: 0.78rem;
+    font-weight: 600;
+    border: 1px solid #e2e8f0;
+}
+.feature-pill-list li.accent { background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; }
+.feature-pill-list li.warm { background: #fef3c7; color: #92400e; border-color: #fde68a; }
+.feature-pill-list li.violet { background: #f5f3ff; color: #6d28d9; border-color: #ddd6fe; }
+.feature-pill-list li.teal { background: #ecfeff; color: #0e7490; border-color: #a5f3fc; }
+
+/* spec table — clean, no-stripe rows for parameters / providers */
+.spec-table {
+    width: 100%;
+    margin: 1.5rem 0;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+}
+.spec-table th, .spec-table td {
+    text-align: left;
+    padding: 0.7rem 0.9rem;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: top;
+}
+.spec-table th {
+    font-weight: 700;
+    color: var(--text-main);
+    background: #f8fafc;
+    font-size: 0.8rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+.spec-table td code {
+    background: #f1f5f9;
+    font-size: 0.82em;
+}
+.spec-table tr:hover td { background: #f8fafc40; }
+
+/* capability matrix — 4-column grid showing which feature each provider supports */
+.cap-matrix {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.9rem;
+    margin: 1.5rem 0;
+}
+@media (max-width: 720px) { .cap-matrix { grid-template-columns: 1fr; } }
+.cap-card {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 1.1rem 1.2rem;
+    background: #fff;
+}
+.cap-card-head {
+    display: flex; align-items: center; gap: 0.6rem;
+    margin-bottom: 0.5rem;
+}
+.cap-card-title { font-weight: 700; font-size: 1rem; }
+.cap-tag {
+    display: inline-block;
+    padding: 0.1rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+.cap-tag.llm { background: #dbeafe; color: #1d4ed8; }
+.cap-tag.asr { background: #cffafe; color: #0e7490; }
+.cap-tag.tts { background: #ede9fe; color: #6d28d9; }
+.cap-tag.realtime { background: #fce7f3; color: #be185d; }
+.cap-card ul {
+    margin: 0.4rem 0 0;
+    padding-left: 1.1rem;
+    font-size: 0.88rem;
+    line-height: 1.65;
+}
+
+/* pipeline flow — for STS doc; uses inline SVG */
+.pipeline-flow {
+    margin: 2rem 0;
+    padding: 1.4rem 1.2rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%);
+}
+.pipeline-flow svg { width: 100%; height: auto; display: block; }
+.pipeline-flow-caption {
+    margin-top: 0.6rem;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    font-style: italic;
+    text-align: center;
+}
+
+/* wizard preview — a miniature stylization of the 5-step wizard */
+.wizard-preview {
+    margin: 2rem 0;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    background: #f6f7fb;
+    box-shadow: 0 12px 32px -20px rgba(15,23,42,0.18);
+}
+.wizard-preview-shell {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+}
+.wizard-preview-sidebar {
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    border-right: 1px solid #e6e9ef;
+    padding: 1rem 0.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.wizard-preview-brand {
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    color: #94a3b8;
+    font-weight: 700;
+}
+.wizard-preview-headline {
+    margin: 0.5rem 0 0;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.3;
+}
+.wizard-preview-progress {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0.2rem 0 0.6rem;
+}
+.wizard-preview-pill {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.7rem;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #93c5fd 0%, #60a5fa 100%);
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+.wizard-preview-pill.active {
+    background: linear-gradient(135deg, #1d4ed8 0%, #3b82f6 100%);
+    box-shadow: 0 6px 16px -8px rgba(29, 78, 216, 0.55);
+}
+.wizard-preview-pill.done {
+    background: linear-gradient(135deg, #bfdbfe 0%, #93c5fd 100%);
+    color: #1e3a8a;
+}
+.wizard-preview-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.95);
+    color: #1d4ed8;
+    font-size: 0.7rem;
+    font-weight: 800;
+}
+.wizard-preview-pill.done .wizard-preview-num { background: rgba(255,255,255,0.85); color: #1e3a8a; }
+.wizard-preview-main {
+    padding: 1rem 1.2rem;
+    background: #f6f7fb;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+.wizard-preview-crumb {
+    font-size: 0.72rem;
+    color: #64748b;
+}
+.wizard-preview-crumb .crumb-active {
+    background: #fff;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    border: 1px solid #e6e9ef;
+    color: #0f172a;
+    font-weight: 600;
+}
+.wizard-preview-card {
+    background: #fff;
+    border: 1px solid #e6e9ef;
+    border-radius: 12px;
+    padding: 0.9rem 1rem;
+}
+.wizard-preview-card-title {
+    font-weight: 800;
+    font-size: 1rem;
+    color: #0f172a;
+}
+.wizard-preview-card-sub {
+    margin-top: 0.3rem;
+    font-size: 0.78rem;
+    color: #64748b;
+    line-height: 1.55;
+}
+.wizard-preview-foot {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    padding-top: 0.4rem;
+}
+.wizard-preview-btn {
+    padding: 0.35rem 0.9rem;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border: 1px solid #cbd5e1;
+    background: #fff;
+    color: #0f172a;
+}
+.wizard-preview-btn.primary {
+    background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+    color: #fff;
+    border: none;
+}
+@media (max-width: 640px) {
+    .wizard-preview-shell { grid-template-columns: 1fr; }
+    .wizard-preview-sidebar { border-right: none; border-bottom: 1px solid #e6e9ef; }
+}
+
+/* provider logo grid */
+.provider-grid-doc {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0.7rem;
+    margin: 1.5rem 0;
+}
+.provider-tile {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.7rem 0.9rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: #fff;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.provider-tile:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-1px);
+    text-decoration: none;
+}
+.provider-tile-logo {
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+}
+.provider-tile-logo img { width: 20px; height: 20px; object-fit: contain; }
+.provider-tile-name { font-size: 0.85rem; font-weight: 600; }
+.provider-tile-caps {
+    margin-left: auto;
+    font-size: 0.65rem;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    font-weight: 700;
+}
+
+/* hotkey-key — visual representation of a keyboard key */
+.kbd {
+    display: inline-block;
+    padding: 0.12rem 0.55rem;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+    background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+    box-shadow: 0 1px 0 #cbd5e1;
+    color: #0f172a;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.78em;
+    font-weight: 600;
+}
+
+/* mini TOC — right-side sticky for new pages */
+.page-toc {
+    margin: 0 0 2rem;
+    padding: 0.9rem 1rem;
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+}
+.page-toc-title {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+.page-toc ol {
+    margin: 0;
+    padding-left: 1.2rem;
+    font-size: 0.88rem;
+    line-height: 1.7;
+}
+.page-toc a { color: var(--text-main); font-weight: 500; }
+.page-toc a:hover { color: var(--primary-color); }

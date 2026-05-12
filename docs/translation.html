@@ -16,6 +16,7 @@
         <div class="sidebar-group">开始使用</div>
         <ul>
             <li><a href="welcome.html">什么是无界音流？</a></li>
+            <li><a href="onboarding.html">引导页配置向导</a></li>
         </ul>
 
         <div class="sidebar-group">核心功能</div>
@@ -24,6 +25,8 @@
             <li><a href="translation.html" class="active">实时翻译功能</a></li>
             <li><a href="proofreading-summary.html">AI 纠错与智能总结</a></li>
             <li><a href="tts-voice-cloning.html">语音合成与声音克隆</a></li>
+            <li><a href="sts.html">STS 同传工作台</a></li>
+            <li><a href="linglu.html">灵录 · 实时分叉树纪要</a></li>
         </ul>
 
         <div class="sidebar-group">附录</div>
@@ -90,11 +93,11 @@
 
             <h2>推荐翻译模型（Ollama）</h2>
             <p>如果您希望在本机离线/局域网环境使用翻译，推荐使用 Ollama 拉取翻译模型（参考 <a href="https://docs.ollama.com/" target="_blank" rel="noopener noreferrer">Ollama 文档</a>；小白安装指南见 <a href="appendix.html#appendix-ollama">附录 B</a>）：</p>
-            <pre><code>ollama pull ZimaBlueAI/HY-MT1.5-1.8</code></pre>
+            <pre><code>ollama pull ZimaBlueAI/HY-MT1.5-1.8:1.8b   # 或 :7b</code></pre>
             <p>然后在无界音流设置中填写：</p>
             <ul>
-                <li><strong>翻译 API Base URL</strong>：<code>http://localhost:11434/v1</code></li>
-                <li><strong>翻译模型</strong>：<code>ZimaBlueAI/HY-MT1.5-1.8</code></li>
+                <li><strong>翻译 API Base URL</strong>：<code>http://localhost:11434</code>（本机）或 <code>http://&lt;LAN-IP&gt;:11434</code>（局域网）。<strong>不需要带 <code>/v1</code></strong>，程序会自动调用 Ollama 原生 <code>/api/chat</code>。如果您习惯了 OpenAI-compat 风格，加上 <code>/v1</code> 也能识别（程序会自动去掉）。</li>
+                <li><strong>翻译模型</strong>：<code>ZimaBlueAI/HY-MT1.5-1.8:1.8b</code>（注意：必须带 tag 后缀，否则 Ollama 会报 <code>model not found</code>）</li>
                 <li><strong>翻译 API Key</strong>：本地 Ollama 可留空</li>
             </ul>
 

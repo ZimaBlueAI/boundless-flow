@@ -17,13 +17,20 @@ This folder contains the static documentation site for Boundless Flow, including
 
 - `index.html` / `index-en.html`: product landing pages
 - `welcome.html` / `welcome-en.html`: what Boundless Flow is and how to get started
+- `onboarding.html` / `onboarding-en.html`: 5-step onboarding wizard walkthrough
 - `stt.html` / `stt-en.html`: real-time STT and native-stt offline transcription
 - `translation.html` / `translation-en.html`: real-time translation workflow
 - `proofreading-summary.html` / `proofreading-summary-en.html`: AI proofreading and summary features
 - `tts-voice-cloning.html` / `tts-voice-cloning-en.html`: TTS and voice cloning
+- `sts.html` / `sts-en.html`: STS speech-translation workbench
+- `linglu.html` / `linglu-en.html`: **LingLu · live topic tree minutes** (v0.4) — 9 LLM providers, 8 scenarios, 5 report themes (incl. sumi-ink Chinese aesthetic), Ollama-first
 - `appendix.html` / `appendix-en.html`: installation and configuration appendix
 - `style.css`: shared site stylesheet
 - `images/`: screenshots, banners, and product illustrations
+
+## Planning Docs
+
+- `boundless-flow-v0.4-upgrade-plan.md`: upgraded v0.4 migration plan tailored to the current plugin workspace, including architecture mapping, phased rollout, data contracts, and implementation milestones
 
 ## Deploy to GitHub Pages
 

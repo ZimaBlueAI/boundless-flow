@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onboarding Wizard - Boundless Flow</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <a href="welcome-en.html" class="sidebar-logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color);"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>
+            Boundless Flow
+        </a>
+
+        <div class="sidebar-group">Getting Started</div>
+        <ul>
+            <li><a href="welcome-en.html">What is Boundless Flow?</a></li>
+            <li><a href="onboarding-en.html" class="active">Onboarding Wizard</a></li>
+        </ul>
+
+        <div class="sidebar-group">Core Features</div>
+        <ul>
+            <li><a href="stt-en.html">Realtime STT &amp; Models</a></li>
+            <li><a href="translation-en.html">Realtime Translation</a></li>
+            <li><a href="proofreading-summary-en.html">AI Correction &amp; Summary</a></li>
+            <li><a href="tts-voice-cloning-en.html">TTS &amp; Voice Cloning</a></li>
+            <li><a href="sts-en.html">STS Speech Workbench</a></li>
+            <li><a href="linglu-en.html">LingLu · Live Topic Tree</a></li>
+        </ul>
+
+        <div class="sidebar-group">Appendix</div>
+        <ul>
+            <li><a href="appendix-en.html">Beginner Guide</a></li>
+        </ul>
+
+        <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+            <a href="onboarding.html" style="display: flex; align-items: center; gap: 0.5rem;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                中文版
+            </a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="content-wrapper">
+            <div class="page-kicker">
+                <span class="kicker-dot"></span>
+                <span>FIRST-RUN SETUP</span>
+                <span class="version-badge">v0.4</span>
+            </div>
+            <h1>Onboarding Wizard</h1>
+            <p class="hero-subtitle">Five steps to nail down microphone, hotkey, models, APIs, and how to actually use it.</p>
+
+            <ul class="feature-pill-list">
+                <li class="accent">Auto-pops on first install</li>
+                <li class="violet">Re-opens on version bump</li>
+                <li>All values written to <code>~/.zimablueai_config/config.json</code></li>
+                <li class="warm">Re-open any time via the "Setup Wizard" button</li>
+            </ul>
+
+            <div class="page-toc">
+                <div class="page-toc-title">On this page</div>
+                <ol>
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#trigger">Trigger logic</a></li>
+                    <li><a href="#step1">Step 1 · System microphone</a></li>
+                    <li><a href="#step2">Step 2 · Hotkey</a></li>
+                    <li><a href="#step3">Step 3 · Models &amp; params</a></li>
+                    <li><a href="#step4">Step 4 · API providers</a></li>
+                    <li><a href="#step5">Step 5 · Usage guide</a></li>
+                    <li><a href="#config-file">Config file reference</a></li>
+                </ol>
+            </div>
+
+            <h2 id="overview">Overview</h2>
+            <p>The wizard is a full-window overlay. On open, the Tauri window resizes to roughly 85% × 88% of the current monitor's work area (capped at 1240 × 840 logical pixels) and centers itself. A 5-step pill rail lives on the left; the active step's card occupies the right pane; every non-interactive surface is a Tauri drag region — you can drag the window from anywhere.</p>
+
+            <div class="wizard-preview" aria-hidden="true">
+                <div class="wizard-preview-shell">
+                    <div class="wizard-preview-sidebar">
+                        <div class="wizard-preview-brand">BOUNDLESS-FLOW</div>
+                        <div style="color:#2563eb; font-weight:700; font-size:0.78rem; margin-top:0.5rem;">Step 1</div>
+                        <h3 class="wizard-preview-headline">System Microphone</h3>
+                        <div style="font-size:0.7rem; color:#94a3b8; letter-spacing:0.04em;">Post-install wizard</div>
+                        <div class="wizard-preview-progress">1 / 5</div>
+                        <div class="wizard-preview-pill active"><span class="wizard-preview-num">1</span>Microphone</div>
+                        <div class="wizard-preview-pill"><span class="wizard-preview-num">2</span>Hotkey</div>
+                        <div class="wizard-preview-pill"><span class="wizard-preview-num">3</span>Models &amp; Params</div>
+                        <div class="wizard-preview-pill"><span class="wizard-preview-num">4</span>API Config</div>
+                        <div class="wizard-preview-pill"><span class="wizard-preview-num">5</span>Usage</div>
+                    </div>
+                    <div class="wizard-preview-main">
+                        <div class="wizard-preview-crumb"><span class="crumb-active">First-run Setup</span> &nbsp;—&nbsp; Lean configuration, WYSIWYG</div>
+                        <div class="wizard-preview-card">
+                            <div class="wizard-preview-card-title">Test your microphone</div>
+                            <div class="wizard-preview-card-sub">Complete device selection, status check and live test on this page — no secondary panel needed.</div>
+                        </div>
+                        <div class="wizard-preview-foot">
+                            <button class="wizard-preview-btn">Skip</button>
+                            <button class="wizard-preview-btn">Back</button>
+                            <button class="wizard-preview-btn primary">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 id="trigger">Trigger logic</h2>
+            <p>Whether the wizard auto-opens depends on two fields in <code>config.json</code>: <code>onboarding.completed</code> and <code>onboarding.appVersion</code>.</p>
+
+            <table class="spec-table">
+                <thead>
+                    <tr><th>Scenario</th><th>Condition</th><th>Result</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>First install / cleared config</td><td>config.json does not exist</td><td>Wizard opens automatically</td></tr>
+                    <tr><td>Upgrade (version bump)</td><td><code>onboarding.appVersion</code> ≠ current version</td><td>Auto-opens (migration / new fields)</td></tr>
+                    <tr><td>Completed &amp; version matches</td><td><code>completed: true</code> and versions equal</td><td>Silent launch</td></tr>
+                    <tr><td>Manual re-configure</td><td>Click "Setup Wizard" in main panel</td><td>Pre-fills from current config, opens</td></tr>
+                    <tr><td>User skipped</td><td>Click "Skip"</td><td>Writes <code>skipped: true</code>, no re-pop this version</td></tr>
+                </tbody>
+            </table>
+
+            <div class="callout info">
+                <div class="callout-icon">💡</div>
+                <div class="callout-content">
+                    <p><strong>Tip:</strong> The "Setup Wizard" button uses a violet gradient pill, clearly different from the neutral ghost buttons nearby. Look at the top-right of the "Configuration" card.</p>
+                </div>
+            </div>
+
+            <h2 id="step1">Step 1 · System microphone</h2>
+            <p>Get "does my mic work?" out of the way first.</p>
+            <ul>
+                <li><strong>System input device</strong>: dropdown populated from <code>list_audio_input_devices</code>; the default device is annotated.</li>
+                <li><strong>Detected / Selected / Permission</strong>: three status cards. Permission can be "Not checked / Granted / Denied".</li>
+                <li><strong>Rescan devices</strong>: re-queries the backend; hot-plugged headphones show up immediately.</li>
+                <li><strong>Request mic permission</strong>: calls <code>getUserMedia</code>; success unlocks the live waveform; failure flips permission to "Denied".</li>
+                <li><strong>Live waveform test</strong>: 64-band canvas meter — if the bars dance, your mic is good.</li>
+            </ul>
+            <div class="callout warning">
+                <div class="callout-icon">⚠️</div>
+                <div class="callout-content">
+                    <p><strong>Note:</strong> Switching steps or closing the wizard releases the microphone immediately; the app does not hold the audio device long-term.</p>
+                </div>
+            </div>
+
+            <h2 id="step2">Step 2 · Hotkey</h2>
+            <p>One stable physical key to start/stop recording. The wizard only accepts 6 recommended keys — arbitrary letter combos are intentionally rejected to avoid global-shortcut collisions.</p>
+
+            <table class="spec-table">
+                <thead><tr><th>Key</th><th>Mac equivalent</th><th>Note</th></tr></thead>
+                <tbody>
+                    <tr><td><span class="kbd">Right Alt</span> ★ recommended</td><td>⌥ Right Option</td><td>One-handed, no conflicts (default)</td></tr>
+                    <tr><td><span class="kbd">Left Alt</span></td><td>⌥ Left Option</td><td>For left-hand use</td></tr>
+                    <tr><td><span class="kbd">Right Ctrl</span></td><td>⌃ Right Control</td><td>Low conflict on the right side</td></tr>
+                    <tr><td><span class="kbd">Left Ctrl</span></td><td>⌃ Left Control</td><td>May collide with editor shortcuts</td></tr>
+                    <tr><td><span class="kbd">Right Shift</span></td><td>⇧ Right Shift</td><td>May collide with IME</td></tr>
+                    <tr><td><span class="kbd">Left Shift</span></td><td>⇧ Left Shift</td><td>May collide with IME</td></tr>
+                </tbody>
+            </table>
+
+            <p><strong>Live key preview</strong>: focus the dark panel and press any key. The wizard uses <code>KeyboardEvent.code</code> (AltLeft/AltRight/ControlLeft/...) to disambiguate left vs right reliably. Unsupported keys (e.g. Win/⌘ or letters) just echo back with "(unsupported)" — no state change.</p>
+
+            <div class="callout warning">
+                <div class="callout-icon">⚠️</div>
+                <div class="callout-content">
+                    <p><strong>Why not Win / Cmd?</strong> Windows-Logo / ⌘ open OS menus — using them as app hotkeys causes popups / window switches. They are intentionally excluded.</p>
+                </div>
+            </div>
+
+            <h2 id="step3">Step 3 · Models &amp; parameters</h2>
+            <p>Three base modules in one go. Fine-grained tuning lives in the main panel.</p>
+
+            <div class="cap-matrix">
+                <div class="cap-card">
+                    <div class="cap-card-head"><span class="cap-tag asr">STT</span><span class="cap-card-title">Speech recognition</span></div>
+                    <ul>
+                        <li>Backend: <code>onnx / whisper / sensevoice / funasr</code></li>
+                        <li>Model directory: local model folder</li>
+                    </ul>
+                </div>
+                <div class="cap-card">
+                    <div class="cap-card-head"><span class="cap-tag tts">TTS</span><span class="cap-card-title">Speech synthesis</span></div>
+                    <ul>
+                        <li>Model: <code>auto / qwen3_tts / voxcpm / index_tts2 / vibevoice / volcengine_tts</code></li>
+                        <li>Model directory: local path for the chosen model</li>
+                    </ul>
+                </div>
+                <div class="cap-card">
+                    <div class="cap-card-head"><span class="cap-tag realtime">STS</span><span class="cap-card-title">Source / Target language</span></div>
+                    <ul>
+                        <li>Source: <code>auto / zh / en / ja / ko / yue / fr / de / es</code></li>
+                        <li>Target: same enum (no auto)</li>
+                    </ul>
+                </div>
+                <div class="cap-card">
+                    <div class="cap-card-head"><span class="cap-tag llm">LLM</span><span class="cap-card-title">When to fill it?</span></div>
+                    <ul>
+                        <li>Translation / summarization / live correction LLMs are configured in Step 4 (Providers).</li>
+                        <li>This step focuses on local models; cloud creds are unified next.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2 id="step4">Step 4 · API providers</h2>
+            <p>Eleven providers ship out-of-the-box. Each card opens to Base URL, API Key, and one input per supported capability (LLM / ASR / TTS / Realtime). Filling an API Key is treated as "enabled".</p>
+
+            <div class="provider-grid-doc">
+                <a class="provider-tile" href="https://platform.openai.com/docs" target="_blank" rel="noopener">
+                    <span class="provider-tile-logo"><img src="../../public/icons/openai.png" alt="OpenAI" onerror="this.style.opacity='0.2'"/></span>
+                    <span class="provider-tile-name">OpenAI</span>
+                    <span class="provider-tile-caps">LLM · ASR · TTS · Realtime</span>
+                </a>
+                <a class="provider-tile" href="https://www.volcengine.com/docs/" target="_blank" rel="noopener">
+                    <span class="provider-tile-logo"><img src="../../public/icons/volcengine.png" alt="Volcengine" onerror="this.style.opacity='0.2'"/></span>
+                    <span class="provider-tile-name">Volcengine</span>
+                    <span class="provider-tile-caps">LLM · ASR · TTS</span>
+                </a>
+                <a class="provider-tile" href="https://platform.minimax.io/docs/api-reference/api-overview" target="_blank" rel="noopener">
+                    <span class="provider-tile-logo"><img src="../../public/icons/minimax.png" alt="MiniMax" onerror="this.style.opacity='0.2'"/></span>
+                    <span class="provider-tile-name">MiniMax</span>
+                    <span class="provider-tile-caps">LLM · ASR · TTS</span>
+                </a>
+                <a class="provider-tile" href="https://help.aliyun.com/" target="_blank" rel="noopener">
+                    <span class="provider-tile-logo"><img src="../../public/icons/aliyun.png" alt="Aliyun" onerror="this.style.opacity='0.2'"/></span>
+                    <span class="provider-tile-name">Aliyun</span>
+                    <span class="provider-tile-caps">LLM · ASR · TTS</span>
+                </a>
+                <a class="provider-tile" href="https://www.xfyun.cn/doc/asr/rtasr/API.html" target="_blank" rel="noopener">
+                    <span class="provider-tile-logo"><img src="../../public/icons/iFLY.png" alt="iFlytek" onerror="this.style.opacity='0.2'"/></span>
+                    <span class="provider-tile-name">iFLYTEK</span>
+                    <span class="provider-tile-caps">LLM · ASR · TTS</span>
+                </a>
+                <a class="provider-tile" href="https://api-docs.deepseek.com/" target="_blank" rel="noopener">
+                    <span class="provider-tile-logo"><img src="../../public/icons/deepseek.png" alt="DeepSeek" onerror="this.style.opacity='0.2'"/></span>
+                    <span class="provider-tile-name">DeepSeek</span>
+                    <span class="provider-tile-caps">LLM</span>
+                </a>
+                <a class="provider-tile" href="https://github.com/ollama/ollama" target="_blank" rel="noopener">
+                    <span class="provider-tile-logo"><img src="../../public/icons/ollama.png" alt="Ollama" onerror="this.style.opacity='0.2'"/></span>
+                    <span class="provider-tile-name">Ollama</span>
+                    <span class="provider-tile-caps">LLM local</span>
+                </a>
+                <a class="provider-tile" href="https://docs.vllm.ai/" target="_blank" rel="noopener">
+                    <span class="provider-tile-logo"><img src="../../public/icons/vLLM.png" alt="vLLM" onerror="this.style.opacity='0.2'"/></span>
+                    <span class="provider-tile-name">vLLM</span>
+                    <span class="provider-tile-caps">LLM local</span>
+                </a>
+                <a class="provider-tile" href="https://github.com/ml-explore/mlx" target="_blank" rel="noopener">
+                    <span class="provider-tile-logo"><img src="../../public/icons/mlx.png" alt="MLX" onerror="this.style.opacity='0.2'"/></span>
+                    <span class="provider-tile-name">MLX</span>
+                    <span class="provider-tile-caps">LLM local</span>
+                </a>
+                <a class="provider-tile" href="https://github.com/sgl-project/sglang" target="_blank" rel="noopener">
+                    <span class="provider-tile-logo"><img src="../../public/icons/sglang.png" alt="SGLang" onerror="this.style.opacity='0.2'"/></span>
+                    <span class="provider-tile-name">SGLang</span>
+                    <span class="provider-tile-caps">LLM local</span>
+                </a>
+                <a class="provider-tile" href="https://llamaedge.com/" target="_blank" rel="noopener">
+                    <span class="provider-tile-logo"><img src="../../public/icons/LlamaEdge.png" alt="LlamaEdge" onerror="this.style.opacity='0.2'"/></span>
+                    <span class="provider-tile-name">LlamaEdge</span>
+                    <span class="provider-tile-caps">LLM local</span>
+                </a>
+            </div>
+
+            <h3>How models map to features</h3>
+            <ul>
+                <li><strong>LLM</strong> values are written to <code>translateApiBaseUrl / translateApiKey / translateModel</code> — translation panel works immediately.</li>
+                <li><strong>TTS</strong> values land in <code>cfg.tts.cloudTtsModel</code> as a cloud fallback (does not overwrite the local TTS you picked in Step 3).</li>
+                <li><strong>ASR / Realtime</strong> values are stored in <code>cfg.onboarding.providers</code> for the corresponding panels to consume.</li>
+                <li>Comma-separated values are allowed for multiple model names; empty fields fall back to provider defaults.</li>
+            </ul>
+
+            <h2 id="step5">Step 5 · Usage guide</h2>
+            <p>Three SVG-animated cards explain the headline scenarios in 30 seconds:</p>
+            <ol>
+                <li><strong>One-key record → transcribe</strong>: press <span class="kbd">Right Alt</span> to start, press again to stop; transcript follows the cursor.</li>
+                <li><strong>TTS</strong>: type text or pick a history clip; one-click read-aloud with voice cloning.</li>
+                <li><strong>STS (translation)</strong>: workbench mode — source voice → live ASR → target language → TTS, with timbre preserved.</li>
+            </ol>
+
+            <h2 id="config-file">Config file reference</h2>
+            <p>On save, the wizard writes to <code>~/.zimablueai_config/config.json</code>. Key fields:</p>
+            <pre><code>{
+  "stt": {
+    "inputDeviceName": "Headset Microphone (MCP01)",
+    "backend": "sensevoice",
+    "modelDir": "D:/models/SenseVoiceSmall",
+    "hotkey": "RightAlt"
+  },
+  "tts": {
+    "ttsModel": "qwen3_tts",
+    "modelDir": "D:/models/qwen3-tts",
+    "cloudTtsModel": "speech-01-v2"
+  },
+  "sts": {
+    "sourceLanguage": "zh",
+    "targetLanguage": "en"
+  },
+  "translateApiBaseUrl": "https://api.openai.com/v1",
+  "translateApiKey": "sk-***",
+  "translateModel": "gpt-4o-mini",
+  "translateEnabled": true,
+  "onboarding": {
+    "completed": true,
+    "skipped": false,
+    "version": 1,
+    "appVersion": "0.4.0",
+    "completedAt": "2026-05-11T08:42:13.000Z",
+    "providers": {
+      "openai": {
+        "enabled": true,
+        "baseUrl": "https://api.openai.com/v1",
+        "apiKey": "sk-***",
+        "models": { "llm": "gpt-4o-mini", "tts": "tts-1" }
+      }
+    }
+  }
+}</code></pre>
+
+            <div class="callout info">
+                <div class="callout-icon">📎</div>
+                <div class="callout-content">
+                    <p><strong>Need to reset?</strong> Delete <code>~/.zimablueai_config/config.json</code>, or blank out <code>onboarding.appVersion</code> — the wizard pops next launch.</p>
+                </div>
+            </div>
+
+            <div class="doc-copyright">
+                <p>Copyright(c) ZimaBlueAI</p>
+                <p>ZimaBlueAI (Dali) Co., Ltd.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

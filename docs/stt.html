@@ -16,6 +16,7 @@
         <div class="sidebar-group">开始使用</div>
         <ul>
             <li><a href="welcome.html">什么是无界音流？</a></li>
+            <li><a href="onboarding.html">引导页配置向导</a></li>
         </ul>
 
         <div class="sidebar-group">核心功能</div>
@@ -24,6 +25,8 @@
             <li><a href="translation.html">实时翻译功能</a></li>
             <li><a href="proofreading-summary.html">AI 纠错与智能总结</a></li>
             <li><a href="tts-voice-cloning.html">语音合成与声音克隆</a></li>
+            <li><a href="sts.html">STS 同传工作台</a></li>
+            <li><a href="linglu.html">灵录 · 实时分叉树纪要</a></li>
         </ul>
 
         <div class="sidebar-group">附录</div>
@@ -114,6 +117,35 @@
                 <div class="callout-icon">⚠️</div>
                 <div class="callout-content">
                     <p><strong>注意：</strong> ONNX 后端请确保目录中包含 <code>model.onnx</code> 与 <code>tokens.json</code>；FunASR 后端请确保目录为完整的 <code>Fun-ASR-Nano-2512</code> 模型目录（例如包含 <code>model.pt</code>、<code>config.yaml</code>、tokenizer 相关文件）。</p>
+                </div>
+            </div>
+
+            <h3>说话人分离（Speaker Diarization）额外模型</h3>
+            <p>如果您希望实时识别时自动区分不同说话人，除了 STT 主模型外，还需要额外配置一组 <strong>sherpa-onnx</strong> 的说话人分离模型。它们与 SenseVoice / FunASR 是并行关系，不是二选一。</p>
+            <ul>
+                <li><strong>segmentation.onnx</strong>：负责把整段音频切分成不同说话人的时间片段。</li>
+                <li><strong>embedding.onnx</strong>：负责提取每个说话人的声纹向量，用于聚类与区分 <code>Speaker_1 / Speaker_2 / Speaker_3</code>。</li>
+            </ul>
+            <p>推荐把文件放到同一个目录，例如：</p>
+            <pre><code>F:\Projects\03.AIWhiteBoard\ai-whiteboard-next\voice\speaker-diarization\
+  segmentation.onnx
+  embedding.onnx</code></pre>
+            <p>然后在应用设置中配置：</p>
+            <ul>
+                <li><strong>说话人分段模型</strong>：选择 <code>segmentation.onnx</code> 或其所在目录</li>
+                <li><strong>声纹嵌入模型</strong>：选择 <code>embedding.onnx</code> 或其所在目录</li>
+            </ul>
+            <p>推荐下载来源：</p>
+            <ul>
+                <li>分段模型：<code>sherpa-onnx-pyannote-segmentation-3-0</code></li>
+                <li>嵌入模型：<code>3dspeaker_speech_eres2net_base_sv_zh-cn_3dspeaker_16k.onnx</code></li>
+                <li>官方说明：<a href="https://k2-fsa.github.io/sherpa/onnx/speaker-diarization/models.html" target="_blank" rel="noopener noreferrer">sherpa-onnx speaker diarization models</a></li>
+            </ul>
+
+            <div class="callout info">
+                <div class="callout-icon">ℹ️</div>
+                <div class="callout-content">
+                    <p><strong>补充说明：</strong> <code>SenseVoiceSmall</code> 用于实时识别、情感/语言/事件标签；<code>Fun-ASR-Nano-2512</code> 用于 FunASR 实时识别。它们都不能直接替代 <code>segmentation.onnx</code> 与 <code>embedding.onnx</code>。</p>
                 </div>
             </div>
 

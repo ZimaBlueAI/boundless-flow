@@ -16,6 +16,7 @@
         <div class="sidebar-group">开始使用</div>
         <ul>
             <li><a href="welcome.html">什么是无界音流？</a></li>
+            <li><a href="onboarding.html">引导页配置向导</a></li>
         </ul>
 
         <div class="sidebar-group">核心功能</div>
@@ -24,6 +25,8 @@
             <li><a href="translation.html">实时翻译功能</a></li>
             <li><a href="proofreading-summary.html" class="active">AI 纠错与智能总结</a></li>
             <li><a href="tts-voice-cloning.html">语音合成与声音克隆</a></li>
+            <li><a href="sts.html">STS 同传工作台</a></li>
+            <li><a href="linglu.html">灵录 · 实时分叉树纪要</a></li>
         </ul>
 
         <div class="sidebar-group">附录</div>
@@ -101,7 +104,7 @@
             <p>对应配置建议：</p>
             <ul>
                 <li><strong>总结服务商</strong>：Ollama</li>
-                <li><strong>总结 API Base URL</strong>：<code>http://localhost:11434/v1</code></li>
+                <li><strong>总结 API Base URL</strong>：<code>http://localhost:11434</code>（<strong>不带 <code>/v1</code></strong>，程序会自动调用 Ollama 原生 <code>/api/chat</code>；写成 <code>http://localhost:11434/v1</code> 也能识别）</li>
                 <li><strong>总结模型</strong>：<code>qwen3:4b</code></li>
                 <li><strong>总结 API Key</strong>：可留空</li>
             </ul>

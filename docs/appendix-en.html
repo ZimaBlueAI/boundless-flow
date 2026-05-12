@@ -16,6 +16,7 @@
         <div class="sidebar-group">Getting Started</div>
         <ul>
             <li><a href="welcome-en.html">What is Boundless Flow?</a></li>
+            <li><a href="onboarding-en.html">Onboarding Wizard</a></li>
         </ul>
 
         <div class="sidebar-group">Core Features</div>
@@ -24,6 +25,8 @@
             <li><a href="translation-en.html">Real-time Translation</a></li>
             <li><a href="proofreading-summary-en.html">AI Proofreading & Summary</a></li>
             <li><a href="tts-voice-cloning-en.html">TTS & Voice Cloning</a></li>
+            <li><a href="sts-en.html">STS Speech Workbench</a></li>
+            <li><a href="linglu-en.html">LingLu · Live Topic Tree</a></li>
         </ul>
 
         <div class="sidebar-group">Appendix</div>
@@ -80,8 +83,9 @@ modelscope download --model IndexTeam/IndexTTS-2 --local_dir ./IndexTeam/IndexTT
             </ul>
 
             <h2 id="appendix-ollama">Appendix B: Ollama (Local LLMs for Translation / Summary)</h2>
-            <p><strong>When you need it:</strong> Run translation/proofreading/summary models locally. Boundless Flow calls an OpenAI-compatible API (typical Base URL: <code>http://localhost:11434/v1</code>).</p>
+            <p><strong>When you need it:</strong> Run translation/summary models locally or on your LAN. Boundless Flow calls Ollama's <strong>native</strong> <code>/api/chat</code> endpoint, so the Base URL only needs the <strong>server address</strong> — do not append <code>/v1</code> (typical Base URL: <code>http://localhost:11434</code>).</p>
             <p><strong>Official docs:</strong> <a href="https://docs.ollama.com/" target="_blank" rel="noopener noreferrer">https://docs.ollama.com/</a></p>
+            <p><strong>API references:</strong> <a href="https://github.com/ollama/ollama/blob/main/docs/api.md" target="_blank" rel="noopener noreferrer">Ollama native API</a> · <a href="https://docs.ollama.com/api/openai-compatibility" target="_blank" rel="noopener noreferrer">OpenAI compatibility</a></p>
 
             <h3>1) Install</h3>
             <p>Follow the official “Download / Get started” instructions for your OS and CPU architecture.</p>
@@ -90,14 +94,17 @@ modelscope download --model IndexTeam/IndexTTS-2 --local_dir ./IndexTeam/IndexTT
             <pre><code>ollama --version</code></pre>
 
             <h3>3) Pull models (aligned with this manual)</h3>
-            <pre><code>ollama pull ZimaBlueAI/HY-MT1.5-1.8
+            <pre><code>ollama pull ZimaBlueAI/HY-MT1.5-1.8:1.8b   # or :7b
 ollama pull qwen3:4b</code></pre>
+            <p><strong>Heads up:</strong> this translation model has no <code>latest</code> tag in Ollama, so you <strong>must</strong> include the <code>:tag</code> suffix (e.g. <code>:1.8b</code> or <code>:7b</code>). Without it Ollama returns <code>model 'ZimaBlueAI/HY-MT1.5-1.8' not found</code>.</p>
 
             <h3>4) Suggested settings in Boundless Flow</h3>
             <ul>
-                <li><strong>Translation</strong>: Base URL <code>http://localhost:11434/v1</code>, Model <code>ZimaBlueAI/HY-MT1.5-1.8</code></li>
-                <li><strong>Proofreading/Summary</strong>: Base URL <code>http://localhost:11434/v1</code>, Model <code>qwen3:4b</code></li>
+                <li><strong>Translation</strong>: Base URL <code>http://localhost:11434</code> (local) or <code>http://&lt;LAN-IP&gt;:11434</code> (LAN); Model <code>ZimaBlueAI/HY-MT1.5-1.8:1.8b</code></li>
+                <li><strong>Proofreading/Summary</strong>: Base URL <code>http://localhost:11434</code>; Model <code>qwen3:4b</code></li>
+                <li><strong>STS workbench → Translation API Base URL</strong>: same as above, <code>http://localhost:11434</code></li>
             </ul>
+            <p><strong>Compatibility note:</strong> the recommended form is without <code>/v1</code> (which routes to Ollama's native <code>/api/chat</code>). If you paste a Base URL that ends in <code>/v1</code>, Boundless Flow will recognize the Ollama port and strip the suffix automatically — so all three places (realtime STT translation, summary, STS translation) behave identically.</p>
 
             <h2 id="appendix-volcengine">Appendix C: Volcengine Cloud TTS</h2>
             <p><strong>When you need it:</strong> Use Volcengine cloud voices / higher quality TTS / voice replication features.</p>
@@ -126,6 +133,43 @@ ollama pull qwen3:4b</code></pre>
                 <li>Fill AppId / Token / Cluster / VoiceType</li>
                 <li>Synthesize a short sentence to verify audio output</li>
             </ol>
+
+            <h2 id="appendix-speaker-diarization">Appendix D: sherpa-onnx Speaker Diarization</h2>
+            <p><strong>When you need it:</strong> Separate <code>Speaker_1 / Speaker_2 / Speaker_3</code> in real-time STT. In addition to the main STT model (SenseVoice / FunASR), you need two extra ONNX files driven by the <code>sherpa-onnx</code> runtime.</p>
+            <p><strong>Official repo:</strong> <a href="https://github.com/k2-fsa/sherpa-onnx.git" target="_blank" rel="noopener noreferrer">https://github.com/k2-fsa/sherpa-onnx</a></p>
+            <p><strong>Official model guide:</strong> <a href="https://k2-fsa.github.io/sherpa/onnx/speaker-diarization/models.html" target="_blank" rel="noopener noreferrer">sherpa-onnx speaker diarization models</a></p>
+
+            <h3>1) Two files you need</h3>
+            <ul>
+                <li><code>segmentation.onnx</code> — speaker segmentation model (recommended: <code>sherpa-onnx-pyannote-segmentation-3-0</code>)</li>
+                <li><code>embedding.onnx</code> — speaker embedding model (recommended: <code>3dspeaker_speech_eres2net_base_sv_zh-cn_3dspeaker_16k.onnx</code>)</li>
+            </ul>
+
+            <h3>2) Where to download</h3>
+            <ul>
+                <li>Segmentation models: <a href="https://github.com/k2-fsa/sherpa-onnx/releases/tag/speaker-segmentation-models" target="_blank" rel="noopener noreferrer">speaker-segmentation-models</a></li>
+                <li>Embedding models: <a href="https://github.com/k2-fsa/sherpa-onnx/releases/tag/speaker-recongition-models" target="_blank" rel="noopener noreferrer">speaker-recongition-models</a></li>
+            </ul>
+            <p>Download the <code>.onnx</code> files directly from the GitHub Releases above — no need to build sherpa-onnx from source. If the asset is an archive, extract <code>segmentation.onnx</code> and <code>embedding.onnx</code> first and keep the filenames as-is.</p>
+
+            <h3>3) Recommended directory layout</h3>
+            <pre><code>./speaker-diarization/
+  segmentation.onnx
+  embedding.onnx</code></pre>
+
+            <h3>4) Where do I set the paths in Boundless Flow?</h3>
+            <ul>
+                <li><strong>Speaker segmentation model</strong>: point to <code>segmentation.onnx</code></li>
+                <li><strong>Speaker embedding model</strong>: point to <code>embedding.onnx</code></li>
+            </ul>
+            <p>You can also point both fields to the same directory — the app will auto-detect <code>segmentation.onnx</code> and <code>embedding.onnx</code> inside it.</p>
+
+            <h3>5) Notes</h3>
+            <ul>
+                <li>The SenseVoice / FunASR "Model Directory" only handles speech-to-text; it <strong>cannot</strong> replace the speaker diarization models.</li>
+                <li>Speaker diarization in this project supports <code>ONNX</code> only. A <code>Fun-ASR-Nano-2512</code> folder cannot substitute for <code>segmentation.onnx / embedding.onnx</code>.</li>
+                <li>If diarization still fails, the UI now surfaces a readable error. The most common cause is an <code>onnx</code> file whose schema doesn't match the bundled <code>sherpa-onnx</code> runtime — start with the two recommended models above.</li>
+            </ul>
             <div class="doc-copyright">
                 <p>Copyright(c) ZimaBlueAI</p>
                 <p>齐码蓝智能（大理市 ）有限责任公司</p>

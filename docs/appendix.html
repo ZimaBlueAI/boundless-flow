@@ -16,6 +16,7 @@
         <div class="sidebar-group">开始使用</div>
         <ul>
             <li><a href="welcome.html">什么是无界音流？</a></li>
+            <li><a href="onboarding.html">引导页配置向导</a></li>
         </ul>
 
         <div class="sidebar-group">核心功能</div>
@@ -24,6 +25,8 @@
             <li><a href="translation.html">实时翻译功能</a></li>
             <li><a href="proofreading-summary.html">AI 纠错与智能总结</a></li>
             <li><a href="tts-voice-cloning.html">语音合成与声音克隆</a></li>
+            <li><a href="sts.html">STS 同传工作台</a></li>
+            <li><a href="linglu.html">灵录 · 实时分叉树纪要</a></li>
         </ul>
 
         <div class="sidebar-group">附录</div>
@@ -87,8 +90,9 @@ modelscope download --model IndexTeam/IndexTTS-2 --local_dir ./IndexTeam/IndexTT
             </ol>
 
             <h2 id="appendix-ollama">附录 B：Ollama（本地大模型：翻译 / 纠错 / 总结）</h2>
-            <p><strong>适用场景：</strong>本机运行翻译模型与总结模型；无界音流通过 OpenAI 兼容接口调用（典型 Base URL：<code>http://localhost:11434/v1</code>）。</p>
+            <p><strong>适用场景：</strong>本机/局域网运行翻译模型与总结模型。无界音流会自动调用 Ollama 原生 <code>/api/chat</code>，所以 Base URL 只需填 <strong>服务地址</strong>，不需要带 <code>/v1</code>（典型 Base URL：<code>http://localhost:11434</code>）。</p>
             <p><strong>官方文档：</strong><a href="https://docs.ollama.com/" target="_blank" rel="noopener noreferrer">https://docs.ollama.com/</a></p>
+            <p><strong>API 参考：</strong><a href="https://github.com/ollama/ollama/blob/main/docs/api.md" target="_blank" rel="noopener noreferrer">Ollama 原生 API</a> · <a href="https://docs.ollama.com/api/openai-compatibility" target="_blank" rel="noopener noreferrer">OpenAI 兼容协议</a></p>
 
             <h3>1) 安装（按系统/架构选择下载）</h3>
             <ul>
@@ -99,21 +103,24 @@ modelscope download --model IndexTeam/IndexTTS-2 --local_dir ./IndexTeam/IndexTT
             <pre><code>ollama --version</code></pre>
 
             <h3>3) 拉取模型（与你的文档保持一致）</h3>
-            <pre><code>ollama pull ZimaBlueAI/HY-MT1.5-1.8
+            <pre><code>ollama pull ZimaBlueAI/HY-MT1.5-1.8:1.8b   # 或 :7b
 ollama pull qwen3:4b</code></pre>
+            <p><strong>注意：</strong>该翻译模型在 Ollama 中没有 <code>latest</code> 标签，<strong>必须带 tag 后缀</strong>（如 <code>:1.8b</code>、<code>:7b</code>），否则会报 <code>model 'ZimaBlueAI/HY-MT1.5-1.8' not found</code>。</p>
 
             <h3>4) 无界音流配置示例</h3>
             <ul>
-                <li><strong>翻译</strong>：Base URL 填 <code>http://localhost:11434/v1</code>；模型填 <code>ZimaBlueAI/HY-MT1.5-1.8</code></li>
-                <li><strong>纠错/总结</strong>：Base URL 填 <code>http://localhost:11434/v1</code>；模型填 <code>qwen3:4b</code></li>
+                <li><strong>翻译</strong>：Base URL 填 <code>http://localhost:11434</code>（本机）或 <code>http://&lt;LAN-IP&gt;:11434</code>（局域网）；模型填 <code>ZimaBlueAI/HY-MT1.5-1.8:1.8b</code></li>
+                <li><strong>纠错/总结</strong>：Base URL 填 <code>http://localhost:11434</code>；模型填 <code>qwen3:4b</code></li>
+                <li><strong>STS 同传工作台 → 翻译 API Base URL</strong>：同上，填 <code>http://localhost:11434</code></li>
             </ul>
             <p>本地 Ollama 一般不需要 API Key；如果您部署在远程机器/网关，请按您的部署策略决定是否需要鉴权。</p>
+            <p><strong>兼容说明：</strong>不带 <code>/v1</code> 是推荐写法（调用 Ollama 原生 <code>/api/chat</code>）。如果您从其它产品复制了带 <code>/v1</code> 的 Base URL，程序也能识别并自动剥离 <code>/v1</code>，三个位置（实时 STT 翻译 / 总结 / STS 翻译）行为完全一致。</p>
 
             <h3>5) 小白用例（最短路径）</h3>
             <ol>
                 <li>安装 Ollama</li>
-                <li>执行 <code>ollama pull ZimaBlueAI/HY-MT1.5-1.8</code></li>
-                <li>无界音流 → 设置 → 勾选“启用翻译输出”，Base URL 填 <code>http://localhost:11434/v1</code>，模型填上面名称</li>
+                <li>执行 <code>ollama pull ZimaBlueAI/HY-MT1.5-1.8:1.8b</code></li>
+                <li>无界音流 → 设置 → 勾选“启用翻译输出”，Base URL 填 <code>http://localhost:11434</code>，模型填 <code>ZimaBlueAI/HY-MT1.5-1.8:1.8b</code></li>
                 <li>开始录音，观察翻译结果是否出现</li>
             </ol>
 
@@ -150,6 +157,43 @@ ollama pull qwen3:4b</code></pre>
                 <li>提示缺少 AppId/Token/Cluster：先把这三个必填项补齐</li>
                 <li>提示缺少 VoiceType：从“在线音色列表”复制一个有效的 <code>voice_type</code> 填入</li>
                 <li>仍失败：优先检查 Token 是否过期、是否有服务开通权限、网络是否能访问火山引擎</li>
+            </ul>
+
+            <h2 id="appendix-speaker-diarization">附录 D：sherpa-onnx 说话人分离（Speaker Diarization）</h2>
+            <p><strong>适用场景：</strong>实时 STT 中区分 <code>Speaker_1 / Speaker_2 / Speaker_3</code>。除主 STT 模型（SenseVoice / FunASR）外，还需要额外配置两枚 ONNX 模型，由 <code>sherpa-onnx</code> 运行时驱动。</p>
+            <p><strong>官方仓库：</strong><a href="https://github.com/k2-fsa/sherpa-onnx.git" target="_blank" rel="noopener noreferrer">https://github.com/k2-fsa/sherpa-onnx</a></p>
+            <p><strong>官方模型说明：</strong><a href="https://k2-fsa.github.io/sherpa/onnx/speaker-diarization/models.html" target="_blank" rel="noopener noreferrer">sherpa-onnx speaker diarization models</a></p>
+
+            <h3>1) 你需要准备哪两个文件</h3>
+            <ul>
+                <li><code>segmentation.onnx</code>——说话人分段模型（推荐 <code>sherpa-onnx-pyannote-segmentation-3-0</code>）</li>
+                <li><code>embedding.onnx</code>——声纹嵌入模型（推荐 <code>3dspeaker_speech_eres2net_base_sv_zh-cn_3dspeaker_16k.onnx</code>）</li>
+            </ul>
+
+            <h3>2) 下载地址</h3>
+            <ul>
+                <li>分段模型下载页：<a href="https://github.com/k2-fsa/sherpa-onnx/releases/tag/speaker-segmentation-models" target="_blank" rel="noopener noreferrer">speaker-segmentation-models</a></li>
+                <li>嵌入模型下载页：<a href="https://github.com/k2-fsa/sherpa-onnx/releases/tag/speaker-recongition-models" target="_blank" rel="noopener noreferrer">speaker-recongition-models</a></li>
+            </ul>
+            <p>从上述 Release 页直接下载对应 <code>.onnx</code> 文件即可，不需要编译 sherpa-onnx 源码。如果下载下来的是压缩包，请把 <code>segmentation.onnx</code> 与 <code>embedding.onnx</code> 解压出来后再使用（注意文件名需保持一致）。</p>
+
+            <h3>3) 推荐目录结构</h3>
+            <pre><code>./speaker-diarization/
+  segmentation.onnx
+  embedding.onnx</code></pre>
+
+            <h3>4) 在无界音流里怎么填路径？</h3>
+            <ul>
+                <li><strong>说话人分段模型</strong>：指向 <code>segmentation.onnx</code></li>
+                <li><strong>声纹嵌入模型</strong>：指向 <code>embedding.onnx</code></li>
+            </ul>
+            <p>也可以把两个字段都指向同一目录，程序会自动识别其中的 <code>segmentation.onnx</code> 与 <code>embedding.onnx</code>。</p>
+
+            <h3>5) 注意事项</h3>
+            <ul>
+                <li>SenseVoice / FunASR 的“模型目录”只负责语音转文字，<strong>不能</strong>替代说话人分离模型。</li>
+                <li>当前项目中的 speaker diarization 仅支持 <code>ONNX</code>；不能直接使用 <code>Fun-ASR-Nano-2512</code> 目录代替 <code>segmentation.onnx / embedding.onnx</code>。</li>
+                <li>如果配置后仍失败，界面会优先给出可读错误。常见原因：<code>onnx</code> 文件版本与当前 <code>sherpa-onnx</code> 运行时不兼容——优先尝试上面推荐的两枚模型。</li>
             </ul>
             <div class="doc-copyright">
                 <p>Copyright(c) ZimaBlueAI</p>
