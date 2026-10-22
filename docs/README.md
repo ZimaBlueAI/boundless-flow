@@ -15,7 +15,7 @@ This directory contains the public manual and its local assets. Keep it intact f
 
 ## 发布 / Publishing
 
-产品域名当前由 GitHub Pages 提供，此仓库 docs 为实际已发布内容源。提交后须等待 Pages 构建并核对 HTTP 响应与内容；Git push 成功不等于网页已经上线。
+公开说明及手册镜像保存在 ZimaBlueAI/boundless-flow 的 docs；实际绑定产品域名的是 ZimaBlueAI/boundless-flow.github.io 仓库的 main 分支根目录。两处需同步，等待 Pages 构建并核对 HTTP 响应与内容；Git push 成功不等于网页已经上线。
 
 Product documentation is served through GitHub Pages. Verify live content after pushing; successful Git publication alone does not prove website publication.
 
