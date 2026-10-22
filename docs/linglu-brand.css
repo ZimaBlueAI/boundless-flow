@@ -1,0 +1,18 @@
+/* LingLu's own identity; the Boundless Flow header remains the parent brand. */
+.linglu-identity{display:flex;align-items:center;gap:28px;margin:12px 0 24px;padding:22px 24px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(110deg,#f5f0e5b3,#ffffff80)}
+.linglu-logo{display:block;width:140px;height:140px;flex:none;object-fit:contain}
+.linglu-copy{min-width:0}
+.linglu-identity h1{margin:8px 0 12px}
+.linglu-identity .eyebrow{margin-bottom:6px}
+.linglu-identity .lead{margin-bottom:10px}
+.linglu-credit{margin:0;color:var(--muted);font-size:12px;letter-spacing:.04em}
+.linglu-credit strong{font-weight:600;color:var(--green,var(--accent,#176554))}
+.linglu-card{display:grid;grid-template-columns:80px minmax(0,1fr);align-items:center;gap:16px}
+.linglu-card-logo{display:block;width:80px;height:80px;object-fit:contain;flex:none}
+.linglu-card-copy{min-width:0}
+.linglu-card-copy strong{display:block}
+.linglu-card-mast{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:72px}
+.linglu-card-mast .linglu-card-logo{width:72px;height:72px}
+@media(max-width:700px){.linglu-identity{gap:16px;padding:18px;align-items:flex-start}.linglu-logo{width:84px;height:84px}.linglu-identity h1{font-size:26px}.linglu-identity .lead{font-size:16px}.linglu-card{grid-template-columns:64px minmax(0,1fr);gap:12px}.linglu-card-logo{width:64px;height:64px}}
+@media(max-width:420px){.linglu-identity{flex-wrap:wrap}.linglu-logo{width:100px;height:100px}.linglu-copy{flex-basis:100%}}
+@media print{.linglu-identity{background:transparent;border:0;padding:0;gap:20px;break-inside:avoid}.linglu-logo{width:100px;height:100px}.linglu-identity h1{font-size:24pt}.linglu-card-logo{width:64px;height:64px}.linglu-credit{font-size:9pt}}

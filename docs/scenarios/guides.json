@@ -1,0 +1,2853 @@
+{
+  "version": "0.5.0",
+  "contentRevision": 469,
+  "reviewed": "2026-10-19",
+  "guides": [
+    {
+      "id": "models",
+      "title": [
+        "模型下载与软件配置",
+        "Download models and configure the app"
+      ],
+      "summary": [
+        "按你要实现的功能选文件，区分原始权重、原生包与 API。",
+        "Choose files for the task and distinguish source checkpoints, native packages and APIs."
+      ],
+      "result": [
+        "知道要下载什么、放在哪里、在软件哪一处选择，以及哪些路径仍未开放。",
+        "Know what to obtain, where to store it, where to select it and which routes are not yet available."
+      ],
+      "needs": [
+        [
+          "使用可写、有足够剩余空间的自选模型文件夹。模型与应用分别保存；磁盘空间和显存需求随模型及量化变化，没有适用于全部模型的最低配置。",
+          "Choose a writable model folder with enough free space on your preferred disk. Keep models separate from the app. Disk and GPU memory requirements vary by model and quantization; there is no universal minimum."
+        ],
+        [
+          "下载前查看下面对应来源的模型卡与许可。浏览器下载需要网络；阅读本指南和已配置本地模型可离线，但 API 需要对应服务可达。",
+          "Read the linked model card and license before downloading. Downloads need network access. These guides and configured local models can work offline, while APIs require a reachable service."
+        ],
+        [
+          "不要一次下载全部模型。先实现一项功能并短试，文件检查不等于实际推理、质量或实时性能已经通过。",
+          "Do not download every model at once. Complete and test one task first. File inspection does not establish inference, quality or realtime performance."
+        ],
+        [
+          "运行组件选择「运行组件 · 官方发布包」，填写官方 HTTPS 文件直链、保存文件名、官方公布的文件大小（字节）和 SHA-256。当前只下载并校验，不自动安装或运行；组件需匹配系统、显卡与模型后端。",
+          "For dependencies, select Runtime component · official package and enter the official HTTPS file URL, filename, published size in bytes and SHA-256. Packages are downloaded and verified, not installed or executed automatically. Match the package to your OS, GPU and model backend."
+        ]
+      ],
+      "steps": [
+        {
+          "title": [
+            "先按任务选择运行方式",
+            "Choose an operating mode for your task"
+          ],
+          "text": [
+            "只要文字，先选择识别模型；要翻译，再配置翻译模型或 API；要纪要，另配 LLM；克隆／设计再选择 TTS。语音工具的「本机模型」读取本地包，「模型服务」连接已经运行的服务，「云端 API」使用账户。三个入口不自动互相转换。 FireRed Instruct 的原生路线读取原始完整目录，不需要另开服务。",
+            "For text, start with recognition. Add a translation model/API for translation, a separate LLM for minutes, and TTS for cloning/design. Voice Tools uses Local models for local packages, Model service for running servers, and Cloud API for accounts. The routes do not convert into one another automatically. The native FireRed Instruct route reads its complete original folder without a separate server."
+          ],
+          "shot": "models"
+        },
+        {
+          "title": [
+            "在软件内选择来源、磁盘与完整文件",
+            "Choose a source, disk and complete files in the app"
+          ],
+          "text": [
+            "打开「配置引导页 → 模型与参数」，展开「还没有模型文件？下载模型与组件」。在「下载来源」选择 Hugging Face 或 ModelScope 的公开仓库，使用快捷选择或填写「组织/仓库」及分支、标签或提交号；两平台仓库名称可能不同，先阅读对应模型卡和许可。点击「选择文件夹」选自己的磁盘，再点「检查下载清单」。按模型卡勾选全部所需分片、配置、tokenizer、编解码器及辅助模型，确认大小后点「下载所选文件」。不要把网页另存为权重，也不要只下载主文件。受限仓库的账户授权尚未接入。",
+            "Open Setup Wizard → Models & Params and expand Need model files? Download models & components. Choose a public Hugging Face or ModelScope repository under Source, use a shortcut or enter owner/repository and a branch, tag or commit. Names can differ across platforms; read the matching model card and license first. Use Choose folder to select your disk, then Inspect download list. Select all required shards, configuration, tokenizers, codecs and auxiliary models, check the size and click Download selected. Do not save a web page as weights or download only the backbone. Account authorization for gated repositories is not connected."
+          ],
+          "shot": "resource-download354"
+        },
+        {
+          "title": [
+            "看进度，需要时暂停或续传",
+            "Monitor progress and pause or resume when needed"
+          ],
+          "text": [
+            "查看已下载大小、文件数量和当前文件。折叠下载区或切换配置步骤不会暂停后台；同一引导中会保留来源、仓库、版本、目录和勾选。需要停下时点「暂停下载」并等暂停完成。续传前使用同一来源、版本和目录重新「检查下载清单」，再下载所选文件；来源无摘要时可能重新下载，不保证每个文件从中断处继续。关闭整个引导会结束这次草稿，重启软件后请重新填写和扫描。",
+            "Monitor bytes, file counts and the current file. Collapsing the section or changing setup steps does not pause background downloads; the same wizard retains the source, repository, revision, folder and selections. To stop, click Pause download and wait for pausing to finish. Resume with the same source, revision and folder: Inspect download list again, then download selected files. A source without digests may require downloading again; resuming at the interruption point is not guaranteed. Closing the whole wizard ends its draft. After restarting the app, enter the settings and inspect again."
+          ],
+          "shot": "resource-download354"
+        },
+        {
+          "title": [
+            "下载完成后，先找对模型目录或单文件",
+            "After downloading, locate the correct folder or model file"
+          ],
+          "text": [
+            "看到下载完成后点「复制模型路径」，记下自己的保存位置。要选择目录的模型，选含配置和全部配套权重的根目录；要求 ONNX 或 GGUF 单文件的入口，应在该目录里选实际文件，不能把目录当文件。声纹选择 speaker embedding ONNX，情绪分析选择九类分类 ONNX；同为 .onnx 也不能互换。下载不自动切换正在使用的模型，下面一步还需在对应功能里选择并检查。",
+            "When downloading completes, use Copy model path and note the saved location. Folder-based models need the root containing configuration and all required assets. An input requiring one ONNX or GGUF file needs the actual file inside that folder, not the folder itself. Voiceprints use a speaker-embedding ONNX; emotion analysis uses a nine-label classifier ONNX. The extension alone does not make them interchangeable. Downloads do not change the active model; select and inspect it in the relevant feature next."
+          ],
+          "shot": "resource-download354"
+        },
+        {
+          "title": [
+            "在软件选择路径，再检查",
+            "Select the path in the app and inspect"
+          ],
+          "text": [
+            "识别在「配置引导页 → 模型与参数」配置；声音在「语音工具 → 模型配置」选择模型与目录；声纹在「声纹识别 → 选择模型」选择实际文件。按提示区分选目录和选单个 GGUF／ONNX 文件，修改路径后重新检查。克隆还要选择参考录音；换录音后必须再点「检查模型」，旧参考检查不能用于新录音。",
+            "Configure recognition under Setup Wizard → Models and parameters; voices under Voice Tools → Model Setup; and speaker embeddings under Voiceprints → Choose model. Follow the form's distinction between a folder and an individual GGUF/ONNX file. Inspect again after changing paths. Cloning also needs a reference recording. After replacing it, select Check model again; an old reference check cannot validate new audio."
+          ],
+          "shot": "native-clone-ready"
+        },
+        {
+          "title": [
+            "需要转换时准备，之后才提前加载",
+            "Prepare when required, then preload"
+          ],
+          "text": [
+            "先点击编辑区上方的「检查模型」，按「下一步」提示操作。需要转换时，点击同一操作区的「准备原生模型」：Index 新增包位于 .boundless-flow/native 固定目录；VoxCPM2 在原模型目录新增 audiovae.safetensors。原文件保留，转换与关联需要源盘空间。完成后重新检查。「提前加载模型」在模型列下方，是可选的内存加载，不补齐下载、不转换文件，也不等于实际推理预热。 FireRed 原始目录无需此转换；同传开始前另有模型、参考音和输出准备，详见同传教程。 模型文件和软件运行组件是两回事。提示缺原生组件时，请使用带齐配套组件的完整应用目录；「准备原生模型」不会安装 CUDA 或补齐运行组件。缺模型文件时按缺项清单补齐到自选模型盘，再返回检查；不要改名绕过提示。 FireRed若组件支持且已选择、检查参考音，加载按钮会显示「预置模型与参考音」，可提前处理模型、参考音和解码前缀，不生成语音。未选参考音或旧组件只支持「提前加载模型」。两种准备完成后都还要生成短句试听；换参考音和原文后重新检查、准备。旧截图只说明当时的按钮位置，不展示这个条件式新按钮。",
+            "Use Check model above the editor and follow the next-step message. If conversion is required, select Prepare native model in the same action area. Index adds its package at the fixed .boundless-flow/native location; VoxCPM2 adds audiovae.safetensors in the original folder. Originals remain, and conversions/links need space on that volume. Inspect again after preparation. Load model ahead of time, below the model fields, is optional memory loading: it does not finish downloads, convert files or warm up inference. The original FireRed folder needs no such conversion. Interpretation separately prepares the model, reference and output before recording; see the interpretation guide. Model files and app runtime components are separate. If a native component is missing, use the complete app folder with its matching components. Prepare native model does not install CUDA or supply runtime components. Complete missing model files on your chosen model disk, then inspect again; do not rename files to bypass the warning. With supporting FireRed components and a selected, checked reference, the loading button becomes Prepare model and reference. It prepares the model, reference and decoder prefix without generating speech. Without a reference, or with older components, only model loading is available. Generate and listen to a short sentence after either route. Recheck and prepare after changing the reference or transcript. The older screenshot illustrates its original controls; it does not show this conditional new button."
+          ],
+          "shot": "native-workflow-actions"
+        },
+        {
+          "title": [
+            "用自己的短样本证明功能可用",
+            "Verify with your own short sample"
+          ],
+          "text": [
+            "转录读一小段话，翻译试一句文本，声音生成一句目标语言，声纹用另一段独立录音。检查完成状态、试听或核对结果后再保存配置。未开放模型即使文件齐全也不能靠检查变成可用。",
+            "Transcribe a short passage, translate a sentence, synthesize a short target-language passage, and compare an independent speaker recording. Inspect completion and listen or review before saving. Complete files and a passing check do not enable an unavailable model adapter."
+          ],
+          "shot": "providers"
+        }
+      ],
+      "success": [
+        [
+          "选中的功能能处理短样本，来源、文件和配置路径对应；知道仍未开放的能力，不把下载完成当作运行成功。",
+          "Your selected task processes a short sample, with matching source, files and configuration. Unavailable capabilities remain explicit; completing a download is not successful inference."
+        ]
+      ],
+      "errors": [
+        [
+          "缺文件／只找到下载暂存",
+          "Missing files / downloader staging only",
+          "回对应来源补齐完整包和辅助组件；不要改名掩盖缺项，也不要把暂存文件当成正式权重。",
+          "Complete the matching package and dependencies from its source. Do not rename files to hide missing assets or treat download staging as final weights."
+        ],
+        [
+          "GGUF 不兼容",
+          "Incompatible GGUF",
+          "语音需要当前 audio.cpp 家族和内嵌说明匹配的完整包；翻译 GGUF、旧版 Fish GGUF 或只有单个主权重不能通用替代。",
+          "Speech requires a complete package with the matching audio.cpp family and embedded specification. Translation GGUFs, older Fish GGUFs and lone backbone files are not interchangeable."
+        ],
+        [
+          "API 地址或模型不正确",
+          "Wrong API endpoint or model",
+          "使用服务实际可用的地址、模型 ID 和鉴权；本地默认地址只在服务确实运行时有效。先文本试用再保存。",
+          "Use the deployed endpoint, model ID and credentials. A default local address works only when its service is running. Test text before saving."
+        ],
+        [
+          "仓库需要登录，或组件不会自动安装",
+          "Repository needs login / a component does not install automatically",
+          "此入口目前用于公开 HF/MS 仓库；受限仓库授权未接入。运行组件只下载、校验官方直链文件，大小与 SHA-256 由你按官方发布信息填写。完成后按组件官方说明安装与配置，再返回软件检查，不能把包已下载当作组件已就绪。",
+          "This entry currently uses public HF/MS repositories; gated-repository authorization is not connected. Runtime packages are only downloaded and verified from official direct links; enter size and SHA-256 from official release information yourself. Follow the component’s official installation/configuration instructions and then inspect in the app. A downloaded package is not an installed dependency."
+        ],
+        [
+          "下载完成，但还是选不了模型",
+          "Download completed, but the model cannot be selected",
+          "核对入口要求的是目录还是单文件、模型家族与完整文件。下载目录内只有暂存文件，或只有官方原始权重时，仍须补齐或取得对应适配包；不要改扩展名掩盖格式。",
+          "Check whether the input needs a folder or one file, the model family and all required assets. Staging files or source checkpoints alone may need completion or an adapted package. Changing the extension does not convert the format."
+        ]
+      ],
+      "next": [
+        "transcription",
+        "voice-cloning",
+        "voice-design"
+      ],
+      "contentRevision": 469
+    },
+    {
+      "id": "getting-started",
+      "title": [
+        "第一次使用：安装与配置",
+        "First use: installation and setup"
+      ],
+      "summary": [
+        "先让软件听见你的声音，再添加翻译、纪要或克隆。",
+        "Get your own voice transcribed first, then add translation, minutes or cloning."
+      ],
+      "result": [
+        "完成一次短录音，看到原文，并保存以后可复用的配置。",
+        "Finish a short recording, see its transcript and save reusable settings."
+      ],
+      "needs": [
+        [
+          "Windows 桌面电脑、可用麦克风和耳机；此版本的手机应用尚未提供。",
+          "A Windows desktop, working microphone and headphones. Mobile apps are not available in this version."
+        ],
+        [
+          "保留应用和配套组件的完整目录。正式安装包与签名发布尚未完成；当前请使用提供给你的完整测试版本，不要只复制一个 exe，也不要运行开发脚本。",
+          "Keep the app and companion components together. The signed installer is not yet released; use the complete supplied evaluation build, rather than copying a lone executable or running development scripts."
+        ],
+        [
+          "只做本地转录需要匹配的识别模型；使用云端翻译或纪要时，另需服务地址、可用模型和 API Key。",
+          "Local transcription requires a matching recognition model. Cloud translation or minutes additionally need an endpoint, available model and API key."
+        ]
+      ],
+      "steps": [
+        {
+          "title": [
+            "打开完整应用",
+            "Open the complete app"
+          ],
+          "text": [
+            "在收到的应用目录中打开 Boundless Flow，确认主界面显示 0.5.0。若已运行，回到现有窗口，不要反复打开多个实例。此时暂不启用同传。 新版提供「场景教程」入口，按任务选择说明；打开教程不会修改配置。",
+            "Open Boundless Flow from the supplied app folder and check that the main window shows 0.5.0. Return to an existing instance instead of repeatedly launching another. Leave interpretation off for this first test. Newer versions provide Scenario guides for task-based instructions; opening them does not change settings."
+          ],
+          "shot": "scenario-entry"
+        },
+        {
+          "title": [
+            "点击「配置引导页」，试录麦克风",
+            "Select Setup Wizard and test the microphone"
+          ],
+          "text": [
+            "选择「输入设备」，点击「开始 5 秒试录」，正常说一句话。录完点击「准备回听」，再按播放器播放并确认声音清楚。然后点击「用这段录音检查模型」。听不到时，先检查 Windows 麦克风权限、设备和输入音量；能听见会议对方，不代表这个输入能录到对方。",
+            "Select an Input device, click Record for 5 seconds and say a short sentence. Click Load playback afterward, then play the recording and check that it is clear. Select Use this recording to check the model. If playback is silent, check Windows microphone permission, the device and input volume. Hearing a remote participant does not prove this input records them."
+          ],
+          "shot": "microphone"
+        },
+        {
+          "title": [
+            "设置快捷键并选择识别模型",
+            "Set the shortcut and recognition model"
+          ],
+          "text": [
+            "在快捷键步骤查看或设置快捷键，再进入「模型与参数」选择识别方式及所需模型目录或文件。完成文件检查后，展开「试转录一段录音」。若尚未选中刚才的录音，点击「使用刚才的 5 秒试录」，再点「开始试转录」。核对输出是否对应讲话；没有文字不算验证通过。更换模型、语言或录音后重新测试。首次只配置转录即可。",
+            "Check or set the shortcut, then open Models & Params and select the recognition route and required model folder or file. After inspecting the files, expand Try transcribing a recording. If your recording is not selected, click Use the five-second test recording, then Start test. Check that the text matches your speech; an empty result does not verify recognition. Test again after changing the model, language or recording. Configure transcription alone first."
+          ],
+          "shot": "models"
+        },
+        {
+          "title": [
+            "需要翻译时，再配置服务",
+            "Configure a service if you need translation"
+          ],
+          "text": [
+            "在 API 配置中搜索所需服务，填写它的实际地址、模型及鉴权并启用。选择用于翻译的服务，输入一句测试原文、选择目标语言，点击「开始翻译」。保存配置成功不代表接口可用。暂时不需要翻译，可以先跳过。",
+            "Search for the required provider in API settings, enter its real endpoint, model and authentication, and enable it. Select it for translation, enter a test sentence and target language, then click Start translation. Saving settings does not validate the API. Skip translation if you do not need it yet."
+          ],
+          "shot": "providers"
+        },
+        {
+          "title": [
+            "完成并保存，然后试一次转录",
+            "Finish and save, then try transcription"
+          ],
+          "text": [
+            "在引导最后一步点击完成保存；直接关闭会放弃本次未保存修改。回到「实时字幕」，点击「开始」，说一句完整的话，再点击「停止」。先确认原文，再增加其他功能。",
+            "Finish the wizard to save. Closing it discards unsaved changes. Return to Live subtitles, click Start, speak one complete sentence and click Stop. Verify the transcript before adding other features."
+          ],
+          "shot": "setup-save"
+        }
+      ],
+      "success": [
+        [
+          "回听能听见自己的短录音；停止后能看到对应原文；再次打开配置，保存内容仍在。",
+          "Your test recording is audible, the matching transcript appears after stopping, and saved settings remain when reopened."
+        ]
+      ],
+      "errors": [
+        [
+          "应用打不开／缺组件",
+          "App will not open / missing component",
+          "重新取得完整应用目录并检查配套组件。正式安装流程尚未发布，不要用模型目录或开发命令代替应用安装。",
+          "Obtain the complete app folder and check its companion components. The final installer workflow is not released; a model folder or development command is not an app installation."
+        ],
+        [
+          "没有文字",
+          "No transcript",
+          "先回听麦克风短录音，再检查识别模型；把输入问题与模型问题分开定位。",
+          "Listen to the microphone test first, then inspect the recognition model. Diagnose input and model problems separately."
+        ],
+        [
+          "修改没有保存",
+          "Changes did not persist",
+          "重新打开引导，修改后走到最后一步完成保存。关闭按钮不会保存本次草稿。",
+          "Reopen the wizard and finish its final save step. Closing does not save the draft."
+        ]
+      ],
+      "next": [
+        "models",
+        "transcription"
+      ],
+      "contentRevision": 376
+    },
+    {
+      "id": "transcription",
+      "title": [
+        "讲话变文字与多语言字幕",
+        "Speech to text and multilingual subtitles"
+      ],
+      "summary": [
+        "适合口述笔记、听课和远程通话字幕。",
+        "For dictated notes, lectures and remote-call captions."
+      ],
+      "result": [
+        "看到原文与已有译文，保留可复制、导出的转录记录。",
+        "See source text and translations, with a transcript you can copy or export."
+      ],
+      "needs": [
+        [
+          "完成输入设备和识别模型检查；远程通话须试录确认输入包含所需声音。",
+          "Check the input and recognition model. For a remote call, test that the input includes the voices you need."
+        ],
+        [
+          "需要译文时，先完成翻译文本试用；ONNX／FunASR 实时管线目前最多三路译文。",
+          "Test text translation before enabling translated captions. The ONNX/FunASR live pipeline currently supports up to three translation outputs."
+        ]
+      ],
+      "steps": [
+        {
+          "title": [
+            "先录一句完整的话",
+            "Record one complete sentence"
+          ],
+          "text": [
+            "打开「实时字幕」，点击「开始」，用正常音量说一句话。临时文字可能变化；等段落定稿后再判断内容。结束时点击「停止」。",
+            "Open Live subtitles, click Start and speak a sentence at normal volume. Temporary text may change; judge the finalized passage. Click Stop when finished."
+          ],
+          "shot": "live"
+        },
+        {
+          "title": [
+            "开启需要的翻译语言",
+            "Enable the languages you need"
+          ],
+          "text": [
+            "在配置中选定已测试成功的翻译服务与主目标语言。先试一种语言，成功后再增加额外语言；每种语言分别请求，可能增加耗时。修改在下一次录音生效。",
+            "Select the tested translation provider and primary target language in settings. Start with one target, then add more. Each language makes a separate request and may add time. Changes apply to the next recording."
+          ],
+          "shot": "providers"
+        },
+        {
+          "title": [
+            "需要小窗时打开「悬浮转录」",
+            "Use Floating transcription for a small window"
+          ],
+          "text": [
+            "点击顶部「悬浮转录」。悬浮控制里的麦克风开始／停止转录，返回按钮可回主窗口。双语字幕窗用于阅读；先用点击方式确认录音状态，再试已配置的快捷键。",
+            "Select Floating transcription in the header. Its microphone controls recording and the return control opens the main window. Read the bilingual captions in the subtitle window. Verify recording with a click before trying your configured shortcut."
+          ],
+          "shot": "floating-subtitles"
+        },
+        {
+          "title": [
+            "复核、复制或导出",
+            "Review, copy or export"
+          ],
+          "text": [
+            "停止后打开「原始文本」复核，点击复制或导出文本。译文失败时进入「翻译恢复」明确重试；重试云端请求可能再次计费。",
+            "After stopping, open Raw text and review it before copying or exporting. For failed translations, inspect Translation Recovery and explicitly retry. Repeated cloud requests may incur another charge."
+          ],
+          "shot": "raw-text"
+        }
+      ],
+      "success": [
+        [
+          "原文与实际讲话对应；开启翻译后出现目标语言；复制或导出的文件包含需要的段落。",
+          "The source text matches your speech, enabled targets appear, and copied or exported content contains the required passages."
+        ]
+      ],
+      "errors": [
+        [
+          "只能听见自己的声音",
+          "Only your own voice appears",
+          "当前流程采集「输入设备」中的所选设备；会议软件正在播放，不代表它会自动录入。请返回「配置引导页」第一步，选择已设置的、能够包含对方声音的输入设备，点击「开始 5 秒试录」，让对方讲话并回听。回听没有对方声音，就先处理输入来源，不要通过更换识别模型解决。设备列表没有合适输入时，当前无法直接选择该会议应用的声音。",
+          "This workflow records the selected Input device; playing a meeting does not automatically capture its audio. Return to the first Setup Wizard step, select an already configured input that includes the remote participant, click Record for 5 seconds, ask them to speak and listen back. If they are absent from the recording, resolve the input source before changing the recognition model. Without a suitable input in the list, this workflow cannot directly select that meeting app's audio."
+        ],
+        [
+          "字幕停在旧内容",
+          "Captions remain on older content",
+          "查看录音状态与阅读跟随状态。阅读历史时会暂停跟随；重新跟随后确认新段落。",
+          "Inspect recording and reading-follow status. Reading older passages pauses following; resume following and check new passages."
+        ],
+        [
+          "有原文但没有译文",
+          "Source text appears without translation",
+          "检查翻译服务、目标语言及失败记录，先重复文本试用。转录和翻译可分别成功或失败。",
+          "Check the provider, target language and failure record, then test translation with text again. Transcription and translation can succeed or fail separately."
+        ]
+      ],
+      "next": [
+        "meetings",
+        "interpretation"
+      ],
+      "contentRevision": 467,
+      "quickLinks": [
+        {
+          "guide": "getting-started",
+          "anchor": "step-2",
+          "label": [
+            "检查会议输入",
+            "Check meeting input"
+          ]
+        }
+      ],
+      "curatedFiles": {
+        "zh": {
+          "file": "transcription.html",
+          "sha256": "7a9fb3df24807c2c93fe7c59b1314da6dd9fb63a653c21f7a6e68256ac5aba7b"
+        },
+        "en": {
+          "file": "transcription-en.html",
+          "sha256": "42d9e685ce2b355bb551237e168c3378d083c7e4b98b5f86d786f45e275b597a"
+        }
+      }
+    },
+    {
+      "id": "meetings",
+      "title": [
+        "会议记录、校对与导出",
+        "Record, review and export a meeting"
+      ],
+      "summary": [
+        "把录音变为可复核的会议记录，再交付纪要。",
+        "Turn a recording into a reviewable meeting record and deliver minutes."
+      ],
+      "result": [
+        "保存会议会话、修订人物和原文，并导出文本或字幕。",
+        "Save a session, review speaker names and text, and export text or subtitles."
+      ],
+      "needs": [
+        [
+          "先跑通转录，再试录并回听，确认所选输入设备包含所有需要记录的讲话人。当前流程不会自动抓取会议应用正在播放的声音；耳机能听到对方不等于录音里有对方。",
+          "Get transcription working, then record and listen to a short test to confirm the selected input includes the participants you need. This workflow does not automatically capture a meeting app's playback; hearing someone through headphones does not prove they are recorded."
+        ],
+        [
+          "AI 纪要需单独配置可用的 LLM 服务；多语言导出需事先保存相应译文。",
+          "AI minutes require a configured LLM service. Multilingual export needs translations saved beforehand."
+        ]
+      ],
+      "steps": [
+        {
+          "title": [
+            "开始会议前，试录并检查",
+            "Test before the meeting"
+          ],
+          "text": [
+            "先在「配置引导页」第一步选择「输入设备」，点击「开始 5 秒试录」，让每种需要记录的声音来源轮流讲话并回听。远程会议须确认对方声音也在录音里；没有合适输入时先处理输入来源。随后用短讲话验证原文和需要的译文，再点击「开始」正式录音。会议中定期查看录音状态；会议结束点击「停止」并等待收尾。",
+            "In the first Setup Wizard step, select an Input device and click Record for 5 seconds. Test the audio sources you need in turn and listen back. For a remote meeting, confirm that the remote participant is in the recording; resolve the input source first if no suitable input is available. Then verify source text and any required translations with a short passage before clicking Start for the meeting. Check recording status during the session. Click Stop at the end and wait for finalization."
+          ],
+          "shot": "workspace"
+        },
+        {
+          "title": [
+            "选择本次会话，校对发言人和段落",
+            "Select this session and review its speakers"
+          ],
+          "text": [
+            "进入「会议与纪要」，选择刚结束的会话。逐段核对文字和 Speaker 标签。单段名称用「单个修改」；确认同一人的后续段落后，再用「以下统一修改」。不要仅凭候选标签认定身份。",
+            "Open Meetings & minutes and select the session just finished. Review text and Speaker labels passage by passage. Use Single for one passage; use Apply Below only after confirming the later passages belong to the same person. Candidate labels do not establish identity."
+          ],
+          "shot": "meeting"
+        },
+        {
+          "title": [
+            "生成并复核纪要",
+            "Generate and review minutes"
+          ],
+          "text": [
+            "配置可用的纪要 LLM 后，生成本次会话的纪要。对照原文核对摘要、决策、行动项、负责人和日期；没有说出的信息不要保留为确定事实。",
+            "After configuring a usable minutes LLM, generate minutes for this session. Check the summary, decisions, actions, owners and dates against the transcript. Do not retain unsupported details as definite facts."
+          ],
+          "shot": "minutes"
+        },
+        {
+          "title": [
+            "选择语言和格式，导出后打开检查",
+            "Choose language and format, then inspect the export"
+          ],
+          "text": [
+            "在会议导出中选择原文或已有目标译文、文本或字幕格式，再点击导出并选择保存位置。导出不会补译缺失段落；需要补齐时先使用「翻译恢复」。",
+            "Choose source text or a saved target translation, select text or subtitle format, then export to a chosen location. Export does not translate missing passages. Complete those through Translation Recovery first."
+          ],
+          "shot": "meeting-export"
+        }
+      ],
+      "success": [
+        [
+          "所选会话与会议时间对应；导出文件能打开；人物、行动项和日期已与原文核对。",
+          "The selected session matches the meeting time, exported files open, and names, actions and dates have been checked against the transcript."
+        ]
+      ],
+      "errors": [
+        [
+          "会话没有完整内容",
+          "The session is incomplete",
+          "确认已停止并完成录音收尾，检查选中的会话及输入音频。切换视图不等于停止录音。",
+          "Check that recording stopped and finalized, then inspect the selected session and input audio. Changing views does not stop recording."
+        ],
+        [
+          "纪要生成失败",
+          "Minutes generation fails",
+          "检查专用于纪要的服务、模型和鉴权，再用短会话重试；翻译成功并不证明纪要配置正确。",
+          "Check the minutes provider, model and authentication, then retry with a short session. Successful translation does not validate minutes settings."
+        ],
+        [
+          "导出缺少译文",
+          "Translations are missing from the export",
+          "先检查会话中是否已有该语言，补齐失败翻译后再导出。",
+          "Check that the session has that language, recover failed translations and export again."
+        ]
+      ],
+      "next": [
+        "linglu",
+        "voiceprints"
+      ],
+      "contentRevision": 376,
+      "quickLinks": [
+        {
+          "guide": "getting-started",
+          "anchor": "step-2",
+          "label": [
+            "检查会议输入",
+            "Check meeting input"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "voice-design",
+      "title": [
+        "没有参考音，也能设计声音",
+        "Design a voice without a reference"
+      ],
+      "summary": [
+        "描述希望听见的音色，为讲解或播报制作试音。",
+        "Describe the voice you want for narration or announcements."
+      ],
+      "result": [
+        "生成并试听一个设计声音，满意后保存音频或加入音色库。",
+        "Generate and audition a designed voice, then save its audio or add it to your library."
+      ],
+      "needs": [
+        [
+          "本机选择 Qwen3-TTS VoiceDesign 对应模型包；Base 和 CustomVoice 不能代替 VoiceDesign。",
+          "For local design, use a matching Qwen3-TTS VoiceDesign package. Base and CustomVoice do not replace VoiceDesign."
+        ],
+        [
+          "或使用已配置且有创建音色权限的 MiniMax 云端 API；云端表单与本机表单分别配置。",
+          "Alternatively, configure a MiniMax cloud account with permission to create voices. Cloud and local forms are configured separately."
+        ],
+        [
+          "声音描述及一段短试音文字；本功能不需要参考录音。",
+          "A voice description and a short audition passage. This workflow does not need a reference recording."
+        ]
+      ],
+      "steps": [
+        {
+          "title": [
+            "选择声音设计及对应模型",
+            "Choose voice design and its model"
+          ],
+          "text": [
+            "打开「语音工具 → 模型配置 → 本机模型」，展开「原生声音工作台 · 实验」。选择 Qwen3-TTS，将「声音来源」设为「描述音色 · VoiceDesign」，选择对应目录或 GGUF 文件。",
+            "Open Voice Tools → Model Setup → Local models and expand Native Voice Studio · Experimental. Choose Qwen3-TTS, select Describe a voice · VoiceDesign under Voice source, then select its matching folder or GGUF file."
+          ],
+          "shot": "native-design-actions"
+        },
+        {
+          "title": [
+            "写声音特征，再写要朗读的内容",
+            "Describe the voice, then enter spoken text"
+          ],
+          "text": [
+            "在「音色与表达描述」写希望听见的年龄感、音色、语速与语气，例如「温暖平静的中文女声，吐字清晰，语速舒缓」。在「合成文本」写实际要朗读的内容。两者分别填写。",
+            "Under Voice and expression description, specify age impression, timbre, pace and delivery, for example: a warm, calm Mandarin female voice with clear articulation and a relaxed pace. Enter the words to read under Synthesis text. Keep description and spoken text separate."
+          ],
+          "shot": "native-design-actions"
+        },
+        {
+          "title": [
+            "检查后生成并试听",
+            "Check, generate and audition"
+          ],
+          "text": [
+            "在编辑区上方固定操作区点击「检查模型」，按「下一步」补齐文件或组件。检查通过、描述与文本填写完成后，点击同一操作区的「生成设计语音」，不需要参考录音。等待生成完成，试听读音、语速和表达；运行中可在这里「取消任务」。描述改变后重新生成。文件检查不是试音或推理预热；声音设计不需要先点击克隆用的可选提前加载。",
+            "Select Check model in the action area above the editor and follow Next step for missing files or components. With checks passed and description/text entered, select Generate designed voice in the same area; no reference recording is needed. Listen after completion and use Cancel task there while running. Generate again after changing the description. File inspection is neither an audition nor inference warm-up; design does not require the optional clone preloading action."
+          ],
+          "shot": "native-design-actions"
+        },
+        {
+          "title": [
+            "保存满意的版本，或用云端设计",
+            "Save a take, or use cloud design"
+          ],
+          "text": [
+            "满意后点击「保存音频」，或填写名称「保存到音色库」。云端路径在「云端 API → MiniMax」的设计页：填写描述、试音文本后创建，试听并检查返回的音色 ID，再应用到语音配置。",
+            "Click Save audio when satisfied, or name the take and save it to the voice library. For cloud design, open the design tab under Cloud API → MiniMax. Enter the description and audition text, create the voice, listen and check its returned voice ID before applying it to speech settings."
+          ],
+          "shot": "cloud-design"
+        }
+      ],
+      "success": [
+        [
+          "能播放生成结果；声音符合你的试听判断；保存文件可打开，或音色库中出现有名称的新条目。",
+          "The generated take plays, matches your listening judgement, and either opens as a saved file or appears as a named library entry."
+        ]
+      ],
+      "errors": [
+        [
+          "声音来源不可选／任务不匹配",
+          "Voice source is unavailable / wrong task",
+          "确认使用 VoiceDesign 而不是 Base 或 CustomVoice，重新选择匹配目录。模型支持描述设计不表示软件所有适配都已开放。",
+          "Use VoiceDesign rather than Base or CustomVoice, and select the matching folder again. A model's advertised design capability does not mean every app adapter exposes it."
+        ],
+        [
+          "保存音色提示时长不合格",
+          "Saving a voice reports invalid duration",
+          "克隆参考必须 1–60 秒；调整试音文本重新生成。原结果仍可试听和保存音频，不补静音凑时长。",
+          "Cloning references must be 1–60 seconds. Adjust the audition text and regenerate. The existing result remains available for playback and audio saving; do not pad it with silence."
+        ],
+        [
+          "云端创建失败",
+          "Cloud creation fails",
+          "检查创建音色权限及任务状态，确认没有成功创建后再重试，避免重复创建。",
+          "Check account permissions and task status. Confirm that creation did not succeed before retrying, to avoid duplicates."
+        ]
+      ],
+      "next": [
+        "voice-cloning",
+        "emotion-cloning"
+      ]
+    },
+    {
+      "id": "voice-cloning",
+      "curatedFiles": {
+        "zh": {
+          "file": "voice-cloning.html",
+          "sha256": "eeb2744081745d808b234295435badb34b0384a40a59cc11f3fb3b537fdfad7e"
+        },
+        "en": {
+          "file": "voice-cloning-en.html",
+          "sha256": "9407048f86cd071aaa7c14e2189ccba244d43be88bfeb93a8bb47e0d3aebc03b"
+        }
+      },
+      "title": [
+        "用参考录音克隆声音",
+        "Clone a voice from a recording"
+      ],
+      "summary": [
+        "先检查模型和参考音，再生成一句目标文字试听。",
+        "Check the model and reference, then audition a short generated passage."
+      ],
+      "result": [
+        "保留原录音，生成新内容，并把满意的声音保存为可复用参考。",
+        "Keep the original recording, generate new content and save a take as a reusable reference."
+      ],
+      "needs": [
+        [
+          "使用清晰单人参考录音。多数原生入口要求1–60秒，建议3–10秒；FireRed须1–10.24秒，建议3–5秒。Qwen Base、FireRed等需填写录音实际原文。",
+          "Use a clear single-speaker reference. Most native routes require 1–60 seconds, preferably 3–10; FireRed requires 1–10.24 seconds, preferably 3–5. Qwen Base, FireRed and other routes need the actual transcript."
+        ],
+        [
+          "选择与任务匹配的 Index-TTS2／2.5、VoxCPM2、Qwen3-TTS Base 原生包，FireRed Instruct原始完整目录，或已运行的兼容克隆服务。各模型不能混用文件。",
+          "Choose a matching native Index-TTS2/2.5, VoxCPM2 or Qwen3-TTS Base package, a complete original FireRed Instruct folder, or a running compatible cloning server. Do not mix assets from different models."
+        ],
+        [
+          "本机 CPU 可能较慢；使用 NVIDIA GPU 时需配套 CUDA 组件。具体能否运行以检查和实际短试音为准，不按模型名字假定显存足够。",
+          "Local CPU generation may be slow. NVIDIA GPU execution needs matching CUDA components. Verify with inspection and an actual short audition rather than assuming memory is sufficient from the model name."
+        ]
+      ],
+      "steps": [
+        {
+          "title": [
+            "选择本机模型与完整目录",
+            "Select a local model and its complete folder"
+          ],
+          "text": [
+            "打开「语音工具 → 模型配置 → 本机模型」，展开「原生声音工作台 · 实验」。选择模型家族和计算设备，再点击「选目录」选择模型目录。Qwen 克隆选择 Base；CosyVoice／Fish 的本机入口需要完整 audio.cpp GGUF 包，其真实原生生成仍待验证。",
+            "Open Voice Tools → Model Setup → Local models and expand Native Voice Studio · Experimental. Choose the model family and compute device, then select its directory. For Qwen cloning, use Base. Local CosyVoice/Fish needs a complete audio.cpp GGUF package; actual native generation remains unverified."
+          ],
+          "shot": "native-clone-ready"
+        },
+        {
+          "title": [
+            "原始 Index 权重先「准备原生模型」",
+            "Prepare original Index checkpoints for native use"
+          ],
+          "text": [
+            "选择 Index 原始目录后点击「检查模型」。出现待准备提示时点击「准备原生模型」，等待自动切换到模型目录内的 .boundless-flow/native 后再检查。保留原文件；该固定位置复用，新增转换文件及关联仍需要源盘空间，不会失败后转存 C 盘。Vox 缺少 audiovae.safetensors 时也须完成对应准备。 原始目录是你选择的模型根目录；准备后的目录是该根目录内的 .boundless-flow/native。已经准备好时直接选择这个 native 目录并检查，不再对它做一轮转换。试音成功后，复制声音面板当前显示的已准备模型路径，在同传「译声配置 → 本机原生模型」的「原生模型目录或 GGUF」中明确粘贴，再选择相同参考音和原文、检查；两个面板的路径不会自动同步。不要把兼容TTS目录当作原生模型目录。",
+            "Click Check model for the original Index folder. If preparation is required, select Prepare native model and wait for the path to switch to .boundless-flow/native inside it, then inspect again. Originals remain; this fixed location is reused, and conversions and links require space on the source volume. Failure does not fall back to C:. Vox also needs matching preparation when audiovae.safetensors is missing. The original folder is your selected model root; the prepared folder is its .boundless-flow/native subfolder. If it is already prepared, select that native folder and inspect it rather than converting it again. After a successful audition, copy the prepared path currently shown in Voice Tools and paste it explicitly into Native model directory or GGUF under Interpreting speech → Local native model. Select the same reference and transcript and check again. The two panels do not synchronize paths automatically. The compatibility TTS folder is separate from the native model folder."
+          ],
+          "shot": "native-workflow-actions"
+        },
+        {
+          "title": [
+            "导入并使用参考录音",
+            "Import and use the reference"
+          ],
+          "text": [
+            "展开「导入参考录音」，点击「选择音频」，填写便于查找的名称及需要的录音原文，点击「导入并使用」。支持的录音会派生单声道 16 kHz WAV，保留原文件。参考原文只写录音中实际说的话，不写下一步要合成的文本。",
+            "Expand Import reference recording, choose the audio, enter a useful name and the required transcript, then select Import and use. Supported recordings produce a mono 16 kHz WAV while retaining the original. The reference transcript contains the words actually recorded, not the new synthesis text."
+          ],
+          "shot": "reference-import"
+        },
+        {
+          "title": [
+            "检查当前参考，可选加载，再生成",
+            "Check the current reference, optionally load and generate"
+          ],
+          "text": [
+            "参考录音与需要的原文填好后，在编辑区上方固定操作区再次点「检查模型」。换参考音后，已有模型文件检查可保留，但新录音必须重新检查；先按「下一步」提示处理，不能沿用旧参考结果。填写短「合成文本」，检查通过后直接点击「生成克隆语音」。Index／VoxCPM可在模型列下方选「提前加载模型」；它只加载权重，首句仍需处理参考音。FireRed若配套组件支持、已选合格参考音并检查，会显示「预置模型与参考音 / Prepare model and reference」，可一并预处理参考与解码前缀；无参考或旧组件仅提前加载。两者都不生成声音，也不等于实际推理预热；仍须生成短句并试听。生成中看同一操作区的状态或点「取消任务」，完成后试听再保存。",
+            "After selecting a reference and entering any required transcript, select Check model again in the action area above the editor. Replacing the recording may retain the model-file result, but the new reference must be checked; follow Next step rather than reusing the old reference result. Enter a short synthesis text and select Generate cloned voice after checks pass. Index/VoxCPM can use Load model ahead of time below the model fields. It loads weights; reference processing remains for the first utterance. FireRed with supporting components and a selected, checked reference shows Prepare model and reference, which also prepares the reference and decoder prefix. With no reference or older components, it only loads the model. Neither route generates speech or performs warm-up inference. Generate a short sentence and listen to it. Follow status or Cancel task in the same action area, then listen before saving."
+          ],
+          "shot": "native-clone-ready"
+        },
+        {
+          "title": [
+            "换参考音，先重新检查",
+            "Check again after replacing a reference"
+          ],
+          "text": [
+            "要换一个人的录音或音色库版本时，选择后看上方「下一步」。模型文件的检查结果可能保留，但新参考音未检查前不能直接生成或提前加载。再次点击「检查模型」，处理录音格式、时长或原文提示，再生成。不要因为先前一次试听成功，就把新录音当作已经通过。",
+            "After choosing another recording or library version, read Next step above. The model-file result may remain, but unchecked new reference audio cannot proceed to generation or preloading. Select Check model again, resolve format/duration/transcript messages, then generate. A successful earlier audition does not validate the new recording."
+          ],
+          "shot": "native-reference-recheck"
+        },
+        {
+          "title": [
+            "使用服务或 FireRed 时走对应入口",
+            "Use the matching route for services or FireRed"
+          ],
+          "text": [
+            "已运行的 CosyVoice／Fish 服务在「模型服务」填实际根地址、参考音和所需原文；默认地址只是示例。FireRed Instruct 在本机选择原始根目录和 CPU（当前 Windows 包不提供 FireRed CUDA 组件），参考音须1–10.24秒，建议3–5秒并填写原文，检查后离线试音。满意后按同传教程配置实验性生成中播放；持续实时性能尚未验收。此入口没有 FireRed 声音设计或独立情绪控制。 导入或换选参考音后，填写这段录音的实际原文并重新「检查模型」，再用一句目标语言短文本试音。试听满意后再配置持续同传；参考音换人、换片段或参数变化后，旧试音不能代替新一轮检查与生成。 旧截图用于说明控件位置，图中的 CUDA 是较早参数；当前 Windows 安装包使用 FireRed 时请选择 CPU。需要 NVIDIA GPU 时，请选择已支持的 Index-TTS2、Qwen3-TTS 或 VoxCPM2，并先通过组件与设备检查。",
+            "For a running CosyVoice/Fish server use Model service with its actual root, reference and required transcript; the default address is only an example. For local FireRed Instruct select its original root and CPU (the current Windows package does not provide FireRed CUDA components), use a 1–10.24 second reference, preferably 3–5, with its transcript, inspect and audition offline. Then follow the interpretation guide for experimental generation-time playback; sustained realtime remains unverified. This route has no FireRed voice-design or independent emotion control. After importing or replacing a reference, enter its actual transcript and run Check model again, then audition one short sentence in the target language. Configure continuous interpretation after listening. A different speaker, recording segment or settings need a new check and generation; an old audition does not validate them. The older screenshot illustrates control locations. Its CUDA setting is from an earlier setup; select CPU for FireRed in the current Windows package. For NVIDIA GPU use a supported Index-TTS2, Qwen3-TTS or VoxCPM2 route after checking its components and device."
+          ],
+          "shot": "fire-native"
+        }
+      ],
+      "success": [
+        [
+          "生成状态完成、试听可听见新文本，保存结果可打开；相似度和表达是否满意仍由试听确认。",
+          "Generation completes, the audition reads the new text and saved output opens. Judge likeness and expression by listening; completion alone does not validate them."
+        ]
+      ],
+      "errors": [
+        [
+          "s2mel 带 net. 前缀／缺原生文件",
+          "s2mel net. prefix / missing native files",
+          "对原始 Index 目录执行准备，等待路径自动切换。按缺项补齐同一版本的辅助权重，不要直接改文件名、改版本号或创建空文件。",
+          "Prepare the original Index folder and wait for the path switch. Obtain the matching-version auxiliary assets; do not rename unrelated files, change version declarations or create empty files."
+        ],
+        [
+          "参考录音须 1–60 秒",
+          "Reference must be 1–60 seconds",
+          "换一段清晰录音或明确选取合格讲话区间，不补静音、不覆盖原音。FireRed 还受更短上下文限制。",
+          "Choose another clear recording or explicitly select a valid speech span. Do not pad silence or overwrite the original. FireRed also has a shorter context limit."
+        ],
+        [
+          "无法在模型目录内准备",
+          "Cannot prepare inside the model folder",
+          "检查该盘剩余空间和目录写权限。记录失败文件及完整诊断信息，再定位格式；软件不自动换盘。",
+          "Check free space and write permission on that volume. Record the failed file and full diagnostics to investigate the format. The app does not automatically switch volumes."
+        ],
+        [
+          "服务连接失败",
+          "Service connection fails",
+          "确认服务已启动、地址和协议正确；选择模型服务不会启动 Python 服务。没有服务时可选择已验证的本机路径。",
+          "Check that the server is running with the correct endpoint and protocol. Choosing Model service does not start a Python server. Without one, use a verified local route."
+        ]
+      ],
+      "next": [
+        "emotion-cloning",
+        "interpretation"
+      ],
+      "contentRevision": 469
+    },
+    {
+      "id": "emotion-cloning",
+      "title": [
+        "保留音色，调整语气与情绪",
+        "Keep the voice, adjust expression"
+      ],
+      "summary": [
+        "用同一文本做 A/B 试听，只调整所选后端支持的表达。",
+        "Compare takes with identical text and change only supported expression controls."
+      ],
+      "result": [
+        "得到普通版本和表达调整版本，逐项试听后保留合适的结果。",
+        "Create a neutral take and an expression-adjusted take, then keep the result you prefer."
+      ],
+      "needs": [
+        [
+          "先完成一次克隆试音；保持相同模型、参考音、文本与语言，才能有意义地比较表达。",
+          "Complete one cloning audition first. Keep model, reference, text and language fixed for a useful comparison."
+        ],
+        [
+          "Index 使用「情绪提示」；CosyVoice 的指令模式使用「表达指令」；Fish 在合成文本中使用表达标签。Vox、FireRed 和 VibeVoice 不应套用 Index 参数。",
+          "Index uses an Emotion prompt; CosyVoice instruction mode uses an Expression instruction; Fish uses inline expression tags. Do not apply Index parameters to Vox, FireRed or VibeVoice."
+        ],
+        [
+          "想让生成声音更开心、平静或激动，请继续本篇；想判断已有录音的情绪，打开「语音工具 → 06 情绪分析」，或点击「分析已有录音」查看步骤。情绪分析需要带九类分类层的兼容 ONNX，官方原始权重及仅输出特征的 ONNX 不能直接替代。分析结果不会自动改变克隆参数或会议标签；情绪遵循度与声纹质量尚未全面验收。",
+          "Continue this guide to adjust the expression of synthesized speech. To analyze an existing recording, open Voice Tools → 06 Emotion, or select Analyze a recording for instructions. Analysis requires a compatible ONNX export with the nine-label classifier; source checkpoints and feature-only ONNX models do not substitute. Results do not automatically change cloning settings or meeting labels. Comprehensive expression-following and voiceprint quality acceptance remain incomplete."
+        ]
+      ],
+      "steps": [
+        {
+          "title": [
+            "先生成普通版本并保留 A",
+            "Generate the baseline and keep take A"
+          ],
+          "text": [
+            "按克隆指南生成一段短文本，先不填写额外情绪。试听通过后，在「A/B 音色对比」保留当前结果为 A。下载或保存才能长期留存；A/B 暂存仅属于本次应用会话。",
+            "Follow the cloning guide and generate a short passage without added emotion. After listening, keep the result as A in A/B voice comparison. Download or save it for long-term storage; comparison takes are retained only for this app session."
+          ],
+          "shot": "native-clone-ready"
+        },
+        {
+          "title": [
+            "Index：展开生成选项，填写情绪提示",
+            "Index: expand generation options for the emotion prompt"
+          ],
+          "text": [
+            "保持文本和参考音不变，展开「生成选项」，在 Index 的「情绪提示（可选）」填写期望表达，再回到编辑区上方固定操作区「生成克隆语音」，保留为 B。不要把情绪提示写进「参考录音原文」。情绪字段在生成选项内，按需向下滚动；生成、取消与状态留在上方。若同时更换参考录音，先重新检查，再生成 B，不把两个参考条件当作同一组 A/B。",
+            "Keep text and reference unchanged. Expand Generation options, enter the delivery in Index's Emotion prompt (optional), then use Generate cloned voice in the action area above the editor and keep B. Do not put the emotion prompt in Reference transcript. Scroll to the option when needed; generation, cancellation and status remain above. If you also replace the reference, inspect it before generating B and do not treat the two reference conditions as a matched A/B pair."
+          ],
+          "shot": "native-clone-ready"
+        },
+        {
+          "title": [
+            "CosyVoice／Fish：使用各自表达方式",
+            "CosyVoice/Fish: use their own expression format"
+          ],
+          "text": [
+            "已运行 CosyVoice 服务选择支持表达指令的克隆模式，写希望的语气或语速。Fish 使用表单的「插入表达标签」，例如 [whisper]、[excited]；插入的是合成文本，不是录音原文。服务必须真正支持该模式，连接成功不保证表达遵循。",
+            "For a running CosyVoice server, choose its instruction-capable cloning mode and describe the delivery or pace. In Fish, use Insert expression tag, for example [whisper] or [excited], in synthesis text rather than the reference transcript. The server must support that mode; connection alone does not establish expression following."
+          ],
+          "shot": "service-voice"
+        },
+        {
+          "title": [
+            "切换试听 A/B，确认后保存",
+            "Compare A/B and save after review"
+          ],
+          "text": [
+            "使用相同文本切换试听 A/B。分别检查读音、音色是否稳定、情绪是否恰当，以及停顿有没有明显变化。过强或不合适时减弱提示后重试；不要把波形不同当作情绪正确。满意后保存 B，也保留普通版本。",
+            "Switch between A and B with identical text. Check pronunciation, voice consistency, suitable expression and changed pauses. Reduce an excessive or unsuitable prompt and retry. Different waveforms do not prove correct emotion. Save the preferred B and retain the baseline."
+          ],
+          "shot": "native-clone-ready"
+        }
+      ],
+      "success": [
+        [
+          "两个版本都能播放，并能通过试听说明哪一处表达更合适；文件与参数可追溯。",
+          "Both takes play, your listening comparison identifies the better delivery, and saved files and parameters are traceable."
+        ]
+      ],
+      "errors": [
+        [
+          "没有可用的情绪字段",
+          "The emotion control is unavailable",
+          "先确认后端支持的表达方式。字段不存在或不可操作时，按所选模型的指令／标签方式处理，不把其他参数当作情绪控制。",
+          "Check the expression format supported by this backend. If the field is absent or disabled, use the model's supported instruction or tag route instead of treating unrelated parameters as emotion controls."
+        ],
+        [
+          "听不出差别／音色漂移",
+          "No audible change / voice drift",
+          "保留失败结果，减弱或改写提示，固定参考和文本再试；目前需逐条试听，不保证所有语言和情绪都有效。",
+          "Keep the unsuccessful take, reduce or revise the prompt and retry with fixed reference and text. Evaluate each take; effectiveness is not guaranteed across all languages or emotions."
+        ]
+      ],
+      "next": [
+        "voiceprints",
+        "interpretation"
+      ],
+      "contentRevision": 376,
+      "quickLinks": [
+        {
+          "guide": "emotion-cloning",
+          "anchor": "steps",
+          "label": [
+            "调节生成语气",
+            "Adjust synthesized expression"
+          ]
+        },
+        {
+          "guide": "voiceprints",
+          "anchor": "step-6",
+          "label": [
+            "分析已有录音",
+            "Analyze a recording"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "interpretation",
+      "title": [
+        "实时同传：听讲话，输出译声",
+        "Live interpretation: speech in, translated speech out"
+      ],
+      "summary": [
+        "先选择持续同传或 Mini，再检查译声模型和参考音；需要转换时明确点击准备。",
+        "Choose continuous interpretation or Mini, then check the voice model and reference. Prepare converted weights explicitly when needed."
+      ],
+      "result": [
+        "组合识别、翻译与合成，显示字幕并播放译声。真正低延迟的同传仍需按模型和设备验证。",
+        "Combine recognition, translation and synthesis to display captions and play translated speech. Truly low-latency interpretation still requires model- and device-specific verification."
+      ],
+      "needs": [
+        [
+          "分别完成转录、文本翻译和目标语言合成试音；准备输出耳机，避免播放回灌录音。",
+          "Test transcription, text translation and target-language synthesis separately. Use headphones to avoid recording your own playback."
+        ],
+        [
+          "选择明确的译声运行方式。本机原生、克隆模型服务、语音服务／API和兼容语音配置各自保留参数；路径填在哪个入口，就由该入口使用。克隆需合格参考音。",
+          "Choose an explicit speech route. Native models, cloning servers, speech services/APIs and compatibility settings retain separate parameters. A path belongs to the route where you enter it. Cloning needs a valid reference."
+        ],
+        [
+          "当前 Windows 包中的 FireRedTTS3 Instruct 使用 CPU，不提供此引擎的 CUDA 组件。配套组件支持时可试「边生成边播放 · 实验」；工作台自动播报。其他完整 WAV 路线仍等每条请求全部生成。流式播放是否提前出声，取决于模型或服务能否提前交付音频；持续实时性能尚未验收。",
+          "FireRedTTS3 Instruct uses CPU in the current Windows package, which does not provide CUDA components for this engine. Matching components can offer Play while generating · Experimental; the workbench plays speech automatically. Other complete-WAV routes still wait for each full request. Earlier playback depends on early audio delivery by the model or service; sustained realtime performance is not yet accepted."
+        ],
+        [
+          "Index、VoxCPM原生参考音通常为1–60秒；FireRed为1–10.24秒。使用清晰单人讲话，按模型要求填写实际原文。现有Rust读取器会按需规范化兼容格式与采样率，原文件保留；不要求先把可读取的float32 WAV改成PCM16。",
+          "Native Index/VoxCPM references are generally 1–60 seconds; FireRed uses 1–10.24 seconds. Use clear single-speaker speech and its actual transcript when required. The Rust reader normalizes compatible formats and sample rates when needed, retaining originals. A readable float32 WAV does not have to be changed to PCM16 first."
+        ]
+      ],
+      "steps": [
+        {
+          "title": [
+            "检查三条链路并选择语言",
+            "Check three stages and choose languages"
+          ],
+          "text": [
+            "先按转录、模型配置和克隆指南分别试用。打开顶部「同传工作台」，设置源语言、主目标语言和需要的额外字幕语言。使用本地目录式实时识别时，STT后端选「onnx」，填兼容模型的完整目录。先只用一个目标语言，确认连续流程后再增加。",
+            "Test transcription, model setup and cloning separately. Open Interpretation Workbench in the header, then choose source, primary target and any extra subtitle languages. For local directory-based live recognition, select the onnx STT backend and enter its compatible model folder. Begin with one target and add more after the workflow works."
+          ],
+          "shot": "sts"
+        },
+        {
+          "title": [
+            "选择已经试听成功的译声",
+            "Select the speech route you have auditioned"
+          ],
+          "text": [
+            "在「译声配置」选择已测试的本机原生模型、克隆模型服务或语音服务／API。填入相应模型、地址、音色或参考音。来源切换不会复制另一来源的密钥和参考。服务地址必须已启动且协议匹配。",
+            "Under Interpreting speech, choose the tested local native model, cloning server or speech service/API. Enter its model, endpoint, voice or reference. Switching routes does not copy another route's credentials or reference. A server endpoint must already be running with the matching protocol."
+          ],
+          "shot": "sts-routing"
+        },
+        {
+          "title": [
+            "先决定：持续同传，还是录完再处理的 Mini",
+            "Choose continuous speech or record-then-process Mini"
+          ],
+          "text": [
+            "边讲话边翻译和播报，请用顶部「持续同传（实验）」，结束点「停止同传」。Mini是另一种方式：点「打开独立悬浮 Mini」，点击悬浮控件开始录音，再点击停止；停止并保存录音后才翻译、克隆和播放，不是连续实时播报。先选一种方式试用，避免同时启动两轮录音。 停止并处理完成后，字幕卡只显示原文和译文；在译声卡重听音频，展开「文件详情」可查看保存位置并复制路径。未生成语音时，可展开「查看原因」检查错误。",
+            "For speech translation during recording, use Continuous STS (experimental) at the top and end with Stop Live STS. Mini is separate: select Open Floating Mini, click its controller to record, then click again to stop. Translation, cloning and playback begin after recording stops and is saved; this is not continuous live playback. Try one mode at a time. After processing, the text card shows only the original and translation. Replay speech in the voice card; expand File details to view its saved location or copy the path. If no audio is generated, expand View details to inspect the error."
+          ],
+          "shot": "sts-mini-result362"
+        },
+        {
+          "title": [
+            "本机原生模式：选家族和目录，先点「检查模型」",
+            "Native mode: choose the family and folder, then Check model"
+          ],
+          "text": [
+            "在「译声配置」选择「本机原生模型」，模型家族选与你的权重相符的一项，填模型目录和自己的参考音，再点「检查模型」。这一步检查文件和参考音，不生成语音。需要准备原生权重时，提示会留在此处；开始同传前不会自动转换大模型，也不会开始录音。已兼容的原生包可直接使用。",
+            "Under Interpreting speech choose Local native model, select the family matching your weights, then enter the model folder and your reference. Click Check model to inspect files and reference without generating speech. Preparation guidance appears here when needed. Starting interpretation does not automatically convert a large model or start recording with an unready package. A compatible native package can be used directly."
+          ],
+          "shot": "sts-native-model361"
+        },
+        {
+          "title": [
+            "需要转换时，再明确点击「准备原生模型」",
+            "When conversion is needed, explicitly Prepare native model"
+          ],
+          "text": [
+            "Index-TTS2／2.5或VoxCPM2的原始目录提示需准备时，点「准备原生模型」并等待完成。过程在所选模型目录内增加必要文件，保留原文件；转换期间不能开始录音。Index完成后会把输入框切到模型目录内的「.boundless-flow/native」并保存，VoxCPM2可能保持原目录。随后重新检查参考音，再启动同传。若失败，原路径保留，请按面板给出的文件或格式原因处理。兼容语音配置是独立路线，已试音成功的原始Index目录不因本教程而强制转换；FireRed原始目录也不走Index转换。 声音面板与同传面板各自保留路径，不会自动同步。在声音面板准备并试音成功后，复制其当前 .boundless-flow/native 路径，粘贴到本页原生模型目录，使用相同参考音、原文并检查。已经准备好的目录直接选，不再转换一份。图中为转换前的原始目录配置示例，不是转换成功的截图。",
+            "When a source Index-TTS2/2.5 or VoxCPM2 folder needs preparation, click Prepare native model and wait. Required files are added within the selected model folder, retaining originals; recording stays unavailable during conversion. Index fills and saves the model-local .boundless-flow/native path afterward; VoxCPM2 may keep its original folder. Recheck the reference, then start interpretation. Failure retains the source path; follow the stated file or format cause. Compatibility speech is independent: a working original Index folder is not forced to convert by this guide. FireRed source folders do not use Index conversion. Voice Tools and the workbench retain separate paths rather than synchronizing automatically. After preparation and a successful audition in Voice Tools, copy its current .boundless-flow/native path into this page’s native model folder. Use the same reference and transcript and check again. Select an already prepared folder directly rather than converting another copy. The screenshot illustrates source-folder configuration before conversion, not a successful conversion."
+          ],
+          "shot": "sts-native-model361"
+        },
+        {
+          "title": [
+            "用 FireRed 时，选原始模型、CPU 与自己的参考音",
+            "For FireRed, choose the original model, CPU and your own reference"
+          ],
+          "text": [
+            "在「译声配置」选择「本机原生模型」，模型选择 FireRedTTS3，计算设备选择 CPU；当前 Windows 包不提供 FireRed CUDA 组件。选择含 fireredtts3_instruct、redae、text_tokenizer 的原始根目录。参考 WAV 须为1–10.24秒，建议3–5秒清晰单人讲话，并填写录音实际原文。先在语音工具完成短试音；同传配置须填同一套已检查的模型和参考音。此路线不需要另开模型服务，也不执行 Index 权重转换。 请保留完整应用目录及匹配的原生运行组件，不只移动主程序。缺组件先处理软件运行环境，缺权重则补齐模型目录；「准备原生模型」不能修复这两类缺项。参考音或原文改动后先回声音工作台重新检查、短试音，再更新同传配置。 旧截图用于说明控件位置，图中的 CUDA 是较早参数；当前 Windows 安装包使用 FireRed 时请选择 CPU。需要 NVIDIA GPU 时，请选择已支持的 Index-TTS2、Qwen3-TTS 或 VoxCPM2，并先通过组件与设备检查。",
+            "Under Interpreting speech choose Local native model, FireRedTTS3 and CPU; the current Windows package does not provide FireRed CUDA components. Select the original root containing fireredtts3_instruct, redae and text_tokenizer. Use a clear single-speaker WAV lasting 1–10.24 seconds, preferably 3–5, and its actual transcript. Audition briefly in Voice Tools first, then use the same checked model and reference in interpretation settings. This route needs neither a separate model server nor Index checkpoint conversion. Keep the full app folder with matching native runtime components rather than moving only the executable. Missing components require fixing the app runtime; missing weights require completing the model folder. Prepare native model does not fix either. After changing the reference or transcript, inspect and audition in Voice Tools again, then update interpretation settings. The older screenshot illustrates control locations. Its CUDA setting is from an earlier setup; select CPU for FireRed in the current Windows package. For NVIDIA GPU use a supported Index-TTS2, Qwen3-TTS or VoxCPM2 route after checking its components and device."
+          ],
+          "shot": "sts-firered-config353"
+        },
+        {
+          "title": [
+            "开启生成中播放；工作台自动播报",
+            "Enable generation-time playback; the workbench plays speech automatically"
+          ],
+          "text": [
+            "勾选「边生成边播放 · 实验」。当前同传工作台自动播放译声，没有单独需要你开启的自动播报开关；先确认系统默认输出、耳机和音量。这条路线在每段完整译文定稿后开始生成，生成中的 PCM 直接交付原生播放；它不接受任意追加文本。开启后「译文短句提前合成」会隐藏，两个选项不叠加。需要整段生成后再播放时，停止同传后取消该勾选。若提示组件只支持完整 WAV，请使用包含新版 FireRed 组件的完整应用目录。",
+            "Enable Play while generating · Experimental. The current workbench plays translated speech automatically and has no separate autoplay switch to turn on. Check the system default output, headphones and volume first. Each finalized full translation starts generation; PCM is delivered directly to native playback during generation. This does not accept arbitrary appended text. The early-sentence option is hidden while streaming is selected, so the two options do not combine. To wait for complete clips, stop interpretation and disable streaming. If the component supports complete WAV only, use the complete app folder containing updated FireRed components."
+          ],
+          "shot": "sts-firered-stream353"
+        },
+        {
+          "title": [
+            "先准备，再「持续同传（实验）」",
+            "Prepare, then start continuous interpretation"
+          ],
+          "text": [
+            "先在声音工作台完成文件与当前参考检查，再用目标语言短文本生成并试听；仅「提前加载模型」不等于实际推理预热。新版同传面板顶部固定显示「持续同传（实验）」与「停止同传」。当前工作台自动播放译声。确认系统默认输出、耳机和音量后开始，等待支持的模型加载与输出准备完成再讲话，准备期间可「停止同传」取消。加载单列为准备时间；首次参考处理、首轮实际推理及运行中重载仍分别记录，不假定已经完成热身。 FireRed支持预置参考的组件可先在声音工作台选「预置模型与参考音」，但仍要完成短句试听。只有模型预加载的旧组件，首句仍需处理参考音；不要把预置完成当作已经生成可播放语音。",
+            "First check model files and the current reference in Voice Studio, then generate and audition a short target-language passage. Load model ahead of time alone does not warm up inference. The newer workbench keeps Continuous STS (experimental) and Stop Live STS visible at the top. The current workbench plays speech automatically. Confirm the default output, headphones and volume, start and wait for supported loading/output preparation before speaking. Stop Live STS cancels preparation. Loading is preparation time; retain first reference processing, first actual inference and runtime reload timing separately rather than assuming warm-up is complete. With supporting FireRed components, Prepare model and reference in Voice Tools can prepare the reference ahead of time; an actual short audition is still required. Older components that only preload the model leave reference processing for the first utterance. Preparation does not create playable speech."
+          ],
+          "shot": "sts-fixed-actions"
+        },
+        {
+          "title": [
+            "短句试用，观察 runtime 首音",
+            "Try short passages and observe runtime first audio"
+          ],
+          "text": [
+            "先说几句短话，查看原文、译文、合成和积压状态。重点看「源语音起点 → 首音」「源语音结束 → 首音」及 p50／p95；缺失计时显示「—」，不是零。界面计时是软件估计，不等于扬声器物理出声测量。",
+            "Speak a few short passages and inspect source text, translation, synthesis and backlog. Check Source start → first audio, Source end → first audio and p50/p95. Missing timing shows — rather than zero. UI timing is a software estimate, not a physical loudspeaker measurement."
+          ],
+          "shot": "sts-runtime"
+        },
+        {
+          "title": [
+            "按能力试流式或短句提前合成",
+            "Try streaming or early sentences when supported"
+          ],
+          "text": [
+            "CosyVoice／Fish 服务可试「音频到达即播放」，先检查表单对 PCM／WAV 的要求。原生「译文短句提前合成 · 实验」默认关闭；每次请求仍生成完整 WAV，可能改变停顿或总耗时。先试听后选择，不能把播放方式称为真正增量模型。",
+            "For CosyVoice/Fish, try Play audio as it arrives after checking the stated PCM/WAV requirements. Native Synthesize translated sentences early · Experimental is off by default and still produces a complete WAV per request. It may change pauses or total work. Audition before choosing; playback mode does not make a model genuinely incremental."
+          ],
+          "shot": "sts-native-clauses"
+        },
+        {
+          "title": [
+            "结束请点击「停止同传」，保留本轮结果",
+            "Click Stop Live STS to end and retain the run result"
+          ],
+          "text": [
+            "结束任务请点击「停止同传」，译声播放会立即停止；录音收尾和记录保存仍可能继续。看到「正在保存同传记录」时，请先等待。关闭或隐藏同传面板可能仍让任务继续运行。保留本轮统计、失败与慢段；确认保存完成后再开始新任务，不在运行中移动模型或切换路径。",
+            "Select Stop Live STS to stop translated speech immediately. Recording finalization and record saving may continue; wait while Saving interpretation records appears. Hiding or closing the interpretation panel may leave the task running. Keep statistics, failures and slow passages. Confirm saving is complete before starting another task, and do not move models or change paths during a run."
+          ],
+          "shot": "sts-fixed-actions"
+        },
+        {
+          "title": [
+            "只有字幕没声音：先停止，再做一句试音",
+            "Text without speech: stop, then audition one sentence"
+          ],
+          "text": [
+            "点顶部「停止同传」，再打开「语音工具 → 模型配置」，选同一模型、目录、参考音和原文。「检查模型」通过后，在「合成文本」填一句目标语言，点「生成克隆语音」。图中1是检查/生成操作区，2提醒文件检查不等于已生成。没有音频就看此处状态，处理明确的文件、运行组件或参考音问题；出现音频后用播放器重听，仍无声才检查系统默认输出、静音、耳机和音量。听到正确声音后，将同一模型路径与参考音显式填写回同传原生入口，检查后重新开始。当前工作台自动播放，不要寻找不存在的自动播报开关。此图是既有界面的受控配置示例，不代表本轮模型、设备或实时性能通过。",
+            "Select Stop Live STS, then open Voice Tools → Model Setup and choose the same model, folder, reference and transcript. After Check model passes, enter one target-language sentence in Synthesis text and select Generate cloned voice. Marker 1 identifies the check/generate actions; marker 2 reminds you that file inspection is not audio generation. If no audio appears, use the status here to resolve the stated file, runtime component or reference issue. Once audio appears, replay it. If replay remains silent, inspect the system default output, mute, headphones and volume. After hearing the expected voice, explicitly enter that model path and reference in the native interpretation route, check and restart. The current workbench plays automatically; do not look for an autoplay switch that is not present. This existing controlled configuration image does not establish model, device or realtime acceptance for this run."
+          ],
+          "shot": "native-clone-ready"
+        },
+        {
+          "title": [
+            "停止后，等记录保存完成",
+            "After stopping, wait for records to finish saving"
+          ],
+          "text": [
+            "点击「停止同传」会立即停止译声播放，录音收尾和记录保存仍可能继续。看到「正在保存同传记录」时，请先等待；播放停止不表示记录已经保存。 若显示「同传记录尚未保存」，先检查保存位置的可用空间和写入权限，再点「重试保存」。未保存期间，软件会暂缓开始新任务、重启软件和恢复其他草稿，先完成本轮保存再继续。 需要离开窗口时，可在退出提示中选择「仅关闭界面 · 后台继续」，让当前软件继续运行。电脑需要保持开机；保存完成前，请不要退出软件、重启或关机。关闭同传面板只会隐藏该面板，正在运行的同传也可能继续。 如果决定放弃尚未保存的部分，请明确选择丢弃本轮草稿并确认。隐藏界面不会丢弃草稿。尚未保存的内容只保留在当前运行的软件中，不要依赖重启后恢复。",
+            "Select Stop Live STS to stop translated speech immediately. Recording finalization and record saving may continue afterward. If Saving interpretation records appears, wait; stopped playback does not confirm a completed save. If records remain unsaved, check free space and write access at the save location, then select Retry saving. The app prevents starting another task, restarting the app or restoring a different draft while this recording still has unsaved work. Finish saving this run first. To leave the window, choose Close interface · Keep working in the exit dialog. This hides the interface and keeps the current app process running. Keep the computer on; do not quit the app, restart it or shut down before saving completes. Closing the interpretation panel only hides that panel and may leave an active run working. To abandon the unsaved part, explicitly choose and confirm discarding this draft. Hiding the interface does not discard it. Unsaved work is retained only in this running app; do not rely on recovery after a restart."
+          ],
+          "shot": "sts-save-retry456"
+        }
+      ],
+      "success": [
+        [
+          "短讲话得到对应译文和译声；停止后不再产生新声音；统计保留真实有效样本。是否足够实时须结合连续会话的积压、音质和设备测量判断。",
+          "Short speech produces matching text and translated speech, stopping prevents new output, and statistics retain valid samples. Realtime suitability depends on continuous backlog, voice quality and device measurements."
+        ]
+      ],
+      "errors": [
+        [
+          "同传记录还没保存",
+          "Interpretation records are still unsaved",
+          "若显示「同传记录尚未保存」，先检查保存位置的可用空间和写入权限，再点「重试保存」。未保存期间，软件会暂缓开始新任务、重启软件和恢复其他草稿，先完成本轮保存再继续。 需要离开窗口时，可在退出提示中选择「仅关闭界面 · 后台继续」，让当前软件继续运行。电脑需要保持开机；保存完成前，请不要退出软件、重启或关机。关闭同传面板只会隐藏该面板，正在运行的同传也可能继续。",
+          "If records remain unsaved, check free space and write access at the save location, then select Retry saving. The app prevents starting another task, restarting the app or restoring a different draft while this recording still has unsaved work. Finish saving this run first. To leave the window, choose Close interface · Keep working in the exit dialog. This hides the interface and keeps the current app process running. Keep the computer on; do not quit the app, restart it or shut down before saving completes. Closing the interpretation panel only hides that panel and may leave an active run working."
+        ],
+        [
+          "只有译文，没有声音",
+          "Text appears but no speech",
+          "先点击顶部「停止同传」。当前工作台自动播放，没有单独的自动播报开关。确认「译声配置」选中了实际试音成功的运行方式；本机原生模式查看自己的模型家族、原生模型目录、参考音和原文，不要只改上方兼容TTS目录。Index在声音面板准备后，请显式复制当前 .boundless-flow/native 路径到这里，重新检查。回声音面板生成一句目标语言短文本：若没有音频，按状态提示处理模型、组件或参考音；若有音频但重听无声，检查系统默认输出、耳机、静音和音量。短试音能够听到后，再用相同配置开始持续同传。图解见本页最后一步。Mini是停止后处理的独立流程，可在译声卡重听或展开「查看原因」，不能把Mini操作当成持续同传。",
+          "Select Stop Live STS at the top first. The current workbench plays speech automatically; there is no separate autoplay switch. Confirm that Interpreting speech uses the route you successfully auditioned. For native execution, check its family, native model folder, reference and transcript rather than changing only the compatibility TTS folder above. After preparing Index in Voice Tools, explicitly copy its current .boundless-flow/native path here and check again. Generate one short target-language sentence in Voice Tools. If no audio is produced, follow the status message for model, component or reference issues. If audio exists but replay is silent, check the default output, headphones, mute and volume. Restart continuous interpretation with the same settings only after the short audition is audible. The last step on this page illustrates this check. Mini is separate record-then-process functionality; replay in its speech card or use View details, rather than treating those controls as continuous interpreting."
+        ],
+        [
+          "准备卡住／没有首音",
+          "Preparation stalls / no first audio",
+          "先点击「停止同传」，看状态区提示属于模型、参考音、输出设备还是服务。按本页最后一步分别做短试音与输出检查。当前工作台自动播放；缺失首音计时显示「—」，表示尚无计时结果，不能据此判断延迟为零或没有生成音频。",
+          "Select Stop Live STS and identify whether the status reports a model, reference, output device or service issue. Follow the last step to test a short audition and output separately. The current workbench plays automatically. Missing first-audio timing shows —; it does not indicate a measured delay of zero or prove that no audio was generated."
+        ],
+        [
+          "译声越来越落后",
+          "Translated speech falls behind",
+          "查看积压并使用界面已有的追赶操作；减少额外语言，选择更快且试音通过的组合。跳过播报不删除原文或译文。",
+          "Inspect backlog and use the available catch-up controls. Reduce extra languages and choose a faster auditioned setup. Skipping playback does not delete source text or translation."
+        ],
+        [
+          "不断转录软件自己的译声",
+          "The app keeps transcribing its playback",
+          "改用耳机并检查输入设备，不把系统播放回录当作新讲话。完整长会话回声处理仍需实际验证。",
+          "Use headphones and inspect the input. Do not feed playback back as new speech. Echo handling in long sessions still requires real-device verification."
+        ],
+        [
+          "FireRed 流式配置无法开始",
+          "FireRed streaming will not start",
+          "当前 Windows 包的 FireRed 请选择 CPU，并检查已登记模型和应用配套组件是否完整；当前工作台自动播放，未提供单独的自动播报开关。先点击「停止同传」，按组件或参考音的具体提示处理并完成短试音，再开始；不要以更改模型名或遗漏组件绕过提示。",
+          "For FireRed in the current Windows package, select CPU and check the registered model and matching app components. The current workbench plays automatically and does not expose a separate autoplay switch. Select Stop Live STS, resolve the stated component or reference issue, and complete a short audition before restarting. Do not bypass messages by renaming models or omitting components."
+        ]
+      ],
+      "next": [
+        "models",
+        "meetings"
+      ],
+      "contentRevision": 469,
+      "curatedFiles": {
+        "zh": {
+          "file": "interpretation.html",
+          "sha256": "333f1bdda16116c2babbdd1323fa35bbd17d7b40f87059248a821572bb57cc63"
+        },
+        "en": {
+          "file": "interpretation-en.html",
+          "sha256": "89a0b81062d16291683982c4903ed50c1849cb2180b0e986bc3c9f1c4deb9060"
+        }
+      }
+    },
+    {
+      "id": "linglu",
+      "title": [
+        "灵录：主题树到会议纪要",
+        "LingLu: from topic tree to meeting report"
+      ],
+      "summary": [
+        "按会议场景整理主题，预览后导出可分享报告。",
+        "Organize topics for your meeting scenario and export a reviewed report."
+      ],
+      "result": [
+        "看到会议主题与段落联系，复核纪要并导出主题报告。",
+        "Inspect topic-to-passage links, review minutes and export a themed report."
+      ],
+      "needs": [
+        [
+          "已正常保存的会议记录，以及单独配置的「灵录 API」服务、可用模型和鉴权。",
+          "A working saved meeting record, plus a separately configured LingLu API provider, available model and authentication."
+        ],
+        [
+          "使用 Ollama 时，服务必须已运行且确实安装了所填模型；示例模型名不表示已经可用。",
+          "With Ollama, the service must be running and the entered model actually installed. An example name does not make a model available."
+        ]
+      ],
+      "steps": [
+        {
+          "title": [
+            "配置「灵录 API」",
+            "Configure LingLu API"
+          ],
+          "text": [
+            "在配置引导／高级设置的「灵录 API」选择服务，填写实际模型、地址与鉴权。选择适合内容的场景，如个人录音、工作会议或学术研讨；自动选择不合适时明确选择。保存配置后先短录音测试。",
+            "Under LingLu API in setup or advanced settings, choose a provider and enter a real model, endpoint and credentials. Select a suitable scenario such as personal recording, work meeting or academic discussion; choose explicitly if automatic selection is unsuitable. Save and test with a short recording."
+          ],
+          "shot": "linglu-settings"
+        },
+        {
+          "title": [
+            "录音中查看主题树",
+            "Inspect the topic tree during recording"
+          ],
+          "text": [
+            "开始录音后进入会议区域，展开灵录的实时主题树，检查主题与原文段落联系。触发频率较高会增加服务调用；先确认短会话，再用于长会议。",
+            "After recording starts, open the meeting area and expand LingLu's live topic tree. Check topic links against transcript passages. Frequent updates add service calls; test a short session before a long meeting."
+          ],
+          "shot": "meeting"
+        },
+        {
+          "title": [
+            "停止后复核事实和行动项",
+            "Review facts and actions after stopping"
+          ],
+          "text": [
+            "停止录音并选择本次保存会话，核对主题、摘要、决策与行动项。个人录音不需要强行提炼商业 KPI；AI 没有原文依据的内容应删改。",
+            "Stop recording, select the saved session and review topics, summary, decisions and actions. Personal recordings do not need artificial business KPIs. Revise AI output that lacks support in the transcript."
+          ],
+          "shot": "minutes"
+        },
+        {
+          "title": [
+            "选择主题，点击「预览」再「导出」",
+            "Choose a theme, preview and export"
+          ],
+          "text": [
+            "打开灵录面板，选择报告主题，例如 minimal-print。点击「预览」检查内容与排版，再点击「导出」并确认保存路径。「嵌入主界面」只改变呈现位置，不等于导出。关闭按钮用于关闭面板。",
+            "Open the LingLu panel and choose a report theme such as minimal-print. Select Preview to inspect content and layout, then Export and confirm its saved location. Embed in main window changes presentation, not export. Use the close control to close the panel."
+          ],
+          "shot": "linglu"
+        }
+      ],
+      "success": [
+        [
+          "主题树有本次会话的数据；纪要与原文一致；预览与导出报告可打开。",
+          "The topic tree contains this session's data, minutes match the transcript, and the preview and exported report open."
+        ]
+      ],
+      "errors": [
+        [
+          "灵录显示空闲／没有数据",
+          "LingLu is idle / no data",
+          "检查是否选择已有记录，以及灵录 API 的服务、模型、鉴权和触发配置。普通翻译配置正确不代表灵录配置正确。",
+          "Check the selected record and LingLu provider, model, credentials and update settings. Working translation does not validate LingLu settings."
+        ],
+        [
+          "报告主题与内容不合适",
+          "Theme or scenario is unsuitable",
+          "重新选择会议场景并复核内容，再选择报告主题。主题只改变呈现，不应改变事实。",
+          "Choose a suitable meeting scenario and review content, then select the report theme. A theme changes presentation, not facts."
+        ]
+      ],
+      "next": [
+        "meetings",
+        "voiceprints"
+      ]
+    },
+    {
+      "id": "voiceprints",
+      "title": [
+        "声纹：登记、比对与人工复核",
+        "Voiceprints: enroll, compare and review"
+      ],
+      "summary": [
+        "用独立录音辅助核对讲话人，保留不确定结果。",
+        "Use independent recordings to assist speaker review and retain uncertainty."
+      ],
+      "result": [
+        "创建可追溯的声纹档案，查看候选比对；相似度不是身份概率。",
+        "Create a traceable profile and inspect comparison candidates. Similarity is not identity probability."
+      ],
+      "needs": [
+        [
+          "配套的 speaker embedding ONNX 模型；识别文字的 STT 模型和声纹模型不能互相代替。",
+          "A compatible speaker-embedding ONNX model. A transcription model cannot replace a voiceprint model."
+        ],
+        [
+          "同一人 1–8 段独立单声道 16 kHz WAV，每段 1–60 秒；另一段独立讲话用作测试，不重复登记录音。",
+          "One to eight independent mono 16 kHz WAVs from one speaker, each 1–60 seconds. Use a separate recording for testing rather than repeating enrollment audio."
+        ],
+        [
+          "新档案未校准前仅供候选人工复核；未知人、跨麦克风与自然情绪条件下的质量仍需评估。",
+          "Before calibration, new profiles supply candidates for human review. Unknown-speaker, cross-microphone and natural-emotion quality still requires evaluation."
+        ],
+        [
+          "可选的独立情绪分析需要 emotion2vec+ base/seed 九类分类 ONNX 和0.25–10秒、16kHz单声道WAV。它与声纹模型不同，不会替你创建声纹或自动改会议人物。",
+          "Optional independent emotion analysis needs an emotion2vec+ base/seed nine-label classifier ONNX and a 0.25–10 second mono 16 kHz WAV. It differs from the speaker model and does not enroll a voiceprint or rename meeting speakers."
+        ]
+      ],
+      "steps": [
+        {
+          "title": [
+            "选择声纹模型并填写名称",
+            "Choose the model and name"
+          ],
+          "text": [
+            "主界面进入「声纹识别」，填写「显示名称」，点击「选择模型」选择已保存的 speaker embedding ONNX 单文件。下载指南中的「复制模型路径」给出保存目录，仍需在该目录选择实际 .onnx。不要选择 SenseVoice、Whisper、情绪分类或其他文字识别权重。换模型后旧档案可能不兼容。",
+            "Open Voiceprints, enter a Display name and use Choose model to select your saved speaker-embedding ONNX file. Copy model path in the download guide gives a folder; select the actual .onnx inside it. Do not choose SenseVoice, Whisper, an emotion classifier or another transcription checkpoint. Changing the model may make older profiles incompatible."
+          ],
+          "shot": "voiceprint-input358"
+        },
+        {
+          "title": [
+            "添加参考音，检查并试听",
+            "Add, inspect and listen to references"
+          ],
+          "text": [
+            "点击「添加录音」，选择同一人的1–8段独立、单声道16kHz WAV，每段1–60秒。选择后等待录音检查，按每条提示处理；修改录音后可点「重新检查录音」。无变化、损坏或重复文件不能继续，点该条「移除」后换录音。低音量提示须试听判断，不等于已检测人声。姓名、模型和合格录音尚未齐全时，「创建声纹」不会启用。讲话区间检测是可选复核，不需要为第一次登记另装VAD。",
+            "Click Add recordings and select 1–8 independent mono 16 kHz WAVs from the same person, each 1–60 seconds. Wait for inspection and resolve each message; use Recheck recording after a change. Constant, damaged or duplicate recordings cannot continue; remove that entry and choose another clip. Listen to low-level warnings: they do not establish speech. Create voiceprint remains unavailable until the name, model and valid recordings are ready. Speech-interval detection is optional; your first enrollment does not require a separate VAD installation."
+          ],
+          "shot": "voiceprint-input358"
+        },
+        {
+          "title": [
+            "点击「创建声纹」，检查档案",
+            "Create and inspect the profile"
+          ],
+          "text": [
+            "确认参考录音只有目标讲话人后点击「创建声纹」。在右侧声纹档案选择新条目，试听样本并核对名称与模型。未校准档案不用于自动身份匹配；归档只隐藏档案，不删除录音。 处理中可以「取消任务」；等待取消完成后再调整输入，取消不删除原录音或已有档案。",
+            "After confirming the references contain the intended speaker, click Create voiceprint. Select the new profile on the right, listen to samples and inspect name and model. Uncalibrated profiles do not perform automatic identity matching. Archiving hides the profile without deleting its recordings. Use Cancel task during processing and wait for cancellation before changing inputs. Cancellation does not delete original recordings or existing profiles."
+          ],
+          "shot": "voiceprints"
+        },
+        {
+          "title": [
+            "用新录音比对，保留歧义",
+            "Compare independent audio and retain ambiguity"
+          ],
+          "text": [
+            "在「比对一段新录音」点击「选择新录音」，选择另一段独立录音，再点「开始比对」。核对候选分数、前两名分差和被排除档案。候选接近、未校准或无兼容档案时，不把第一名当作确认身份。 如果更换了模型，先选原档案并点击「用当前模型重新提取」，等待完成后再用独立录音比对；旧版本保留，重新提取仍不等于已校准。",
+            "Under Compare a new recording, choose a separate recording and select Compare. Inspect candidate scores, the top-two margin and excluded profiles. Do not treat the top candidate as confirmed identity when results are tied, uncalibrated or incompatible. After changing the model, select the original profile and use Re-extract with current model before comparing independent audio. Earlier revisions remain; re-extraction does not perform calibration."
+          ],
+          "shot": "voiceprints"
+        },
+        {
+          "title": [
+            "应用到会议前，复核原音和范围",
+            "Review audio and scope before meeting use"
+          ],
+          "text": [
+            "会议人物标签先结合原音人工复核，再明确修改对应段落。声纹质量评测需要独立样本和校准；报告原音一致只证明文件与来源记录一致，不证明人物标签或质量正确。输入情绪标签也须结合原音复核。",
+            "Listen to meeting audio and review speaker labels before explicitly changing passages. Voiceprint evaluation requires independent samples and calibration. Source-audio verification establishes file consistency, not correct identity labels or quality. Review detected emotion against audio too."
+          ],
+          "shot": "meeting"
+        },
+        {
+          "title": [
+            "登记情绪模型，先检查准备情况",
+            "Register and check the emotion model"
+          ],
+          "text": [
+            "在「配置引导页 → 模型与参数 → 本地模型库」把用途设为「情绪识别」，再浏览模型文件。选到原始 model.pt 时，点击「检查准备情况」查看缺少的配套文件和分类器要求。此操作不保存配置、不加载模型，也不下载文件。准备好兼容的九类 classifier.onnx 后，在这里登记并保存配置；原始权重不能直接登记为可用分类器。已登记模型的「检查文件」也能查看准备情况。",
+            "In Setup → Models and parameters → Local model library, set Use to Emotion recognition and browse to the model file. For the original model.pt, use Check preparation to review missing companion files and classifier requirements. This check does not save settings, load a model or download files. Once you have a compatible nine-label classifier.onnx, register it here and save Setup. Source checkpoints cannot be registered as usable classifiers. Check files also reviews preparation for existing entries."
+          ],
+          "shot": "emotion-preparation454"
+        },
+        {
+          "title": [
+            "选短录音，点击「分析样本」，再回听核对",
+            "Choose a short recording, analyze it and review the audio"
+          ],
+          "text": [
+            "顶部打开「语音工具」，选第06项「情绪分析」，从已配置模型中选择刚登记的分类器。在「语音样本（.wav）」选择0.25–10秒、16kHz单声道WAV，CPU线程可先保留默认2。模型和录音填好后点击「分析样本」，等待任务完成；需要取消时点「取消分析」并等待收尾。结果是未校准的模型候选，分数不是情绪强度或心理状态。未知、其他或无法区分时，保留不确定结论；本工具不会自动改会议标签或克隆参数。",
+            "Open Voice Tools → 06 Emotion and choose the classifier you registered from the configured models. Choose a 0.25–10 second mono 16 kHz WAV under Speech sample; start with the default two CPU threads. With model and audio selected, click Analyze sample and wait. Use Cancel analysis when needed and wait for completion. Results are uncalibrated model candidates, not emotional intensity or a conclusion about internal state. Retain uncertainty for unknown, other or ambiguous results. This tool does not automatically change meeting labels or cloning parameters."
+          ],
+          "shot": "emotion-input358"
+        },
+        {
+          "title": [
+            "分析完释放内存；克隆调情绪走另一篇",
+            "Release memory afterward; use the cloning guide for expression"
+          ],
+          "text": [
+            "分析完成且不再需要连续试样本时，点击「释放模型」；下次分析会重新加载。离开面板不会替你取消仍在执行的任务，要结束请明确取消。若想让合成声音更开心、平静或激动，查看「保留音色，调整语气与情绪」；分析分数不会自动填入这些生成控制。",
+            "After analysis, use Release model when you no longer need consecutive samples; the next analysis reloads it. Leaving the panel does not cancel a running job, so cancel explicitly when stopping. To make synthesized speech sound happier, calmer or more excited, follow Keep the voice, adjust expression. Analysis scores do not automatically populate synthesis controls."
+          ],
+          "shot": "emotion-input358"
+        }
+      ],
+      "success": [
+        [
+          "档案中的姓名、模型与样本可核对；独立比对有候选或明确不确定提示；人工改名只影响确认的段落。",
+          "Name, model and samples can be inspected; independent comparison returns candidates or an explicit uncertain status; manual renaming changes only confirmed passages."
+        ]
+      ],
+      "errors": [
+        [
+          "格式不合格／重复录音",
+          "Invalid format / duplicate audio",
+          "准备单声道 16 kHz、1–60 秒 WAV，使用独立录音。声纹登记不会用补静音掩盖过短材料。",
+          "Prepare mono 16 kHz, 1–60 second WAVs and use independent recordings. Enrollment does not disguise short material with silence."
+        ],
+        [
+          "没有兼容档案",
+          "No compatible profiles",
+          "使用同一模型和运行版本；需要时在该模型下重新提取旧档案，再使用独立录音比对。",
+          "Use the same model and runtime version. Re-extract older profiles with that model when necessary, then compare an independent recording."
+        ],
+        [
+          "第一名也未确认身份",
+          "The top candidate is not confirmed",
+          "这是保留不确定性。未校准、分差不足或未知人条件下，先人工核对并收集独立材料，不降低阈值强行匹配。",
+          "Uncertainty is intentional. With missing calibration, insufficient margin or unknown speakers, review manually and collect independent material instead of lowering thresholds to force a match."
+        ],
+        [
+          "情绪分析模型不兼容／按钮不可用",
+          "Incompatible emotion model / unavailable action",
+          "确认选择九类分类ONNX及符合格式的短WAV，等待上次任务结束；仅同后缀不代表可用。缺配套组件或出现模型格式错误时，记录完整诊断，不用补静音、重复音频或改后缀绕过检查。",
+          "Select the nine-label classifier ONNX and a valid short WAV, and wait for the previous job to end. Matching extensions do not establish compatibility. For missing components or model-format errors, preserve diagnostics rather than padding, repeating audio or changing extensions."
+        ]
+      ],
+      "next": [
+        "meetings",
+        "emotion-cloning"
+      ],
+      "contentRevision": 454,
+      "quickLinks": [
+        {
+          "guide": "emotion-cloning",
+          "anchor": "steps",
+          "label": [
+            "调节生成语气",
+            "Adjust synthesized expression"
+          ]
+        },
+        {
+          "guide": "voiceprints",
+          "anchor": "step-6",
+          "label": [
+            "分析已有录音",
+            "Analyze a recording"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "realtime-voice",
+      "title": [
+        "实时语音对话与逐句翻译",
+        "Real-time voice conversation and turn-by-turn translation"
+      ],
+      "summary": [
+        "连接已保存的语音服务，说完一句后提交，再看文字、听回复。先试一句短话，再开始正式使用。",
+        "Choose a saved voice connection, submit a spoken turn, then read and listen to its reply. Try one short sentence before a longer conversation."
+      ],
+      "result": [
+        "连接已保存的语音服务，说完一句后提交，再看文字、听回复。先试一句短话，再开始正式使用。",
+        "Choose a saved voice connection, submit a spoken turn, then read and listen to its reply. Try one short sentence before a longer conversation."
+      ],
+      "needs": [],
+      "success": [],
+      "errors": [],
+      "next": [
+        "interpretation",
+        "voice-cloning"
+      ],
+      "contentRevision": 408,
+      "curatedFiles": {
+        "zh": {
+          "file": "realtime-voice.html",
+          "sha256": "c60b65550fb39cd640957a17dc5311c77c0972e1e35d858f6e253f1083104027"
+        },
+        "en": {
+          "file": "realtime-voice-en.html",
+          "sha256": "af743d539f076b505ccbf908c95b3821ef048112844cd6b920635d5ff29ce531"
+        }
+      },
+      "steps": [
+        {
+          "title": [
+            "setup",
+            "setup"
+          ],
+          "text": [
+            "启用 Qwen Audio 3.1，复用同一张服务卡片。；把 WorkspaceId 换成自己的实际工作区编号，选择账户开通的地域。；填写自己的 API Key；图解只会使用无效示例密钥，并保持遮蔽。；实时模型填 qwen-audio-3.1-realtime-plus，原有识别和合成项分别保留。",
+            "Enable Qwen Audio 3.1 and reuse its existing service card.; Use your actual WorkspaceId and the region where your service is enabled.; Enter your API key. The illustration will use only a masked, invalid demonstration key.; Set the realtime model to qwen-audio-3.1-realtime-plus; keep recognition and synthesis fields separate."
+          ],
+          "shot": "realtime408-setup"
+        },
+        {
+          "title": [
+            "ready",
+            "ready"
+          ],
+          "text": [
+            "选择配置引导中保存的连接，核对下方服务主机。；选择你实际讲话的语言；不确定时可选自动识别。；选择希望听到的回复语言；语音对话也可不指定。；连接准备完成后，点击开始本句。",
+            "Choose the saved connection and check the service host below it.; Select the language you will speak, or choose Automatic if needed.; Select a reply language, or leave Not specified for a conversation.; When the connected session is ready, select Start turn."
+          ],
+          "shot": "realtime408-ready"
+        },
+        {
+          "title": [
+            "recording",
+            "recording"
+          ],
+          "text": [
+            "说完这句话后点击结束本句，提交本句。；看状态确认当前正在采集，提交后等待回复。；会话运行时设置被锁定；需要更改时先停止会话。",
+            "Select Finish turn to submit the sentence when you are done.; Check the recording state, then wait for the reply after submission.; Settings stay locked while the session is active; stop before changing them."
+          ],
+          "shot": "realtime408-recording"
+        },
+        {
+          "title": [
+            "reply",
+            "reply"
+          ],
+          "text": [
+            "先核对我说的话，尤其数字、专名与漏字。；查看语音回复；接收中时文字还可能补充。；回到最新可重新跟随本栏新内容。；需要立即停掉当前回复时，点击打断回复。；离开前点击停止会话，等待收尾。",
+            "Review What you said, especially names, numbers and missing words.; Read Spoken reply; Receiving… means more text may arrive.; Select Latest to follow new content in that column again.; Select Interrupt reply to stop the current reply.; Select Stop session before leaving and wait for settlement."
+          ],
+          "shot": "realtime408-reply"
+        },
+        {
+          "title": [
+            "translation",
+            "translation"
+          ],
+          "text": [
+            "选择翻译请求 · 实验，要求翻译原意而非回答问题。；本例设置为中文；实际使用选择自己讲话的语言。；本例设置为 English；重要内容仍需核对实际输出语言。；重新连接后，按开始本句、讲话、结束本句提交。",
+            "Choose Translation request · Experimental to request translation rather than answers.; The example uses 中文; select the language you will actually speak.; The example uses English; review the actual output language for important content.; Reconnect, then use Start turn, speak, and Finish turn."
+          ],
+          "shot": "realtime408-translation"
+        }
+      ]
+    }
+  ],
+  "models": [
+    {
+      "id": "whisper",
+      "name": "Whisper",
+      "source": "https://github.com/ggml-org/whisper.cpp",
+      "purpose": [
+        "本机音频转写",
+        "Local audio transcription"
+      ],
+      "files": [
+        "需要匹配当前原生运行时的 GGUF／GGML 文件；官方 Python safetensors 包不能直接作为该文件使用。按对应转换模型来源取得，中文选择多语模型，不用仅英文 .en 版本。",
+        "Use a GGUF/GGML file compatible with the current native runtime. Original Python safetensors cannot substitute. Obtain the matching converted model; use a multilingual model for Chinese rather than an English-only .en variant."
+      ],
+      "config": [
+        "配置引导页 → 模型与参数 → Whisper → 选择对应模型文件，或「音频转写」的 Whisper 路线。选择后用短录音测试。",
+        "Setup Wizard → Models and parameters → Whisper → Choose the matching model file, or use the Whisper route under Audio transcription. Test a short recording afterward."
+      ],
+      "status": [
+        "已有选定中文转写证据；文件转写不表示此路线所有功能都支持实时字幕或手机端。",
+        "Selected Chinese transcription has actual evidence. File transcription does not establish every live-caption or mobile workflow."
+      ]
+    },
+    {
+      "id": "sensevoice-native",
+      "name": "SenseVoice · Native",
+      "source": "https://huggingface.co/FunAudioLLM/SenseVoiceSmall",
+      "purpose": [
+        "原生音频转写",
+        "Native audio transcription"
+      ],
+      "files": [
+        "官方原始模型是来源，软件原生路线需匹配的 GGUF／GGML 模型与运行组件；不能把原始 .pt 权重改后缀当作原生文件。",
+        "The official original model is the source. The app's native route requires a compatible GGUF/GGML model and runtime component; renaming an original .pt checkpoint does not convert it."
+      ],
+      "config": [
+        "配置引导页 → 模型与参数 → SenseVoice · Native → 选择适配模型文件。没有适配包时可使用匹配的 ONNX 路线或已配置服务。",
+        "Setup Wizard → Models and parameters → SenseVoice · Native → Choose the adapted model file. Without a compatible native package, use a matching ONNX route or configured service."
+      ],
+      "status": [
+        "已验证部分原生中文转写；不承诺任意上游版本直接加载。",
+        "Selected native Chinese transcription is verified; arbitrary upstream versions are not assumed to load directly."
+      ]
+    },
+    {
+      "id": "funasr",
+      "name": "FunASR",
+      "source": "https://github.com/modelscope/FunASR",
+      "purpose": [
+        "保留现有实时识别兼容路线",
+        "Existing compatible live recognition route"
+      ],
+      "files": [
+        "当前兼容路线使用相应 .pt、config.yaml 和配套词表／运行组件；FunASR 是工具家族，不是任意同名模型均可用。较新 ASR 模型需单独适配，不能根据上游列表认定软件已支持。",
+        "The compatibility route uses matching .pt, config.yaml, vocabulary and runtime components. FunASR is a toolkit family, not proof that any model with the name works. Newer ASR models need separate adapters."
+      ],
+      "config": [
+        "配置引导页 → 模型与参数 → FunASR → 选择与现有兼容运行组件匹配的完整模型目录 → 短录音验证。",
+        "Setup Wizard → Models and parameters → FunASR → Complete model folder matching the existing compatibility runtime → Short recording test."
+      ],
+      "status": [
+        "现有功能保留，可能使用旧 Python 兼容组件；不能概括整个应用为无 Python。",
+        "The existing route is retained and may use legacy Python compatibility components. The entire app must not be described as Python-free."
+      ]
+    },
+    {
+      "id": "sensevoice",
+      "name": "SenseVoiceSmall ONNX",
+      "source": "https://huggingface.co/csukuangfj/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-2024-07-17",
+      "purpose": [
+        "本地讲话转文字",
+        "Local transcription"
+      ],
+      "files": [
+        "当前目录检查要求 model.onnx 及 tokens.json／tokens.txt 中的一种配套词表。官方转换包可能提供 model.int8.onnx／tokens.txt，不能只把不同文件重命名来通过检查；需要软件兼容的导出包。",
+        "The current folder inspector requires model.onnx with a matching tokens.json or tokens.txt vocabulary. Upstream packages may use model.int8.onnx/tokens.txt; renaming unrelated files does not establish compatibility. Obtain an app-compatible export."
+      ],
+      "config": [
+        "配置引导页 → 模型与参数 → SenseVoice／ONNX 识别目录；检查后短录音测试。",
+        "Setup Wizard → Models and parameters → SenseVoice/ONNX recognition folder; inspect and test a short recording."
+      ],
+      "status": [
+        "已有实际中文转录证据；不同导出版本仍须匹配，尚无全语言质量验收。",
+        "Chinese transcription has actual evidence. Export versions must match; comprehensive multilingual quality is not accepted."
+      ]
+    },
+    {
+      "id": "index2",
+      "name": "Index-TTS2 / IndexTTS-2",
+      "source": "https://huggingface.co/IndexTeam/IndexTTS-2",
+      "purpose": [
+        "参考音克隆与所支持的情绪提示",
+        "Reference cloning and supported emotion prompting"
+      ],
+      "files": [
+        "原始根目录含 config.yaml、gpt.pth、s2mel.pth、bpe.model、feat1.pt、feat2.pt、wav2vec2bert_stats.pt，还需匹配 w2v-bert、semantic codec、CAM++、BigVGAN 等辅助权重。仅主仓库可能不完整，按检查提示补齐。",
+        "The original root includes config.yaml, gpt.pth, s2mel.pth, bpe.model, feat1.pt, feat2.pt and wav2vec2bert_stats.pt, plus matching w2v-bert, semantic codec, CAM++ and BigVGAN assets. The main repository alone may be incomplete; follow inspection results."
+      ],
+      "config": [
+        "语音工具 → 模型配置 → 本机模型 → Index-TTS2 / 2.5 → 选目录 → 检查模型 → 准备原生模型 → 等待路径切换 → 短试音。",
+        "Voice Tools → Model Setup → Local models → Index-TTS2/2.5 → Choose directory → Check model → Prepare native model → Wait for path switch → Short audition."
+      ],
+      "status": [
+        "原生实验路径；中文与英文按当前版本显示，需实际试音。",
+        "Experimental native route; available languages follow the detected version. Actual audition remains required."
+      ]
+    },
+    {
+      "id": "index25",
+      "name": "IndexTTS-2.5",
+      "source": "https://huggingface.co/IndexTeam/IndexTTS-2.5",
+      "purpose": [
+        "多语参考音克隆与情绪控制候选",
+        "Multilingual reference cloning and expression control"
+      ],
+      "files": [
+        "保留 2.5 原始 config.yaml、gpt.pth、s2mel.pth、codec.pth、配套 tiktoken 分词文件和辅助权重。不要用 2.0 的 codec 或只改 version。下载辅助包后检查具体缺项。",
+        "Keep the original 2.5 config.yaml, gpt.pth, s2mel.pth, codec.pth, matching tiktoken vocabulary and auxiliary assets. Do not substitute 2.0 codec weights or merely change version. Check specific missing dependencies after obtaining auxiliaries."
+      ],
+      "config": [
+        "与 Index2 共用入口，原始目录需准备。新增包固定在所选模型目录的 .boundless-flow/native，保留关联原权重。",
+        "Use the shared Index2 route and prepare its original folder. The added package stays at .boundless-flow/native in that model directory and retains links to source assets."
+      ],
+      "status": [
+        "已有 F 盘模型实际 CUDA 中文生成；不是所有目录、GPU、语言与情绪均验收。",
+        "Actual CUDA Chinese generation exists for the tested F-drive package; not every folder, GPU, language or emotion is accepted."
+      ]
+    },
+    {
+      "id": "vox",
+      "name": "VoxCPM2",
+      "source": "https://huggingface.co/OpenBMB/VoxCPM2",
+      "purpose": [
+        "本机参考音克隆",
+        "Local reference cloning"
+      ],
+      "files": [
+        "完整 config.json、主模型 safetensors／分片及索引、tokenizer 文件与 audiovae.pth。若缺 audiovae.safetensors，在软件准备生成该文件；原文件和模型路径保留。",
+        "Keep the complete config.json, backbone safetensors or shards/index, tokenizer files and audiovae.pth. If audiovae.safetensors is missing, use app preparation to add it while retaining originals and the model path."
+      ],
+      "config": [
+        "语音工具 → 模型配置 → 本机模型 → VoxCPM2 → 选目录与参考音 → 检查模型 → 按提示准备文件 → 可选提前加载 → 生成短试音；换录音重新检查。",
+        "Voice Tools → Model Setup → Local models → VoxCPM2 → Choose folder/reference → Check model → Prepare files if prompted → Optional memory loading → Generate a short audition; check again after replacing the reference."
+      ],
+      "status": [
+        "已有实际 CUDA 中文克隆和会话复用；当前入口不提供独立情绪参数或描述设计。",
+        "Actual CUDA Chinese cloning and session reuse exist. This app route does not offer independent emotion parameters or description-based design."
+      ]
+    },
+    {
+      "id": "qwen-base",
+      "name": "Qwen3-TTS Base",
+      "source": "https://huggingface.co/Qwen/Qwen3-TTS-12Hz-1.7B-Base",
+      "purpose": [
+        "参考音克隆，Base 专用",
+        "Reference cloning with Base weights"
+      ],
+      "files": [
+        "完整 Base config.json、主权重、tokenizer 配置／词表及 speech_tokenizer/config.json、speech_tokenizer/model.safetensors；0.6B Base 为另一规格，仍须完整同版包。",
+        "Keep the complete Base config.json, backbone weights, tokenizer configuration/vocabulary and speech_tokenizer/config.json plus model.safetensors. The 0.6B Base is a separate size and still needs a complete matching package."
+      ],
+      "config": [
+        "本机模型 → Qwen3-TTS → 声音来源「参考音克隆 · Base」；选完整目录，填写参考音原文，检查后试音。",
+        "Local models → Qwen3-TTS → Reference clone · Base; choose a complete folder, enter the reference transcript, inspect and audition."
+      ],
+      "status": [
+        "已有部分 Base CPU／CUDA 实际生成证据，独立音色质量待验；不能用于无参考设计。",
+        "Selected Base CPU/CUDA generation has actual evidence; independent voice quality remains unaccepted. Base is not reference-free design."
+      ]
+    },
+    {
+      "id": "qwen-design",
+      "name": "Qwen3-TTS VoiceDesign",
+      "source": "https://huggingface.co/Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign",
+      "purpose": [
+        "无参考音的描述设计",
+        "Description-based design without a reference"
+      ],
+      "files": [
+        "使用 VoiceDesign 完整包，含 config.json、主 safetensors、tokenizer 配置及配套 speech_tokenizer；不要与 Base 或 CustomVoice 混用。",
+        "Use a complete VoiceDesign package with config.json, backbone safetensors, tokenizer configuration and matching speech_tokenizer. Do not mix it with Base or CustomVoice."
+      ],
+      "config": [
+        "本机模型 → Qwen3-TTS → 声音来源「描述音色 · VoiceDesign」；填写声音描述与合成文本，在编辑区上方检查后「生成设计语音」。",
+        "Local models → Qwen3-TTS → Describe a voice · VoiceDesign; enter a description and synthesis text, inspect and generate."
+      ],
+      "status": [
+        "已有真实生成与复用证据，表达和独立质量仍须试听评估。",
+        "Actual generation and reuse evidence exist; expression and independent quality still require listening evaluation."
+      ]
+    },
+    {
+      "id": "qwen-custom",
+      "name": "Qwen3-TTS CustomVoice",
+      "source": "https://huggingface.co/Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice",
+      "purpose": [
+        "模型预设音色，与克隆不同",
+        "Model presets, distinct from cloning"
+      ],
+      "files": [
+        "完整 CustomVoice 及其 tokenizer／speech_tokenizer 文件，按原始目录结构保存。",
+        "Keep the complete CustomVoice package and matching tokenizer/speech_tokenizer files in their original structure."
+      ],
+      "config": [
+        "按现有声音合成配置使用预设说话人；原生克隆／VoiceDesign 入口不接收 CustomVoice 作为替代。",
+        "Use preset speakers through the existing speech synthesis settings. CustomVoice cannot substitute for Base cloning or VoiceDesign in the native workbench."
+      ],
+      "status": [
+        "预设模型，不承诺当前所有后端组合均可生成。",
+        "A preset model; not every backend combination is verified."
+      ]
+    },
+    {
+      "id": "cosy",
+      "name": "CosyVoice3",
+      "source": "https://huggingface.co/FunAudioLLM/Fun-CosyVoice3-0.5B-2512",
+      "purpose": [
+        "服务克隆、跨语言及指令表达",
+        "Service cloning, cross-language and instruction delivery"
+      ],
+      "files": [
+        "官方原始完整包由兼容服务加载。本机入口另需完整 audio.cpp GGUF 和配套资源，不直接加载该原始目录；本指南没有已验收可下载的 GGUF 包链接。",
+        "The official complete checkpoint is loaded by a compatible server. Local execution separately requires a complete audio.cpp GGUF package and resources, not this original folder. No qualified downloadable native GGUF package is provided here."
+      ],
+      "config": [
+        "模型服务 → CosyVoice3 → 填已启动服务实际根地址 → 选择模式及参考音／原文或指令 → 短试音；软件不自动启动服务。",
+        "Model service → CosyVoice3 → Enter a running server root → Select mode and reference/transcript or instruction → Short audition. The app does not start the server."
+      ],
+      "status": [
+        "服务协议及界面已接入，实际服务质量需用户部署后试音；原生真实生成待验。",
+        "The service protocol and UI are integrated. Audition your deployed service to verify output; actual native generation remains unverified."
+      ]
+    },
+    {
+      "id": "fish",
+      "name": "Fish Speech S2 Pro",
+      "source": "https://huggingface.co/fishaudio/s2-pro",
+      "purpose": [
+        "服务克隆与表达标签",
+        "Service cloning and expression tags"
+      ],
+      "files": [
+        "原始完整 S2 Pro 权重及编解码器由对应服务加载；旧 Fish 权重不能替代。本机要求完整 audio.cpp GGUF 包，其下载与真实生成尚未在这里验收。",
+        "Use complete S2 Pro weights and decoder assets in the matching service; old Fish weights do not substitute. The local route needs a complete audio.cpp GGUF package whose download and actual generation are not qualified here."
+      ],
+      "config": [
+        "模型服务 → Fish Speech S2 Pro → 实际服务地址、参考音和原文 → 合成文本可插表达标签 → 短试音。",
+        "Model service → Fish Speech S2 Pro → Actual endpoint, reference and transcript → Optional synthesis-text expression tags → Short audition."
+      ],
+      "status": [
+        "可选服务适配；权重许可不是通用商业开源许可，使用前阅读官方条件。",
+        "Optional service adapter. The weight license is not a general commercial open-source license; read the official terms before use."
+      ]
+    },
+    {
+      "id": "fire",
+      "name": "FireRedTTS3 Instruct / Base",
+      "source": "https://huggingface.co/FireRedTeam/FireRedTTS3",
+      "purpose": [
+        "Instruct 参考音克隆与实验性流式译声；Base未开放",
+        "Instruct reference cloning and experimental streamed interpreting; Base unavailable"
+      ],
+      "files": [
+        "原始根目录保存 fireredtts3_instruct、redae、text_tokenizer 完整子目录；主模型和 RedAE 各自需最终 model.safetensors。下载暂存文件不能代替。",
+        "Keep complete fireredtts3_instruct, redae and text_tokenizer subfolders. The backbone and RedAE each require their final model.safetensors; download staging does not substitute."
+      ],
+      "config": [
+        "本机模型 → FireRedTTS3 Instruct → 原始根目录 → CPU → 短参考与准确原文 → 检查并离线试音。随后可在同传选择同一模型与参考音，开启「边生成边播放 · 实验」；当前工作台自动播报，无需另找开关。",
+        "Local models → FireRedTTS3 Instruct → Original root → CPU → Short reference and accurate transcript → Inspect and audition offline. Then use that model/reference in interpretation, enabling Play while generating · Experimental. The current workbench plays speech automatically, with no separate switch."
+      ],
+      "status": [
+        "当前 Windows 包使用 CPU，不提供此引擎的 CUDA 组件；应用保留生成中 PCM 播放实验入口。需要 NVIDIA GPU 时，请先检查并选择支持的 Index-TTS2、Qwen3-TTS 或 VoxCPM2 组件。每段完整译文定稿后才开始生成；持续实时、物理设备和完整音质尚未验收。Base、声音设计与独立情绪参数未开放。",
+        "The current Windows package uses CPU and does not provide CUDA components for this engine; the app retains experimental generation-time PCM playback. For NVIDIA GPU, first check and select supported Index-TTS2, Qwen3-TTS or VoxCPM2 components. Generation starts for each finalized full translation. Sustained realtime, physical devices and full voice quality remain unaccepted. Base, voice design and independent emotion controls are unavailable."
+      ]
+    },
+    {
+      "id": "moss",
+      "name": "MOSS-TTS family",
+      "source": "https://huggingface.co/OpenMOSS-Team/MOSS-TTS",
+      "purpose": [
+        "目前用于模型包检查，暂不能在软件合成",
+        "Package inspection; app synthesis remains unavailable"
+      ],
+      "files": [
+        "各模型 config.json、权重分片／索引、tokenizer，以及匹配 MOSS-Audio-Tokenizer 或 v2 完整编解码目录；两个版本不能自行混用。",
+        "Keep each model's config.json, weight shards/index and tokenizer, plus the matching complete MOSS-Audio-Tokenizer or v2 codec. Do not mix codec versions."
+      ],
+      "config": [
+        "语音工具 → 模型配置 → 正在接入的模型 → MOSS-TTS → 模型及编解码目录 → 检查模型包。",
+        "Voice Tools → Model Setup → Models being integrated → MOSS-TTS → Model and codec folders → Inspect package."
+      ],
+      "status": [
+        "上游能力不等于软件已开放；当前不能用此检查入口完成克隆、设计或同传。",
+        "Upstream capability does not mean app availability. This inspector cannot complete cloning, design or interpretation."
+      ]
+    },
+    {
+      "id": "vibe",
+      "name": "VibeVoice Realtime 0.5B",
+      "source": "https://huggingface.co/microsoft/VibeVoice-Realtime-0.5B",
+      "purpose": [
+        "模型服务预设音色试音",
+        "Model-service preset audition"
+      ],
+      "files": [
+        "完整官方服务模型由已运行服务加载；应用选择预设，不直接导入参考音克隆。",
+        "A running official service loads its complete model. The app selects presets rather than importing a cloning reference."
+      ],
+      "config": [
+        "模型服务 → VibeVoice Realtime 0.5B → 实际 WebSocket 地址与服务已有的准确音色名 → 生成试音 → 成功后用于持续同传。",
+        "Model service → VibeVoice Realtime 0.5B → Actual WebSocket endpoint and exact available preset → Audition → Apply to continuous interpretation after success."
+      ],
+      "status": [
+        "整句文本／流式 PCM／预设；不提供克隆、设计或独立情绪参数。中文实际质量仍待确认。",
+        "Complete-text input, streamed PCM and presets; no cloning, design or independent emotion parameters. Actual Chinese quality remains unverified."
+      ]
+    },
+    {
+      "id": "hy",
+      "name": "HY-MT2 / Hy-MT2",
+      "source": "https://huggingface.co/tencent/Hy-MT2-1.8B-GGUF",
+      "purpose": [
+        "文本与字幕翻译",
+        "Text and subtitle translation"
+      ],
+      "files": [
+        "本地托管选择匹配的腾讯官方 1.8B Q4_K_M GGUF 与兼容 llama-server 完整组件。其他量化或大模型可通过已部署兼容 API 使用，不自动等于此本地托管路径已验收。",
+        "For managed local use, choose the matching official Tencent 1.8B Q4_K_M GGUF and a compatible complete llama-server component. Other quantizations/sizes can use deployed compatible APIs; they are not automatically qualified for this managed route."
+      ],
+      "config": [
+        "配置引导页 → API 配置 → HY-MT2 → 选择本地模型与服务程序，CPU 或配套 CUDA 后端 → 启动后文本试用；也可填实际兼容 API。",
+        "Setup Wizard → API settings → HY-MT2 → Select local model/server with CPU or matching CUDA backend → Start and test text; alternatively configure a real compatible API."
+      ],
+      "status": [
+        "已有实际 CPU 翻译与托管生命周期证据；目标语言质量和具体 GPU 包仍须单独确认。",
+        "Actual CPU translation and managed-lifecycle evidence exist. Target-language quality and specific GPU packages still require verification."
+      ],
+      "extraSource": "https://github.com/ggml-org/llama.cpp/releases"
+    },
+    {
+      "id": "index-translate",
+      "name": "Index-Translate",
+      "source": "https://github.com/bilibili/Index-Translate",
+      "purpose": [
+        "翻译 API 或导入 GGUF 的本地托管",
+        "Translation API or imported managed GGUF"
+      ],
+      "files": [
+        "API 不需要本机下载权重。自建服务使用官方所选模型完整包；本地托管需明确导入兼容 GGUF，不提供自动转换原始主权重的假设。",
+        "API use needs no local model download. Self-hosted servers require the complete chosen official model. Managed local use explicitly imports a compatible GGUF; automatic conversion of source weights is not assumed."
+      ],
+      "config": [
+        "API 配置 → HY-MT2／Index 翻译配置 → 填实际服务与模型 ID → 文本试用。公共服务的地址和权限以当时官方说明为准，不保证长期免费或可用。",
+        "API settings → HY-MT2/Index translation configuration → Actual endpoint and model ID → Text test. Public endpoint/access follow current official instructions; permanent free access or availability is not guaranteed."
+      ],
+      "status": [
+        "翻译适配与导入路径保留；实际模型质量、性能与账户可用性分别验证。",
+        "Translation and import adapters are retained. Model quality, speed and account access need separate verification."
+      ]
+    },
+    {
+      "id": "speaker",
+      "name": "CAM++ / ERes2Net / WeSpeaker ONNX",
+      "source": "https://github.com/k2-fsa/sherpa-onnx/releases/tag/speaker-recongition-models",
+      "purpose": [
+        "说话人 embedding，与文字识别不同",
+        "Speaker embeddings, distinct from transcription"
+      ],
+      "files": [
+        "下载兼容的 speaker embedding .onnx 文件，确认该文件的家族与许可；不是所有原始 .pt／.bin 模型都能直接选用。",
+        "Obtain a compatible speaker-embedding .onnx file and check its family and license. Arbitrary original .pt/.bin checkpoints cannot be selected directly."
+      ],
+      "config": [
+        "声纹识别 → 选择模型 → 选择实际 ONNX → 添加合格 WAV → 创建声纹 → 用独立录音比对。",
+        "Voiceprints → Choose model → Actual ONNX → Add valid WAVs → Create voiceprint → Compare independent audio."
+      ],
+      "status": [
+        "登记和候选比对已接入；未校准分数不认定身份，跨设备／未知人质量仍待评估。",
+        "Enrollment and candidate comparison are integrated. Uncalibrated scores do not confirm identity; cross-device/unknown-speaker quality remains unaccepted."
+      ]
+    },
+    {
+      "id": "cloud",
+      "name": "Cloud APIs / Minutes LLM",
+      "source": null,
+      "purpose": [
+        "云端识别、翻译、合成、音色创建或纪要",
+        "Cloud recognition, translation, speech, voice creation or minutes"
+      ],
+      "files": [
+        "不下载本机权重；准备服务地址、实际模型／音色 ID 与具备所需权限的 API Key。灵录和普通纪要配置需分别确认。",
+        "No local weights are needed. Prepare a real endpoint, model/voice ID and an API key with required permissions. Inspect LingLu and ordinary minutes settings separately."
+      ],
+      "config": [
+        "配置引导页 → API 配置选择能力与提供商；声音创建在语音工具 → 云端 API。先短请求成功，再应用到功能。",
+        "Choose the capability/provider under Setup Wizard → API settings; voice creation is under Voice Tools → Cloud API. Test a short request before applying it."
+      ],
+      "status": [
+        "具体能力依账户与适配协议，配置保存不是接口可用或所有能力通过的证明。",
+        "Capabilities depend on the account and adapter protocol. Saving settings does not prove API access or every capability."
+      ]
+    },
+    {
+      "id": "emotion",
+      "name": "emotion2vec+ base / seed · 九类分类 ONNX",
+      "source": "https://huggingface.co/emotion2vec/emotion2vec_plus_base",
+      "sourceReviewed": "2026-10-10",
+      "purpose": [
+        "独立语音情绪候选分析，与克隆情绪控制不同",
+        "Independent acoustic emotion candidates, distinct from synthesis controls"
+      ],
+      "files": [
+        "软件需要带九类分类层的兼容 ONNX 导出文件。官方来源用于核对模型与许可，原始仓库下载不等于取得当前可用ONNX；仅输出特征的导出不适用。",
+        "The app needs a compatible ONNX export retaining the nine-label classifier. Use the official source to check the model and licence; downloading its source repository does not supply an app-compatible ONNX automatically. Feature-only exports are unsuitable."
+      ],
+      "config": [
+        "配置引导页 → 模型与参数 → 本地模型库 → 情绪识别。原始 model.pt 可先「检查准备情况」；兼容的九类 classifier.onnx 登记后保存配置，再到语音工具 → 06 情绪分析选择模型和短录音。文件检查不代表推理通过。",
+        "Setup → Models and parameters → Local model library → Emotion recognition. Check preparation can inspect an original model.pt. Register a compatible nine-label classifier.onnx and save Setup, then choose it and a short recording in Voice Tools → 06 Emotion. File checks do not verify inference."
+      ],
+      "status": [
+        "独立分析入口已接入；候选分数未校准，不代表情绪强度或心理结论。分析不自动改会议标签或声音生成参数。",
+        "Independent analysis is integrated. Candidate scores are uncalibrated and do not represent intensity or psychological conclusions. Analysis does not automatically change meeting labels or synthesis controls."
+      ]
+    }
+  ],
+  "additionalCaptures": [
+    {
+      "file": "resource-download298-zh.png",
+      "topic": "resource-download298",
+      "lang": "zh-CN",
+      "caption": [
+        "实际生产前端 · 受控文件清单与状态示例；非联网下载成功证据。点击放大。",
+        "Actual production frontend · Controlled file-list/status example, not proof of a successful network download. Select to enlarge."
+      ],
+      "annotations": [],
+      "frontendRevision": 298,
+      "sourceKind": "production-frontend-controlled-resource-list",
+      "sourceEvidence": "docs/v0.5.0/evidence/resource-download298-zh.png",
+      "imageSha256": "f1c4486284a90699054e288b11c28d2b56302f7ea6e8deb45426dce833fb0300",
+      "networkDownloadSuccessEvidence": false,
+      "modelOrDeviceStarted": false
+    },
+    {
+      "file": "resource-download298-en.png",
+      "topic": "resource-download298",
+      "lang": "en-US",
+      "caption": [
+        "实际生产前端 · 受控文件清单与状态示例；非联网下载成功证据。点击放大。",
+        "Actual production frontend · Controlled file-list/status example, not proof of a successful network download. Select to enlarge."
+      ],
+      "annotations": [],
+      "frontendRevision": 298,
+      "sourceKind": "production-frontend-controlled-resource-list",
+      "sourceEvidence": "docs/v0.5.0/evidence/resource-download298-en.png",
+      "imageSha256": "3519a34823f1273e3889f66846e4e8bf9b1b85ec45b1ef13dbeca808662402a5",
+      "networkDownloadSuccessEvidence": false,
+      "modelOrDeviceStarted": false
+    },
+    {
+      "file": "resource-download354-zh.png",
+      "topic": "resource-download354",
+      "lang": "zh-CN",
+      "caption": [
+        "下载配置示例 · 图中为测试清单；实际文件与大小以所选平台清单为准。点击放大。",
+        "Download setup example · Test file list; actual files and sizes follow your selected platform. Select to enlarge."
+      ],
+      "annotations": [],
+      "frontendRevision": 354,
+      "sourceKind": "production-frontend-controlled-resource-list",
+      "sourceEvidence": "docs/v0.5.0/evidence/resource-resume354.json",
+      "imageSha256": "c146145c0baa63ff2ed2efb040ce0a67e9b01cb965cac925d0e12c3179b63902",
+      "networkDownloadSuccessEvidence": false,
+      "modelOrDeviceStarted": false,
+      "desktopBinaryRebuilt": false
+    },
+    {
+      "file": "resource-download354-en.png",
+      "topic": "resource-download354",
+      "lang": "en-US",
+      "caption": [
+        "下载配置示例 · 图中为测试清单；实际文件与大小以所选平台清单为准。点击放大。",
+        "Download setup example · Test file list; actual files and sizes follow your selected platform. Select to enlarge."
+      ],
+      "annotations": [],
+      "frontendRevision": 354,
+      "sourceKind": "production-frontend-controlled-resource-list",
+      "sourceEvidence": "docs/v0.5.0/evidence/resource-resume354.json",
+      "imageSha256": "11b30a3f72d007993a6fdb68721f24188f2d58d1a498793843872a3824376ca2",
+      "networkDownloadSuccessEvidence": false,
+      "modelOrDeviceStarted": false,
+      "desktopBinaryRebuilt": false
+    },
+    {
+      "file": "sts-native-model361-zh.png",
+      "topic": "sts-native-model361",
+      "lang": "zh-CN",
+      "annotations": [
+        {
+          "number": 1,
+          "label": "选与原始权重一致的模型家族。",
+          "x": 0,
+          "y": 15.678615196078432,
+          "width": 100,
+          "height": 18.627450980392158
+        },
+        {
+          "number": 2,
+          "label": "填原始模型目录；准备后这里会切换路径。",
+          "x": 0,
+          "y": 53.423713235294116,
+          "width": 100,
+          "height": 17.647058823529413
+        },
+        {
+          "number": 3,
+          "label": "先检查模型，不生成语音。",
+          "x": 14.174752270850538,
+          "y": 75.97273284313727,
+          "width": 6.880935177539224,
+          "height": 19.607843137254903
+        },
+        {
+          "number": 4,
+          "label": "需要转换时明确点击准备；原文件保留。",
+          "x": 21.881451279933938,
+          "y": 75.97273284313727,
+          "width": 9.082111890999174,
+          "height": 19.607843137254903
+        }
+      ],
+      "frontendRevision": 361,
+      "sourceKind": "production-frontend-controlled-idle-host",
+      "frontendSourceSha256": "8d015092f7622835e07da4aafd1f27cf5b74c050ae67311a374c1611478f7d89",
+      "imageSha256": "5918a0f80ec87ed8bf69873abca51dcc6376d32d12ae18397b8288a29d8636fe",
+      "modelOrDeviceStarted": false,
+      "modelConversionPerformed": false,
+      "desktopBinaryRebuilt": false,
+      "sourceEvidence": "docs/v0.5.0/evidence/sts-guide361-capture.json",
+      "caption": [
+        "当前界面配置示例 · 图中路径为示例，未检查、转换或加载模型。点击放大。",
+        "Current UI configuration example · Sample path; no model checked, converted or loaded. Select to enlarge."
+      ]
+    },
+    {
+      "file": "sts-native-model361-en.png",
+      "topic": "sts-native-model361",
+      "lang": "en-US",
+      "annotations": [
+        {
+          "number": 1,
+          "label": "Choose the family matching your source weights.",
+          "x": 0,
+          "y": 15.57904411764706,
+          "width": 100,
+          "height": 18.627450980392158
+        },
+        {
+          "number": 2,
+          "label": "Enter the source folder; preparation updates this path.",
+          "x": 0,
+          "y": 53.32414215686274,
+          "width": 100,
+          "height": 17.647058823529413
+        },
+        {
+          "number": 3,
+          "label": "Check the model without generating speech.",
+          "x": 20.45184764657308,
+          "y": 75.87316176470588,
+          "width": 8.953086292320396,
+          "height": 19.607843137254903
+        },
+        {
+          "number": 4,
+          "label": "Explicitly prepare when conversion is needed; originals are retained.",
+          "x": 30.230697770437654,
+          "y": 75.87316176470588,
+          "width": 13.12061312964492,
+          "height": 19.607843137254903
+        }
+      ],
+      "frontendRevision": 361,
+      "sourceKind": "production-frontend-controlled-idle-host",
+      "frontendSourceSha256": "8d015092f7622835e07da4aafd1f27cf5b74c050ae67311a374c1611478f7d89",
+      "imageSha256": "73dace90bec7fb81b573895cb93928d0ea17a9204c981f5814750ab652b31e64",
+      "modelOrDeviceStarted": false,
+      "modelConversionPerformed": false,
+      "desktopBinaryRebuilt": false,
+      "sourceEvidence": "docs/v0.5.0/evidence/sts-guide361-capture.json",
+      "caption": [
+        "当前界面配置示例 · 图中路径为示例，未检查、转换或加载模型。点击放大。",
+        "Current UI configuration example · Sample path; no model checked, converted or loaded. Select to enlarge."
+      ]
+    },
+    {
+      "file": "mini-result362-zh.png",
+      "topic": "sts-mini-result362",
+      "lang": "zh-CN",
+      "annotations": [
+        {
+          "number": 1,
+          "label": "字幕卡专注原文与译文。",
+          "x": 0,
+          "y": 0,
+          "width": 49.3,
+          "height": 77,
+          "badgeAtEnd": true
+        },
+        {
+          "number": 2,
+          "label": "唯一播放器可重听译声，与自动播放使用同一控件。",
+          "x": 50.7,
+          "y": 0,
+          "width": 49.3,
+          "height": 95,
+          "badgeAtEnd": true
+        },
+        {
+          "number": 3,
+          "label": "展开文件详情，查看保存位置或复制路径。",
+          "x": 52.4,
+          "y": 67,
+          "width": 46.1,
+          "height": 20,
+          "badgeAtEnd": true
+        }
+      ],
+      "frontendRevision": 362,
+      "sourceKind": "production-bundle-controlled-mini-result",
+      "imageSha256": "a61cd18f03e2aff69118235c61558a83a8113c092d524881f60b50a2f20a948d",
+      "modelOrDeviceStarted": false,
+      "modelConversionPerformed": false,
+      "desktopBinaryRebuilt": false,
+      "caption": [
+        "当前界面操作示例 · 文字与音频状态来自受控测试，不代表真实模型生成效果。点击放大。",
+        "Current UI operation example · Controlled text and audio state; this is not evidence of actual model generation. Select to enlarge."
+      ]
+    },
+    {
+      "file": "mini-result362-en.png",
+      "topic": "sts-mini-result362",
+      "lang": "en-US",
+      "annotations": [
+        {
+          "number": 1,
+          "label": "The text card contains only the original and translation.",
+          "x": 0,
+          "y": 0,
+          "width": 49.3,
+          "height": 77,
+          "badgeAtEnd": true
+        },
+        {
+          "number": 2,
+          "label": "Replay translated speech in the same player used for automatic playback.",
+          "x": 50.7,
+          "y": 0,
+          "width": 49.3,
+          "height": 95,
+          "badgeAtEnd": true
+        },
+        {
+          "number": 3,
+          "label": "Expand File details to view the saved location or copy the path.",
+          "x": 52.4,
+          "y": 67,
+          "width": 46.1,
+          "height": 20,
+          "badgeAtEnd": true
+        }
+      ],
+      "frontendRevision": 362,
+      "sourceKind": "production-bundle-controlled-mini-result",
+      "imageSha256": "db4d030746feaf5886841827fa3716e8c030d37d0fcdce15d8f967310387f783",
+      "modelOrDeviceStarted": false,
+      "modelConversionPerformed": false,
+      "desktopBinaryRebuilt": false,
+      "caption": [
+        "当前界面操作示例 · 文字与音频状态来自受控测试，不代表真实模型生成效果。点击放大。",
+        "Current UI operation example · Controlled text and audio state; this is not evidence of actual model generation. Select to enlarge."
+      ]
+    },
+    {
+      "file": "realtime408-setup-zh.png",
+      "topic": "realtime408-setup",
+      "lang": "zh-CN",
+      "annotations": [
+        {
+          "number": 1,
+          "label": "启用 Qwen Audio 3.1，复用同一张服务卡片。",
+          "x": 1.2866333095067906,
+          "y": 15.357448630136986,
+          "width": 3.8598999285203717,
+          "height": 9.58904109589041
+        },
+        {
+          "number": 2,
+          "label": "把 WorkspaceId 换成自己的实际工作区编号，选择账户开通的地域。",
+          "x": 1.2866333095067906,
+          "y": 28.59945776255708,
+          "width": 48.284488920657616,
+          "height": 25.799086757990867
+        },
+        {
+          "number": 3,
+          "label": "填写自己的 API Key；图解只会使用无效示例密钥，并保持遮蔽。",
+          "x": 50.4288777698356,
+          "y": 28.59945776255708,
+          "width": 48.284488920657616,
+          "height": 25.799086757990867
+        },
+        {
+          "number": 4,
+          "label": "实时模型填 qwen-audio-3.1-realtime-plus，原有识别和合成项分别保留。",
+          "x": 17.512508934953537,
+          "y": 91.61315639269407,
+          "width": 80.12866333095067,
+          "height": 8.21917808219178
+        }
+      ],
+      "caption": [
+        "真实软件界面 · 点击放大。图中为本地模拟会话和预设字幕，未调用云服务或实体录音／播放；示例只说明操作。",
+        "真实软件界面 · 点击放大。图中为本地模拟会话和预设字幕，未调用云服务或实体录音／播放；示例只说明操作。"
+      ],
+      "imageSha256": "9a73ac5ce2d9f8d98129fa1e42676c9801ada34133ed4b560a2732d644dc5547",
+      "frontendRevision": 407,
+      "sourceKind": "production-frontend-controlled-desktop-ipc",
+      "sourceEvidence": "docs/v0.5.0/evidence/realtime408-documentation-1791759849177855500.json",
+      "modelOrDeviceStarted": false,
+      "supplierAccountUsed": false
+    },
+    {
+      "file": "realtime408-ready-zh.png",
+      "topic": "realtime408-ready",
+      "lang": "zh-CN",
+      "annotations": [
+        {
+          "number": 1,
+          "label": "选择配置引导中保存的连接，核对下方服务主机。",
+          "x": 0,
+          "y": 31.672562893081764,
+          "width": 92.2220685840708,
+          "height": 8.339884696016773
+        },
+        {
+          "number": 2,
+          "label": "选择你实际讲话的语言；不确定时可选自动识别。",
+          "x": 0,
+          "y": 68.66155660377359,
+          "width": 49.557522123893804,
+          "height": 8.339884696016773
+        },
+        {
+          "number": 3,
+          "label": "选择希望听到的回复语言；语音对话也可不指定。",
+          "x": 50.442477876106196,
+          "y": 68.66155660377359,
+          "width": 49.557522123893804,
+          "height": 8.339884696016773
+        },
+        {
+          "number": 4,
+          "label": "连接准备完成后，点击开始本句。",
+          "x": 0,
+          "y": 91.8795859538784,
+          "width": 5.913532448377581,
+          "height": 7.92059748427673
+        }
+      ],
+      "caption": [
+        "真实软件界面 · 点击放大。图中为本地模拟会话和预设字幕，未调用云服务或实体录音／播放；示例只说明操作。",
+        "真实软件界面 · 点击放大。图中为本地模拟会话和预设字幕，未调用云服务或实体录音／播放；示例只说明操作。"
+      ],
+      "imageSha256": "4c6ad021b462eb1c836c40dd5cd3627bbd2a00279ed207e5e18511668229b8a1",
+      "frontendRevision": 407,
+      "sourceKind": "production-frontend-controlled-desktop-ipc",
+      "sourceEvidence": "docs/v0.5.0/evidence/realtime408-documentation-1791759849177855500.json",
+      "modelOrDeviceStarted": false,
+      "supplierAccountUsed": false
+    },
+    {
+      "file": "realtime408-recording-zh.png",
+      "topic": "realtime408-recording",
+      "lang": "zh-CN",
+      "annotations": [
+        {
+          "number": 1,
+          "label": "说完这句话后点击结束本句，提交本句。",
+          "x": 0,
+          "y": 91.8795859538784,
+          "width": 5.913532448377581,
+          "height": 7.92059748427673
+        },
+        {
+          "number": 2,
+          "label": "看状态确认当前正在采集，提交后等待回复。",
+          "x": 19.78936209439528,
+          "y": 94.0579140461216,
+          "width": 11.328125,
+          "height": 3.563941299790356
+        },
+        {
+          "number": 3,
+          "label": "会话运行时设置被锁定；需要更改时先停止会话。",
+          "x": 0,
+          "y": 31.672562893081764,
+          "width": 92.2220685840708,
+          "height": 8.339884696016773
+        }
+      ],
+      "caption": [
+        "真实软件界面 · 点击放大。图中为本地模拟会话和预设字幕，未调用云服务或实体录音／播放；示例只说明操作。",
+        "真实软件界面 · 点击放大。图中为本地模拟会话和预设字幕，未调用云服务或实体录音／播放；示例只说明操作。"
+      ],
+      "imageSha256": "be75b8a7caf0fa3bfe3c1a14caa3423c9e6d5887f3038c4c7cfc3560f76e4055",
+      "frontendRevision": 407,
+      "sourceKind": "production-frontend-controlled-desktop-ipc",
+      "sourceEvidence": "docs/v0.5.0/evidence/realtime408-documentation-1791759849177855500.json",
+      "modelOrDeviceStarted": false,
+      "supplierAccountUsed": false
+    },
+    {
+      "file": "realtime408-reply-zh.png",
+      "topic": "realtime408-reply",
+      "lang": "zh-CN",
+      "annotations": [
+        {
+          "number": 1,
+          "label": "先核对我说的话，尤其数字、专名与漏字。",
+          "x": 0.07374631268436578,
+          "y": 27.414042416452446,
+          "width": 49.38007005899705,
+          "height": 62.724935732647815
+        },
+        {
+          "number": 2,
+          "label": "查看语音回复；接收中时文字还可能补充。",
+          "x": 50.54503134218289,
+          "y": 27.414042416452446,
+          "width": 49.38122234513274,
+          "height": 62.724935732647815
+        },
+        {
+          "number": 3,
+          "label": "回到最新可重新跟随本栏新内容。",
+          "x": 93.9896755162242,
+          "y": 17.23570051413882,
+          "width": 5.051622418879056,
+          "height": 6.836439588688946
+        },
+        {
+          "number": 4,
+          "label": "需要立即停掉当前回复时，点击打断回复。",
+          "x": 6.621036135693216,
+          "y": 0.0682840616966581,
+          "width": 5.876659292035398,
+          "height": 9.712403598971722
+        },
+        {
+          "number": 5,
+          "label": "离开前点击停止会话，等待收尾。",
+          "x": 13.205199115044246,
+          "y": 0.0682840616966581,
+          "width": 5.876659292035398,
+          "height": 9.712403598971722
+        }
+      ],
+      "caption": [
+        "真实软件界面 · 点击放大。图中为本地模拟会话和预设字幕，未调用云服务或实体录音／播放；示例只说明操作。",
+        "真实软件界面 · 点击放大。图中为本地模拟会话和预设字幕，未调用云服务或实体录音／播放；示例只说明操作。"
+      ],
+      "imageSha256": "a66e291f655355297c69fb8ab5087232e8eb8c13d636ae2b936974f653efa16a",
+      "frontendRevision": 407,
+      "sourceKind": "production-frontend-controlled-desktop-ipc",
+      "sourceEvidence": "docs/v0.5.0/evidence/realtime408-documentation-1791759849177855500.json",
+      "modelOrDeviceStarted": false,
+      "supplierAccountUsed": false
+    },
+    {
+      "file": "realtime408-translation-zh.png",
+      "topic": "realtime408-translation",
+      "lang": "zh-CN",
+      "annotations": [
+        {
+          "number": 1,
+          "label": "选择翻译请求 · 实验，要求翻译原意而非回答问题。",
+          "x": 0,
+          "y": 46.801614481409004,
+          "width": 100,
+          "height": 9.66242661448141
+        },
+        {
+          "number": 2,
+          "label": "本例设置为中文；实际使用选择自己讲话的语言。",
+          "x": 0,
+          "y": 70.88429549902152,
+          "width": 49.557522123893804,
+          "height": 7.784980430528375
+        },
+        {
+          "number": 3,
+          "label": "本例设置为 English；重要内容仍需核对实际输出语言。",
+          "x": 50.442477876106196,
+          "y": 70.88429549902152,
+          "width": 49.557522123893804,
+          "height": 7.784980430528375
+        },
+        {
+          "number": 4,
+          "label": "重新连接后，按开始本句、讲话、结束本句提交。",
+          "x": 0,
+          "y": 92.55748532289628,
+          "width": 4.0330014749262535,
+          "height": 7.393590998043052
+        }
+      ],
+      "caption": [
+        "真实软件界面 · 点击放大。图中为本地模拟会话和预设字幕，未调用云服务或实体录音／播放；示例只说明操作。",
+        "真实软件界面 · 点击放大。图中为本地模拟会话和预设字幕，未调用云服务或实体录音／播放；示例只说明操作。"
+      ],
+      "imageSha256": "ff96a86e6b68b5b29b7716dc2f824ed8ecd5d0a6ba16bbf42fac1b9d8b1601c7",
+      "frontendRevision": 407,
+      "sourceKind": "production-frontend-controlled-desktop-ipc",
+      "sourceEvidence": "docs/v0.5.0/evidence/realtime408-documentation-1791759849177855500.json",
+      "modelOrDeviceStarted": false,
+      "supplierAccountUsed": false
+    },
+    {
+      "file": "realtime408-setup-en.png",
+      "topic": "realtime408-setup",
+      "lang": "en-US",
+      "annotations": [
+        {
+          "number": 1,
+          "label": "Enable Qwen Audio 3.1 and reuse its existing service card.",
+          "x": 1.2866333095067906,
+          "y": 14.869619205298012,
+          "width": 4.807005003573981,
+          "height": 9.271523178807946
+        },
+        {
+          "number": 2,
+          "label": "Use your actual WorkspaceId and the region where your service is enabled.",
+          "x": 1.2866333095067906,
+          "y": 27.673151214128033,
+          "width": 48.284488920657616,
+          "height": 28.2560706401766
+        },
+        {
+          "number": 3,
+          "label": "Enter your API key. The illustration will use only a masked, invalid demonstration key.",
+          "x": 50.4288777698356,
+          "y": 27.673151214128033,
+          "width": 48.284488920657616,
+          "height": 28.2560706401766
+        },
+        {
+          "number": 4,
+          "label": "Set the realtime model to qwen-audio-3.1-realtime-plus; keep recognition and synthesis fields separate.",
+          "x": 17.512508934953537,
+          "y": 91.91156181015452,
+          "width": 80.12866333095067,
+          "height": 7.9470198675496695
+        }
+      ],
+      "caption": [
+        "Actual application interface · Click to enlarge. A local simulated session and preset captions illustrate the controls; no cloud call, microphone capture or physical playback took place.",
+        "Actual application interface · Click to enlarge. A local simulated session and preset captions illustrate the controls; no cloud call, microphone capture or physical playback took place."
+      ],
+      "imageSha256": "232cdaf04e19878bcd680e369832270218343c7f0512c41d8ff481869bf960bd",
+      "frontendRevision": 407,
+      "sourceKind": "production-frontend-controlled-desktop-ipc",
+      "sourceEvidence": "docs/v0.5.0/evidence/realtime408-documentation-1791759849177855500.json",
+      "modelOrDeviceStarted": false,
+      "supplierAccountUsed": false
+    },
+    {
+      "file": "realtime408-ready-en.png",
+      "topic": "realtime408-ready",
+      "lang": "en-US",
+      "annotations": [
+        {
+          "number": 1,
+          "label": "Choose the saved connection and check the service host below it.",
+          "x": 0,
+          "y": 31.595394736842103,
+          "width": 88.09688421828909,
+          "height": 8.375
+        },
+        {
+          "number": 2,
+          "label": "Select the language you will speak, or choose Automatic if needed.",
+          "x": 0,
+          "y": 68.5296052631579,
+          "width": 49.557522123893804,
+          "height": 8.375
+        },
+        {
+          "number": 3,
+          "label": "Select a reply language, or leave Not specified for a conversation.",
+          "x": 50.442477876106196,
+          "y": 68.5296052631579,
+          "width": 49.557522123893804,
+          "height": 8.375
+        },
+        {
+          "number": 4,
+          "label": "When the connected session is ready, select Start turn.",
+          "x": 0,
+          "y": 91.8453947368421,
+          "width": 6.331812315634218,
+          "height": 7.953947368421052
+        }
+      ],
+      "caption": [
+        "Actual application interface · Click to enlarge. A local simulated session and preset captions illustrate the controls; no cloud call, microphone capture or physical playback took place.",
+        "Actual application interface · Click to enlarge. A local simulated session and preset captions illustrate the controls; no cloud call, microphone capture or physical playback took place."
+      ],
+      "imageSha256": "0fb7b512bbec6b92ae651495066c6896b97bb7f3254e1f3d43ee9e8d869f6201",
+      "frontendRevision": 407,
+      "sourceKind": "production-frontend-controlled-desktop-ipc",
+      "sourceEvidence": "docs/v0.5.0/evidence/realtime408-documentation-1791759849177855500.json",
+      "modelOrDeviceStarted": false,
+      "supplierAccountUsed": false
+    },
+    {
+      "file": "realtime408-recording-en.png",
+      "topic": "realtime408-recording",
+      "lang": "en-US",
+      "annotations": [
+        {
+          "number": 1,
+          "label": "Select Finish turn to submit the sentence when you are done.",
+          "x": 0,
+          "y": 91.8453947368421,
+          "width": 6.775442477876107,
+          "height": 7.953947368421052
+        },
+        {
+          "number": 2,
+          "label": "Check the recording state, then wait for the reply after submission.",
+          "x": 24.700405604719762,
+          "y": 94.03289473684211,
+          "width": 14.730825958702065,
+          "height": 3.578947368421052
+        },
+        {
+          "number": 3,
+          "label": "Settings stay locked while the session is active; stop before changing them.",
+          "x": 0,
+          "y": 31.595394736842103,
+          "width": 88.09688421828909,
+          "height": 8.375
+        }
+      ],
+      "caption": [
+        "Actual application interface · Click to enlarge. A local simulated session and preset captions illustrate the controls; no cloud call, microphone capture or physical playback took place.",
+        "Actual application interface · Click to enlarge. A local simulated session and preset captions illustrate the controls; no cloud call, microphone capture or physical playback took place."
+      ],
+      "imageSha256": "24e47ca89fb9752210e3046de39d5cbe7761078ad9fac8a94f65f7d246cd9da4",
+      "frontendRevision": 407,
+      "sourceKind": "production-frontend-controlled-desktop-ipc",
+      "sourceEvidence": "docs/v0.5.0/evidence/realtime408-documentation-1791759849177855500.json",
+      "modelOrDeviceStarted": false,
+      "supplierAccountUsed": false
+    },
+    {
+      "file": "realtime408-reply-en.png",
+      "topic": "realtime408-reply",
+      "lang": "en-US",
+      "annotations": [
+        {
+          "number": 1,
+          "label": "Review What you said, especially names, numbers and missing words.",
+          "x": 0.07374631268436578,
+          "y": 26.009908536585364,
+          "width": 49.38007005899705,
+          "height": 59.512195121951216
+        },
+        {
+          "number": 2,
+          "label": "Read Spoken reply; Receiving… means more text may arrive.",
+          "x": 50.54503134218289,
+          "y": 26.009908536585364,
+          "width": 49.38122234513274,
+          "height": 59.512195121951216
+        },
+        {
+          "number": 3,
+          "label": "Select Latest to follow new content in that column again.",
+          "x": 95.17883480825958,
+          "y": 16.352896341463417,
+          "width": 3.862463126843658,
+          "height": 6.486280487804878
+        },
+        {
+          "number": 4,
+          "label": "Select Interrupt reply to stop the current reply.",
+          "x": 7.039316002949852,
+          "y": 0.06478658536585366,
+          "width": 8.365597345132743,
+          "height": 9.214939024390244
+        },
+        {
+          "number": 5,
+          "label": "Select Stop session before leaving and wait for settlement.",
+          "x": 16.11241703539823,
+          "y": 0.06478658536585366,
+          "width": 7.436854719764012,
+          "height": 9.214939024390244
+        }
+      ],
+      "caption": [
+        "Actual application interface · Click to enlarge. A local simulated session and preset captions illustrate the controls; no cloud call, microphone capture or physical playback took place.",
+        "Actual application interface · Click to enlarge. A local simulated session and preset captions illustrate the controls; no cloud call, microphone capture or physical playback took place."
+      ],
+      "imageSha256": "637b7d3d3f86f0a5dd248fdefba7627571141c03d171721a92c870dc5366d3e4",
+      "frontendRevision": 407,
+      "sourceKind": "production-frontend-controlled-desktop-ipc",
+      "sourceEvidence": "docs/v0.5.0/evidence/realtime408-documentation-1791759849177855500.json",
+      "modelOrDeviceStarted": false,
+      "supplierAccountUsed": false
+    },
+    {
+      "file": "realtime408-translation-en.png",
+      "topic": "realtime408-translation",
+      "lang": "en-US",
+      "annotations": [
+        {
+          "number": 1,
+          "label": "Choose Translation request · Experimental to request translation rather than answers.",
+          "x": 0,
+          "y": 46.78904715127701,
+          "width": 100,
+          "height": 9.700392927308448
+        },
+        {
+          "number": 2,
+          "label": "The example uses 中文; select the language you will actually speak.",
+          "x": 0,
+          "y": 70.76989194499018,
+          "width": 49.557522123893804,
+          "height": 7.815569744597249
+        },
+        {
+          "number": 3,
+          "label": "The example uses English; review the actual output language for important content.",
+          "x": 50.442477876106196,
+          "y": 70.76989194499018,
+          "width": 49.557522123893804,
+          "height": 7.815569744597249
+        },
+        {
+          "number": 4,
+          "label": "Reconnect, then use Start turn, speak, and Finish turn.",
+          "x": 0,
+          "y": 92.52824165029469,
+          "width": 5.737232669616519,
+          "height": 7.422642436149313
+        }
+      ],
+      "caption": [
+        "Actual application interface · Click to enlarge. A local simulated session and preset captions illustrate the controls; no cloud call, microphone capture or physical playback took place.",
+        "Actual application interface · Click to enlarge. A local simulated session and preset captions illustrate the controls; no cloud call, microphone capture or physical playback took place."
+      ],
+      "imageSha256": "00c44567017ea3fd1a3c1d501014b10425915a2cf93ef36e6e74d6e0d6faca45",
+      "frontendRevision": 407,
+      "sourceKind": "production-frontend-controlled-desktop-ipc",
+      "sourceEvidence": "docs/v0.5.0/evidence/realtime408-documentation-1791759849177855500.json",
+      "modelOrDeviceStarted": false,
+      "supplierAccountUsed": false
+    },
+    {
+      "topic": "file-asr",
+      "file": "file-asr398-zh.png",
+      "lang": "zh-CN",
+      "width": 680,
+      "height": 768,
+      "annotations": [],
+      "imageSha256": "f178b4df6521dbe738af4ba966b2e666b27c77f564619b0d1922da1e1ef9c881",
+      "captureRevision": 398,
+      "source": "Previously published file-transcription interface screenshot, retained with the curated tutorial; not recaptured in r453."
+    },
+    {
+      "topic": "file-asr",
+      "file": "file-asr398-en.png",
+      "lang": "en-US",
+      "width": 680,
+      "height": 768,
+      "annotations": [],
+      "imageSha256": "029d8f299085bb2ae7436e4839cddf8a8bee2c57ebe0972bb655bb402cb5cd84",
+      "captureRevision": 398,
+      "source": "Previously published file-transcription interface screenshot, retained with the curated tutorial; not recaptured in r453."
+    },
+    {
+      "topic": "emotion-preparation454",
+      "lang": "zh-CN",
+      "file": "emotion-preparation454-zh.png",
+      "width": 1414,
+      "height": 1074,
+      "source": "emotion-preparation454-production-frontend",
+      "sourceEvidence": "docs/html/images/v050/emotion-preparation454-capture.json",
+      "caption": [
+        "当前软件配置界面 · 检查结果为受控示例，未运行情绪模型",
+        "Current setup UI · Controlled preparation example; no emotion model run"
+      ],
+      "annotations": [
+        {
+          "number": 1,
+          "x": 78.8,
+          "y": 39.0,
+          "width": 7.5,
+          "height": 3.4,
+          "label": "点击「检查准备情况」，不必先登记原始权重。"
+        },
+        {
+          "number": 2,
+          "x": 30.4,
+          "y": 43.5,
+          "width": 62.1,
+          "height": 5.5,
+          "label": "按缺项提示准备分类器；图中为受控示例，没有运行模型。"
+        }
+      ],
+      "imageSha256": "65ff237afc3892824f517c7653d085d3531f140310b93af00350c60c4dc8baa6"
+    },
+    {
+      "topic": "emotion-preparation454",
+      "lang": "en-US",
+      "file": "emotion-preparation454-en.png",
+      "width": 1414,
+      "height": 1074,
+      "source": "emotion-preparation454-production-frontend",
+      "sourceEvidence": "docs/html/images/v050/emotion-preparation454-capture.json",
+      "caption": [
+        "当前软件配置界面 · 检查结果为受控示例，未运行情绪模型",
+        "Current setup UI · Controlled preparation example; no emotion model run"
+      ],
+      "annotations": [
+        {
+          "number": 1,
+          "x": 73.8,
+          "y": 39.0,
+          "width": 9.8,
+          "height": 3.4,
+          "label": "Use Check preparation before registering source weights."
+        },
+        {
+          "number": 2,
+          "x": 30.4,
+          "y": 43.5,
+          "width": 62.1,
+          "height": 7.4,
+          "label": "Review missing files and classifier requirements. This controlled example does not run a model."
+        }
+      ],
+      "imageSha256": "08a02619a5e0f6407eb4bf549dc7dfe3945f6a04636e789d468c9d9f4cfabf27"
+    },
+    {
+      "topic": "sts-save-retry456",
+      "lang": "zh-CN",
+      "file": "sts-save-retry456-zh.png",
+      "width": 989,
+      "height": 41,
+      "caption": [
+        "当前软件界面 · 保存失败提示与重试按钮（示例）",
+        "Current app UI · Save-failure message and retry button (example)"
+      ],
+      "annotations": [
+        {
+          "number": 1,
+          "label": "未保存的同传记录保留在当前运行的软件中。",
+          "x": 0,
+          "y": 28.75,
+          "width": 28.94004553503668,
+          "height": 42.5
+        },
+        {
+          "number": 2,
+          "label": "恢复磁盘可用后，点击重试保存。",
+          "x": 29.30053124209461,
+          "y": 0,
+          "width": 8.08088793321528,
+          "height": 100
+        }
+      ],
+      "imageSha256": "bd795b2d0ddeeab3cc7d2301f0c249d5d043fd224aa7267edd8aee724f044120",
+      "source": "Current production frontend with controlled acknowledgement/persistence failure and simulated Audio",
+      "sourceEvidence": "docs/html/images/v050/sts-save-retry456-capture.json",
+      "scope": "Current production UI with a controlled persistence failure; no physical device, real disk failure or model inference was induced.",
+      "captureRevision": 456
+    },
+    {
+      "topic": "sts-save-retry456",
+      "lang": "en-US",
+      "file": "sts-save-retry456-en.png",
+      "width": 830,
+      "height": 41,
+      "caption": [
+        "当前软件界面 · 保存失败提示与重试按钮（示例）",
+        "Current app UI · Save-failure message and retry button (example)"
+      ],
+      "annotations": [
+        {
+          "number": 1,
+          "label": "Unsaved interpretation records remain in this running app.",
+          "x": 0,
+          "y": 28.75,
+          "width": 55.251546236234724,
+          "height": 42.5
+        },
+        {
+          "number": 2,
+          "label": "Retry saving after storage becomes available.",
+          "x": 55.681475335646404,
+          "y": 0,
+          "width": 12.32463418313471,
+          "height": 100
+        }
+      ],
+      "imageSha256": "2b9bb3e0624a854d4247ec767a97e2d9579079a0f3428133a0ff3040637b5d02",
+      "source": "Current production frontend with controlled acknowledgement/persistence failure and simulated Audio",
+      "sourceEvidence": "docs/html/images/v050/sts-save-retry456-capture.json",
+      "scope": "Current production UI with a controlled persistence failure; no physical device, real disk failure or model inference was induced.",
+      "captureRevision": 456
+    },
+    {
+      "topic": "sts-recognition451",
+      "lang": "zh-CN",
+      "file": "sts-recognition451-zh.png",
+      "width": 1283,
+      "height": 142,
+      "annotations": [],
+      "imageSha256": "00c432088c5ad7602a667d8081a30feda93479cce88fe05e71bb30b2e86006d3",
+      "captureRevision": 451,
+      "source": "Previously published app screenshot retained in the curated interpretation tutorial; not recaptured in r456."
+    },
+    {
+      "topic": "saved-models395",
+      "lang": "zh-CN",
+      "file": "saved-models395-zh.png",
+      "width": 1400,
+      "height": 950,
+      "annotations": [],
+      "imageSha256": "1b52a700b7e334c0828fc56fe6ef3ea0501d8c959fbea9e7f9d36f08c887d3c0",
+      "captureRevision": 395,
+      "source": "Previously published app screenshot retained in the curated interpretation tutorial; not recaptured in r456."
+    },
+    {
+      "topic": "sts-recognition451",
+      "lang": "en-US",
+      "file": "sts-recognition451-en.png",
+      "width": 1283,
+      "height": 142,
+      "annotations": [],
+      "imageSha256": "8673a7c47b9b1686c76eb38d9065bb9bd9758139878a24686ae1843ced865eaf",
+      "captureRevision": 451,
+      "source": "Previously published app screenshot retained in the curated interpretation tutorial; not recaptured in r456."
+    },
+    {
+      "topic": "saved-models395",
+      "lang": "en-US",
+      "file": "saved-models395-en.png",
+      "width": 1400,
+      "height": 950,
+      "annotations": [],
+      "imageSha256": "12eb3ba9c508e1535cb0b7798538669fad016b4e1715311672d7650ec3e4a73c",
+      "captureRevision": 395,
+      "source": "Previously published app screenshot retained in the curated interpretation tutorial; not recaptured in r456."
+    }
+  ],
+  "appContentReviewed": "2026-10-10",
+  "appContentRevision": 358
+}

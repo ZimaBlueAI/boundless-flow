@@ -1,0 +1,271 @@
+{
+  "date": "2026-10-13",
+  "purpose": "User-requested offline model/API catalogue marks; organization marks identify the maintainer, not a partnership or separate per-model trademark.",
+  "models_downloaded": false,
+  "assets": [
+    {
+      "id": "openai",
+      "path": "images\\model-logos\\openai.png",
+      "source": "assets\\icons\\openai.png",
+      "kind": "existing-provider-mark",
+      "sha256": "8e7fbd691d1345cbd96b1eaa67da9cda46a59ab0a0e470fed79fc65c0757ac72"
+    },
+    {
+      "id": "volcengine",
+      "path": "images\\model-logos\\volcengine.png",
+      "source": "assets\\icons\\volcengine.png",
+      "kind": "existing-provider-mark",
+      "sha256": "bbe36e700c5fab3ee3003a7699bad0a4718de594b69faa0803a78236de346299"
+    },
+    {
+      "id": "minimax",
+      "path": "images\\model-logos\\minimax.png",
+      "source": "assets\\icons\\minimax.png",
+      "kind": "existing-provider-mark",
+      "sha256": "2b800a159bbfb6bdad33e49cc110775e10b1be56b9b5156cf4ecb80e44dabdd8"
+    },
+    {
+      "id": "aliyun",
+      "path": "images\\model-logos\\aliyun.png",
+      "source": "assets\\icons\\aliyun.png",
+      "kind": "existing-provider-mark",
+      "sha256": "f62cb26f3440c6c9014d1dc9ecc27f5f249a1632768ae2e695e0c7f8892136b7"
+    },
+    {
+      "id": "iFLY",
+      "path": "images\\model-logos\\iFLY.png",
+      "source": "assets\\icons\\iFLY.png",
+      "kind": "existing-provider-mark",
+      "sha256": "67f042dd48cba29f046d7b917b751286194f2a39a0379d950928d1ec73e96ec8"
+    },
+    {
+      "id": "deepseek",
+      "path": "images\\model-logos\\deepseek.png",
+      "source": "assets\\icons\\deepseek.png",
+      "kind": "existing-provider-mark",
+      "sha256": "0fc36b0ac196da3ac4cef606c32afd647167777be03ae4cdd97364e35479a324"
+    },
+    {
+      "id": "ollama",
+      "path": "images\\model-logos\\ollama.png",
+      "source": "assets\\icons\\ollama.png",
+      "kind": "existing-provider-mark",
+      "sha256": "842dc4c8acffaba2dc99a778fbd7aed4241e494f8bca99e586aba5d238aa377e"
+    },
+    {
+      "id": "vLLM",
+      "path": "images\\model-logos\\vLLM.png",
+      "source": "assets\\icons\\vLLM.png",
+      "kind": "existing-provider-mark",
+      "sha256": "5c36a9d8837a9708f42f83ede86b262c76b57cf5b814c159402e6857722df1ab"
+    },
+    {
+      "id": "mlx",
+      "path": "images\\model-logos\\mlx.png",
+      "source": "assets\\icons\\mlx.png",
+      "kind": "existing-provider-mark",
+      "sha256": "b107b9e68e1318a36664e9c9bcf4c1d56e00f22aa50f9cbd165bd6ae6ff8cbb2"
+    },
+    {
+      "id": "sglang",
+      "path": "images\\model-logos\\sglang.png",
+      "source": "assets\\icons\\sglang.png",
+      "kind": "existing-provider-mark",
+      "sha256": "a634c47f3e7199ba6f1439a99bb52d76ca9a43b10786b11acb338cc153df9407"
+    },
+    {
+      "id": "LlamaEdge",
+      "path": "images\\model-logos\\LlamaEdge.png",
+      "source": "assets\\icons\\LlamaEdge.png",
+      "kind": "existing-provider-mark",
+      "sha256": "ad9cd35e8778899c3f3a440897818a78371643032e2be222f171fa0bcd06f45a"
+    },
+    {
+      "id": "qwen",
+      "organization": "QwenLM",
+      "official_repository": "https://github.com/QwenLM/Qwen3-TTS",
+      "source": "https://github.com/QwenLM.png?size=96",
+      "resolved_source": "https://github.com/QwenLM.png?size=96",
+      "path": "images\\model-logos\\qwen.png",
+      "bytes": 3506,
+      "sha256": "b4a3c4f772d7c7e4eb915a8c2cce942ae20a1daa985e2b59eb04d13238288b7f",
+      "kind": "official-organization-mark"
+    },
+    {
+      "id": "qwen-audio",
+      "organization": "QwenAudio",
+      "official_repository": "https://github.com/QwenAudio/SenseVoice",
+      "source": "https://github.com/QwenAudio.png?size=96",
+      "resolved_source": "https://github.com/QwenAudio.png?size=96",
+      "path": "images\\model-logos\\qwen-audio.png",
+      "bytes": 5742,
+      "sha256": "33111584452734c21b6e3dc8e4385c089871c1b44238c40a274e7b9fbc17490a",
+      "kind": "official-organization-mark"
+    },
+    {
+      "id": "index",
+      "organization": "index-tts",
+      "official_repository": "https://github.com/index-tts/index-tts",
+      "source": "https://github.com/index-tts.png?size=96",
+      "resolved_source": "https://github.com/index-tts.png?size=96",
+      "path": "images\\model-logos\\index.png",
+      "bytes": 1562,
+      "sha256": "875294b4589105c0178ded4df4877018976e9a9a7319ee1dd491bc35e4e6a5b8",
+      "kind": "official-organization-mark"
+    },
+    {
+      "id": "voxcpm",
+      "organization": "OpenBMB",
+      "official_repository": "https://github.com/OpenBMB/VoxCPM",
+      "source": "https://github.com/OpenBMB.png?size=96",
+      "resolved_source": "https://github.com/OpenBMB.png?size=96",
+      "path": "images\\model-logos\\voxcpm.png",
+      "bytes": 2703,
+      "sha256": "a597d518821aef2596bfcdee0b8ff21819da6f08fa0cb3f8969900eeef0aef67",
+      "kind": "official-organization-mark"
+    },
+    {
+      "id": "fish",
+      "organization": "fishaudio",
+      "official_repository": "https://github.com/fishaudio/fish-speech",
+      "source": "https://github.com/fishaudio.png?size=96",
+      "resolved_source": "https://github.com/fishaudio.png?size=96",
+      "path": "images\\model-logos\\fish.png",
+      "bytes": 4422,
+      "sha256": "7987f61837c0bd5f1fda7f535732350ae8d2060ccc92535a61f3df3ae479969e",
+      "kind": "official-organization-mark"
+    },
+    {
+      "id": "hunyuan",
+      "organization": "Tencent-Hunyuan",
+      "official_repository": "https://github.com/Tencent-Hunyuan/Hy-MT2",
+      "source": "https://github.com/Tencent-Hunyuan.png?size=96",
+      "resolved_source": "https://github.com/Tencent-Hunyuan.png?size=96",
+      "path": "images\\model-logos\\hunyuan.png",
+      "bytes": 4625,
+      "sha256": "7944dc79699b259ab781fcb9b5d1fecadd63cedd3f6d28f9b01f0a8a76af9b35",
+      "kind": "official-organization-mark"
+    },
+    {
+      "id": "moss",
+      "organization": "OpenMOSS",
+      "official_repository": "https://github.com/OpenMOSS/MOSS-TTS",
+      "source": "https://github.com/OpenMOSS.png?size=96",
+      "resolved_source": "https://github.com/OpenMOSS.png?size=96",
+      "path": "images\\model-logos\\moss.png",
+      "bytes": 4983,
+      "sha256": "bad31f399e78b200c880f3bf79e388eda508615418e977b3d6fe9ca869ce4beb",
+      "kind": "official-organization-mark"
+    },
+    {
+      "id": "firered",
+      "organization": "FireRedTeam",
+      "official_repository": "https://github.com/FireRedTeam/FireRedTTS3",
+      "source": "https://github.com/FireRedTeam.png?size=96",
+      "resolved_source": "https://github.com/FireRedTeam.png?size=96",
+      "path": "images\\model-logos\\firered.png",
+      "bytes": 2386,
+      "sha256": "e56d97c76a60dfa68ebcc0f4aaf276d8421ecc9d15f7a5776aba3f1a00b529f2",
+      "kind": "official-organization-mark"
+    },
+    {
+      "id": "vibevoice",
+      "organization": "microsoft",
+      "official_repository": "https://github.com/microsoft/VibeVoice",
+      "source": "https://github.com/microsoft.png?size=96",
+      "resolved_source": "https://github.com/microsoft.png?size=96",
+      "path": "images\\model-logos\\vibevoice.png",
+      "bytes": 425,
+      "sha256": "5fd80b0c551b5ad5d40acde0604fc0866bed3cdb0371e10b6aa2930e57bfdf8f",
+      "kind": "official-organization-mark"
+    },
+    {
+      "id": "pyannote",
+      "organization": "pyannote",
+      "official_repository": "https://github.com/pyannote/pyannote-audio",
+      "source": "https://github.com/pyannote.png?size=96",
+      "resolved_source": "https://github.com/pyannote.png?size=96",
+      "path": "images\\model-logos\\pyannote.png",
+      "bytes": 2496,
+      "sha256": "05671a8fa1f9e1830bf34ffb0adfcb24b21eb215c0f0a78f565e1dcef3d774cc",
+      "kind": "official-organization-mark"
+    },
+    {
+      "id": "modelscope",
+      "organization": "modelscope",
+      "official_repository": "https://github.com/modelscope/3D-Speaker",
+      "source": "https://github.com/modelscope.png?size=96",
+      "resolved_source": "https://github.com/modelscope.png?size=96",
+      "path": "images\\model-logos\\modelscope.png",
+      "bytes": 825,
+      "sha256": "5f4ab8d3359e490fdc92656ee46e7bfdeb4557b4f5d8199ba527476d2448c714",
+      "kind": "official-organization-mark"
+    },
+    {
+      "id": "bilibili",
+      "organization": "bilibili",
+      "official_repository": "https://github.com/bilibili/Index-Translate",
+      "source": "https://avatars.githubusercontent.com/u/12002442?s=96&v=4",
+      "resolved_source": "https://avatars.githubusercontent.com/u/12002442?s=96&v=4",
+      "path": "images\\model-logos\\bilibili.png",
+      "bytes": 3268,
+      "sha256": "d3ef405d407725575e5274456dd73be3f2bd79e480d11da2988b380ff11c7d20",
+      "kind": "official-organization-mark"
+    },
+    {
+      "id": "anthropic",
+      "organization": "anthropics",
+      "official_repository": "https://github.com/anthropics",
+      "source": "https://avatars.githubusercontent.com/u/76263028?s=96&v=4",
+      "resolved_source": "https://avatars.githubusercontent.com/u/76263028?s=96&v=4",
+      "path": "images\\model-logos\\anthropic.png",
+      "bytes": 2016,
+      "sha256": "833ab8f84293cf7486412bcbf4ef04a532a31ce231f92ea53772040623f399e2",
+      "kind": "official-organization-mark"
+    },
+    {
+      "id": "gemini",
+      "organization": "google-gemini",
+      "official_repository": "https://github.com/google-gemini",
+      "source": "https://avatars.githubusercontent.com/u/161781182?s=96&v=4",
+      "resolved_source": "https://avatars.githubusercontent.com/u/161781182?s=96&v=4",
+      "path": "images\\model-logos\\gemini.jpg",
+      "bytes": 1871,
+      "sha256": "7ea8df62b2c510db040ecef54be4da381da2356071d5b3c6e4f7a3fff9bb4dce",
+      "kind": "official-organization-mark"
+    },
+    {
+      "id": "kimi",
+      "organization": "MoonshotAI",
+      "official_repository": "https://github.com/MoonshotAI",
+      "source": "https://avatars.githubusercontent.com/u/129152888?s=96&v=4",
+      "resolved_source": "https://avatars.githubusercontent.com/u/129152888?s=96&v=4",
+      "path": "images\\model-logos\\kimi.jpg",
+      "bytes": 2775,
+      "sha256": "d8f7b967283e8fb9a0e664c45f9446586811c3fa24e035e12d0d357e29e7e4e8",
+      "kind": "official-organization-mark"
+    },
+    {
+      "id": "glm",
+      "organization": "zai-org",
+      "official_repository": "https://github.com/zai-org",
+      "source": "https://avatars.githubusercontent.com/u/223098841?s=96&v=4",
+      "resolved_source": "https://avatars.githubusercontent.com/u/223098841?s=96&v=4",
+      "path": "images\\model-logos\\glm.png",
+      "bytes": 2446,
+      "sha256": "2a4cfdcd6d2f3ea8d6e3111ec3979056b2b25d9b159f78ae93c6f8b4bd75e398",
+      "kind": "official-organization-mark"
+    },
+    {
+      "id": "elevenlabs",
+      "organization": "elevenlabs",
+      "official_repository": "https://github.com/elevenlabs",
+      "source": "https://avatars.githubusercontent.com/u/94471909?s=96&v=4",
+      "resolved_source": "https://avatars.githubusercontent.com/u/94471909?s=96&v=4",
+      "path": "images\\model-logos\\elevenlabs.png",
+      "bytes": 370,
+      "sha256": "d55dda7b990169c5869aed672b7e140117b440ef23a014a42c9853f0e192dda4",
+      "kind": "official-organization-mark"
+    }
+  ]
+}

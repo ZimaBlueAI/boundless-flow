@@ -1,204 +1,49 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>实时 STT 与模型选择 - 无界音流</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="sidebar">
-        <a href="welcome.html" class="sidebar-logo">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color);"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>
-            无界音流
-        </a>
-        
-        <div class="sidebar-group">开始使用</div>
-        <ul>
-            <li><a href="welcome.html">什么是无界音流？</a></li>
-            <li><a href="onboarding.html">引导页配置向导</a></li>
-        </ul>
-
-        <div class="sidebar-group">核心功能</div>
-        <ul>
-            <li><a href="stt.html" class="active">实时 STT 与模型选择</a></li>
-            <li><a href="translation.html">实时翻译功能</a></li>
-            <li><a href="proofreading-summary.html">AI 纠错与智能总结</a></li>
-            <li><a href="tts-voice-cloning.html">语音合成与声音克隆</a></li>
-            <li><a href="sts.html">STS 同传工作台</a></li>
-            <li><a href="linglu.html">灵录 · 实时分叉树纪要</a></li>
-        </ul>
-
-        <div class="sidebar-group">附录</div>
-        <ul>
-            <li><a href="appendix.html">小白指南</a></li>
-        </ul>
-
-        <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border-color);">
-            <a href="stt-en.html" style="display: flex; align-items: center; gap: 0.5rem;">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-                English Version
-            </a>
-        </div>
-    </div>
-    
-    <div class="main-content">
-        <div class="content-wrapper">
-            <h1>实时语音转文字 (STT) 与模型选择</h1>
-            <p>无界音流的核心功能是基于本地模型的实时语音转文字（STT）。它能够精准、快速地将您的语音转化为文字，并支持多种输出方式。</p>
-
-            <figure class="doc-image">
-                <img src="images/img2.png" alt="Mini Mode 悬浮字幕界面">
-                <figcaption>Mini Mode — 右下角悬浮实时字幕</figcaption>
-            </figure>
-
-            <h2>实时 STT 功能介绍</h2>
-            <p>无界音流支持 <strong>SenseVoice ONNX</strong> 与 <strong>FunASR</strong> 两条本地实时 STT 路径。两者都支持临时流式结果与句级最终结果，您说话时即可持续看到文字上屏。</p>
-
-            <div class="callout info">
-                <div class="callout-icon">ℹ️</div>
-                <div class="callout-content">
-                    <p><strong>当前 STT 路径：</strong> 麦克风实时识别支持 <strong>SenseVoice ONNX</strong> 与 <strong>FunASR</strong>；新增的 <strong>native-stt</strong> 主要用于上传音频文件后的离线转写，支持 Whisper / SenseVoice 两种原生后端。</p>
-                </div>
-            </div>
-            
-            <h3>输出方式</h3>
-            <p>在设置中，您可以选择不同的输出方式：</p>
-            <ul>
-                <li><strong>跟随光标注入（推荐）</strong>：边说边写，识别结果直接输入到您当前光标所在的位置。开启后，请先用鼠标点到你想输入的地方（如 Word、网页输入框），再开始说话。</li>
-                <li><strong>实时输出</strong>：在应用界面内实时显示识别结果。</li>
-                <li><strong>最终自动回车</strong>：在一段话讲完后，自动输出最终结果并换行。</li>
-            </ul>
-
-            <h2>如何开启实时 STT</h2>
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
-                        <h3>确认配置</h3>
-                        <p>确保您已经正确配置了模型目录（见下文）。</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                        <h3>开始录音</h3>
-                        <p><strong>方式一</strong>：点击主界面上的 <strong>“开始录音”</strong> 按钮。<br>
-                        <strong>方式二</strong>：在任何界面下，按下键盘上的 <strong>右侧 Alt 键 (<code>RightAlt</code>)</strong>。</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <h3>结束录音</h3>
-                        <p>开始说话吧！您会看到识别的文字实时显示出来。再次按下快捷键或点击停止按钮即可结束录音。</p>
-                    </div>
-                </div>
-            </div>
-
-            <h2>选择与配置不同模型</h2>
-            <p>为了让语音识别功能正常工作，您需要进行简单的模型配置：</p>
-            
-            <h3>选择后端并配置模型目录</h3>
-            <ol>
-                <li>打开应用主界面，进入 <strong>设置 (Settings)</strong>。</li>
-                <li>在 STT 后端中选择要使用的实时后端（<strong>ONNX</strong> 或 <strong>FunASR</strong>）。</li>
-                <li>在 <strong>模型目录</strong> 中选择对应后端的模型文件夹路径。</li>
-            </ol>
-
-            <h3>推荐模型下载（ModelScope）</h3>
-            <p>无界音流默认使用 SenseVoice 本地模型（ONNX）。推荐使用 ModelScope 下载（参考 <a href="https://www.modelscope.cn/docs/" target="_blank" rel="noopener noreferrer">ModelScope 文档</a>；小白安装指南见 <a href="appendix.html#appendix-modelscope">附录 A</a>）：</p>
-            <pre><code>modelscope download --model iic/SenseVoiceSmall --local_dir ./SenseVoiceSmall</code></pre>
-            <p>下载完成后，将设置里的 <strong>模型目录</strong> 指向下载目录（例如 <code>./SenseVoiceSmall</code> 或 Windows 绝对路径）。</p>
-            <p>如果您选择 <strong>FunASR</strong> 后端，请下载 FunASR-Nano 模型，并将 <strong>模型目录</strong> 指向该目录：</p>
-            <pre><code>modelscope download --model FunAudioLLM/Fun-ASR-Nano-2512 --local_dir ./Fun-ASR-Nano-2512</code></pre>
-            
-            <div class="callout warning">
-                <div class="callout-icon">⚠️</div>
-                <div class="callout-content">
-                    <p><strong>注意：</strong> ONNX 后端请确保目录中包含 <code>model.onnx</code> 与 <code>tokens.json</code>；FunASR 后端请确保目录为完整的 <code>Fun-ASR-Nano-2512</code> 模型目录（例如包含 <code>model.pt</code>、<code>config.yaml</code>、tokenizer 相关文件）。</p>
-                </div>
-            </div>
-
-            <h3>说话人分离（Speaker Diarization）额外模型</h3>
-            <p>如果您希望实时识别时自动区分不同说话人，除了 STT 主模型外，还需要额外配置一组 <strong>sherpa-onnx</strong> 的说话人分离模型。它们与 SenseVoice / FunASR 是并行关系，不是二选一。</p>
-            <ul>
-                <li><strong>segmentation.onnx</strong>：负责把整段音频切分成不同说话人的时间片段。</li>
-                <li><strong>embedding.onnx</strong>：负责提取每个说话人的声纹向量，用于聚类与区分 <code>Speaker_1 / Speaker_2 / Speaker_3</code>。</li>
-            </ul>
-            <p>推荐把文件放到同一个目录，例如：</p>
-            <pre><code>F:\Projects\03.AIWhiteBoard\ai-whiteboard-next\voice\speaker-diarization\
-  segmentation.onnx
-  embedding.onnx</code></pre>
-            <p>然后在应用设置中配置：</p>
-            <ul>
-                <li><strong>说话人分段模型</strong>：选择 <code>segmentation.onnx</code> 或其所在目录</li>
-                <li><strong>声纹嵌入模型</strong>：选择 <code>embedding.onnx</code> 或其所在目录</li>
-            </ul>
-            <p>推荐下载来源：</p>
-            <ul>
-                <li>分段模型：<code>sherpa-onnx-pyannote-segmentation-3-0</code></li>
-                <li>嵌入模型：<code>3dspeaker_speech_eres2net_base_sv_zh-cn_3dspeaker_16k.onnx</code></li>
-                <li>官方说明：<a href="https://k2-fsa.github.io/sherpa/onnx/speaker-diarization/models.html" target="_blank" rel="noopener noreferrer">sherpa-onnx speaker diarization models</a></li>
-            </ul>
-
-            <div class="callout info">
-                <div class="callout-icon">ℹ️</div>
-                <div class="callout-content">
-                    <p><strong>补充说明：</strong> <code>SenseVoiceSmall</code> 用于实时识别、情感/语言/事件标签；<code>Fun-ASR-Nano-2512</code> 用于 FunASR 实时识别。它们都不能直接替代 <code>segmentation.onnx</code> 与 <code>embedding.onnx</code>。</p>
-                </div>
-            </div>
-
-            <h3>高级 STT 设置</h3>
-            <ul>
-                <li><strong>发送帧间隔（毫秒）</strong>：决定语音识别的实时性。建议设置为 <code>20ms</code>（接近实时）。数值越小，文字上屏越快，但会增加电脑性能消耗。</li>
-                <li><strong>识别语言</strong>：强制指定识别的语言（如中文、英文、日文等）。推荐选择 <strong>自动 (auto)</strong>，让 AI 自动判断。</li>
-                <li><strong>TextNorm</strong>：文本标准化处理。推荐保持 <strong>auto（默认）</strong>。</li>
-            </ul>
-
-            <h2>native-stt 离线文件转写</h2>
-            <p>升级后的 <strong>native-stt</strong> 提供了一条与实时麦克风 STT 并行的离线转写路径。它适合较长录音、历史音频、会议回放和本地批量转写场景。</p>
-
-            <figure class="doc-image">
-                <img src="images/native-stt.png" alt="native-stt 配置界面">
-                <figcaption>native-stt 配置示意：选择后端、模型文件与待转写音频</figcaption>
-            </figure>
-
-            <h3>适用场景与特点</h3>
-            <ul>
-                <li><strong>仅用于音频文件转写</strong>：该路径用于上传/本地音频文件，不替代实时麦克风识别；实时录音请使用 ONNX 或 FunASR 实时后端。</li>
-                <li><strong>支持原生后端</strong>：可切换 <code>Whisper</code> 或 <code>SenseVoice</code>，按模型类型选择最适合的转写引擎。</li>
-                <li><strong>长音频更稳妥</strong>：应用会按片段处理较长文件，并把结果持续追加到“原始结果”区域。</li>
-                <li><strong>可中途中止</strong>：转写过程中可以点击停止按钮终止当前任务。</li>
-                <li><strong>自动优先 CUDA</strong>：系统具备可用 CUDA 环境时，native-stt 会优先尝试 GPU 加速。</li>
-            </ul>
-
-            <h3>如何配置 native-stt</h3>
-            <ol>
-                <li>在主界面的 STT 面板中，将后端切换为 <strong>Whisper</strong> 或 <strong>SenseVoice</strong>。</li>
-                <li>选择对应的 <strong>模型文件</strong> 或模型路径。</li>
-                <li>再选择需要转写的 <strong>音频文件</strong>。</li>
-                <li>点击 <strong>转写文件</strong>，结果会逐步写入“原始结果”区域。</li>
-            </ol>
-
-            <h3>模型与格式说明</h3>
-            <ul>
-                <li><strong>Whisper</strong>：适合使用 <code>.bin</code>、<code>.ggml</code>、<code>.gguf</code> 模型文件。</li>
-                <li><strong>SenseVoice</strong>：适合使用 <code>.bin</code> 或 <code>.gguf</code> 模型文件。</li>
-                <li><strong>语言建议</strong>：大多数情况下保持 <code>auto</code> 即可；如需提高稳定性，可手动指定语言。</li>
-            </ul>
-
-            <div class="callout warning">
-                <div class="callout-icon">⚠️</div>
-                <div class="callout-content">
-                    <p><strong>注意：</strong> native-stt 当前定位为离线文件转写能力，不用于实时麦克风字幕。如果您希望边说边显示，请使用 ONNX 或 FunASR 的实时 STT 路径。</p>
-                </div>
-            </div>
-            <div class="doc-copyright">
-                <p>Copyright(c) ZimaBlueAI</p>
-                <p>齐码蓝智能（大理市 ）有限责任公司</p>
-            </div>
-        </div>
-    </div>
-</body>
-</html>
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>实时转录与悬浮字幕 · Boundless Flow 0.5.0</title><link rel="icon" href="images/v050/brand.ico"><link rel="stylesheet" href="manual.css"><script src="manual.js" defer></script></head><body><a class="skip" href="#main">跳到正文</a><header class="topbar"><a class="brand" href="index.html"><img src="images/v050/brand-mark.png" width="54" height="54" alt=""><span><strong>Boundless Flow</strong><small>无界音流 · 使用手册</small></span></a><div class="top-actions"><span class="version">0.5.0 · r514 手册</span><a class="language" hreflang="en" lang="en" href="stt-en.html">English</a><button type="button" data-print>打印 / PDF</button></div></header><div class="layout"><aside><nav aria-label="手册章节"><a href="index.html">使用手册</a><a href="welcome.html">认识软件</a><a href="onboarding.html">配置引导</a><a href="stt.html" aria-current="page">实时转录与悬浮字幕</a><a href="translation.html">多语言翻译</a><a href="meeting.html">会议与纪要</a><a href="proofreading-summary.html">校对与摘要</a><a href="tts-voice-cloning.html">语音与音色</a><a href="voiceprints.html">声纹与情绪</a><a href="sts.html">同传工作台</a><a href="linglu.html">灵录主题纪要</a><a href="models.html">本地模型与 API</a><a href="appendix.html">排错与数据</a></nav><div class="sidebar-note">离线阅读 · 截图可放大</div></aside><main id="main"><div class="eyebrow">使用指南 / 04</div><h1>实时转录与悬浮字幕</h1><p class="lead">先确认输入，再选择识别模式；录音状态和文字状态分别观察。</p><nav class="toc" aria-label="本页目录"><a href="#section-1">开始与停止</a><a href="#capture-tail514">停止录音：等收尾完成，再确认记录</a><a href="#section-2">识别后端与模型文件</a><a href="#section-3">字幕显示与文件转写</a><a href="#section-4">悬浮转录</a><a href="#mini-status491">Mini 启停与音量状态</a><a href="#text-cleanup-preview">本地文字整理试用</a><a href="#text-workspace490">整理转写副本</a><a href="#section-5">没有文字时</a><a href="#xfyun-asr477">讯飞实时识别</a><a href="#transcript-reading492">阅读与原声跟读</a><a href="#dictation-results498">找回最近的语音输入结果</a><a href="#remember-terms499">改正术语，确认后再记住</a><a href="#project-terms500">项目专属词典，确认后仅在本项目整理时使用</a><a href="#dictionary508">批量导入词典，查看和撤销变更</a><a href="#language-direction512">识别语言、译文语言与界面语言</a></nav><p class="image-note">图中为软件实际界面，配置和会话使用示例内容。请按你自己的模型、服务和录音填写。</p><a class="scenario-entry" href="scenarios/index.html"><span class="scenario-entry-label">第一次使用？按场景开始</span><strong>从安装、模型下载到完成操作，查看新手图解教程 →</strong></a><section id="section-1"><h2>开始与停止</h2><ol><li>在录音设置确认输入设备，选择已登记的识别模型和源语言。首次加载模型可能较慢，先等待状态反馈。</li><li>点击「开始」或按已配置快捷键。短句测试后检查临时结果与最终原文。临时文字可能继续修订；复核和生成纪要时，使用段落确认后的原文。</li><li>点击「停止」后等待收尾完成，再在会议视图查看记录。不要把仍在处理中当作已保存完毕。</li></ol><figure data-topic="live"><button class="screenshot" type="button" data-zoom aria-label="放大截图"><span class="image-stage"><img src="images/v050/live-zh.png" width="1440" height="1080" alt="实时字幕 · 原文与多语言译文" loading="lazy" decoding="async"><span class="callout" style="left:5.2083%;top:32.1296%;width:22.6671%;height:1.6840%" aria-hidden="true"><span>1</span></span><span class="callout" style="left:2.5694%;top:44.2593%;width:94.1667%;height:43.5446%" aria-hidden="true"><span>2</span></span></span></button><figcaption>实时字幕 · 原文与多语言译文 <span class="example-label">示例</span></figcaption><ol class="callout-legend"><li><span class="callout-number">1</span><span>这里显示识别中的临时文字。</span></li><li><span class="callout-number">2</span><span>译文按语言和段落展示。</span></li></ol></figure></section><section id="capture-tail514" data-capture-tail514><h2>停止录音：等收尾完成，再确认记录</h2>
+<p class="notice" data-capture-availability514>本节停止保护需 Windows r514 或更新版本。请以实际安装版本为准。</p>
+<ol class="steps"><li>开始前核对输入设备和识别语言，先说一句短句，确认收到声音。录音中需要换输入框时，先确认新位置；指定声音自动输入仍未开放，见<a href="voiceprints.html#target-trial509">指定声音试认的适用范围</a>。</li><li>结束时点击一次<strong>停止</strong>，等待保存与处理完成。正常停止时，末尾已接收、已转换的声音即使不足常规分段长度，也会继续收尾；不要因为暂时没有新字幕就反复点击开始。</li><li>若出现收尾失败、设备故障或音频积压提示，先回主窗口检查状态，再到会话浏览查看已保存的录音。未确认完成的录音不能当作完整成功；先听原音、确认保留范围，再明确重试或导入已保存音频转写。不要将缺失前后的声音当作一段连续录音，也不要反复点击开始。</li><li>使用云端识别时，分别核对<strong>本地录音已保存</strong>和<strong>云端识别已完成</strong>。前者不表示服务已返回最后一句文字；过短的结尾可能没有云端字幕。需要补查时，先听已保存音频，再决定是否重新转写。</li></ol>
+<p>没有确认停止、保存或处理完成时，继续查看当前任务的提示。遇到错误先检查已保存内容，避免重复录音或漏掉最后一句。</p></section>
+<section id="language-direction512" data-language512><h2>识别语言、译文语言与界面语言</h2><p class="notice"><strong>适用版本：Windows r512 或后续安装预览。</strong>更早安装预览不含本节的源语言绑定修复。先按下面的三项分别核对，再用短句试录。</p><div class="table-scroll"><table><thead><tr><th scope="col">设置</th><th scope="col">决定什么</th><th scope="col">中文讲话、英文字幕的例子</th></tr></thead><tbody><tr><th scope="row">识别语言 / 源语言</th><td>告诉识别与翻译流程，你准备讲什么语言。</td><td>确定讲中文时选<strong>中文</strong>。</td></tr><tr><th scope="row">翻译目标语言</th><td>决定译文使用什么语言。</td><td>选<strong>英语</strong>。</td></tr><tr><th scope="row">界面语言</th><td>改变菜单、按钮和提示文字。</td><td>中文或 English 都可以，不替代识别语言和翻译目标。</td></tr></tbody></table></div><ol class="steps"><li>在<strong>录音设置</strong>先选识别模型，再核对源语言。SenseVoice 选择<strong>自动</strong>时，按模型真实的自动识别处理，不再把“自动”当成“中文”。确定主要讲中文时，可以明确选<strong>中文</strong>；换语言或任务后重新核对。</li><li>需要译文时，再选<strong>翻译目标语言</strong>。例如中文讲话译成英文，分别设置“中文 → 英语”，然后试录一句，先看原文，再看译文。</li><li>想查看将要发送的翻译请求，可在主录音的翻译设置展开<strong>术语与翻译背景</strong>，填一句样文，点<strong>检查术语与请求（不调用模型）</strong>。检查绑定该页当前的识别语言、识别引擎和主翻译目标；样文仍是原文内容，不用把语言名称填进样文。</li><li>切换源语言、识别引擎、主翻译目标或翻译模型后，重新检查请求；旧预览会清除，旧检查的晚到结果不会覆盖新选择。这个检查不识别音频，也不运行翻译模型；实际效果请用短句试录核对。</li></ol><p>开启前文背景是另一个可选设置：默认 <strong>0</strong> 不带前文，保存启用后才会使用。分段与已保存音频翻译如何保留本任务内的原文背景，见<a href="sts.html#translation-context512">同传语言与前文背景</a>。使用同传时，还要在工作台核对本次任务的源语言和目标语言。</p></section><section id="section-2"><h2>识别后端与模型文件</h2><p>在配置引导的「本地模型库」将用途设为「语音识别」，再选择模型家族。登记 SenseVoice ONNX 文件夹、完整 Fun-ASR-Nano-2512 文件夹，或 whisper.cpp GGML 的 ggml-*.bin 单文件。不同大小或量化版本分别命名、登记，使用页从模型库选择。FunASR Nano 的根 model.pt 包含语音与语言模型权重，仍须保留 Qwen3-0.6B 配套配置和分词器；原始 Whisper safetensors、PyTorch 或 GGUF 不能直接替代 GGML。SenseVoice 与 FunASR Nano 按录音片段识别；Whisper 以文件转写为主，不能据此承诺原生流式或低延时。</p><p>登记后，在库上方「转录使用的模型」选择名称，点击「检查模型」，再展开「试转录一段录音」。需要下载时，点击当前家族旁的「下载准备」，或展开库后方的「下载模型与组件」；先核对来源和目标磁盘，再明确开始下载。登记只加入当前草稿，最后请完成并保存配置。</p><figure data-topic="model-library453" data-source="model-library453-zh.png"><button class="screenshot" type="button" data-zoom aria-label="本地模型库：识别模型登记与选择"><span class="image-stage"><img src="images/v050/model-library453-zh.png" width="921" height="834" alt="本地模型库：识别模型登记与选择" loading="lazy" decoding="async"></span></button><figcaption>本地模型库：统一登记识别模型，使用时按名称选择。图中为配置示例，请用自己的文件检查并试转写。</figcaption></figure><p>识别后端需要对应的运行组件和模型文件。若提示缺少组件，先按提示补齐，再重新检查模型。选择下拉菜单中的后端不会自动安装组件。</p></section><section id="xfyun-asr477" data-xfyun477><h2>讯飞实时识别：配置一次，录音时选择</h2>
+<p class="notice" data-next-source-update477>本节讯飞连接步骤需 Windows r512 或后续安装预览。截图为实际编译界面的示例配置，不表示已完成真实账户识别质量测试。</p>
+<ol><li>先在讯飞控制台为当前应用开通<strong>实时语音转写大模型</strong>，再打开软件的<strong>配置引导 → API → 讯飞 iFLYTEK</strong>，启用这张卡片。</li><li>地址填写 <code style="overflow-wrap:anywhere">wss://office-api-ast-dx.iflyaisol.com/ast/communicate/v1</code>。按 <strong>App ID → API Key → API Secret</strong> 的顺序，填写该产品控制台提供的信息；再按名称选择识别模式，完成并保存配置。两个密钥分别填写。</li><li>重新打开卡片检查保存状态。App ID 仍可见；两个密钥框均留空并显示<strong>已配置 · 留空保留</strong>，表示继续使用已保存值。确实要移除时，再点击对应字段的「清除密钥」。</li></ol><figure data-topic="xfyun-setup477" data-source="xfyun-setup477-zh.png"><button class="screenshot" type="button" data-zoom aria-label="保存三项认证信息，再选择识别模式"><span class="image-stage"><img src="images/v050/xfyun-setup477-zh.png" width="921" height="695" alt="保存三项认证信息，再选择识别模式" loading="lazy" decoding="async"><span class="callout" style="left:2.062975%;top:21.314131%;width:95.874050%;height:5.184518%" aria-hidden="true"><span>1</span></span><span class="callout" style="left:2.062975%;top:39.315932%;width:95.874050%;height:5.184518%" aria-hidden="true"><span>2</span></span><span class="callout" style="left:2.062975%;top:49.396940%;width:95.874050%;height:5.184518%" aria-hidden="true"><span>3</span></span><span class="callout" style="left:2.062975%;top:64.257426%;width:95.874050%;height:5.184518%" aria-hidden="true"><span>4</span></span><span class="callout" style="left:26.710098%;top:85.022502%;width:69.598263%;height:5.472547%" aria-hidden="true"><span>5</span></span></span></button><figcaption>保存三项认证信息，再选择识别模式 · 示例配置；图中未进行真实账户识别。</figcaption><ol class="callout-legend"><li><span class="callout-number">1</span><span>填写实时语音转写大模型的完整地址；经典 RTASR/IAT 地址不能互换。</span></li><li><span class="callout-number">2</span><span>填写该产品控制台提供的 App ID。</span></li><li><span class="callout-number">3</span><span>在这里保存 API Key。保存后输入框留空并显示「已配置」，表示继续使用原密钥。</span></li><li><span class="callout-number">4</span><span>API Secret 单独保存；旁边的「清除密钥」只清除此项。</span></li><li><span class="callout-number">5</span><span>直接选择有名称的识别模式，无需手输模型 ID；多语种模式需单独申请权限。</span></li></ol></figure>
+<div class="table-scroll"><table><thead><tr><th>识别模式</th><th>录音语言怎么选</th><th>账户需要什么权限</th></tr></thead><tbody><tr><td>中英与方言自动识别</td><td>录音源语言选<strong>自动</strong>，语言提示留空。已有源语言和提示不会被擅自清除；遇到提示时请主动调整。</td><td>开通实时语音转写大模型。</td></tr><tr><td>多语种自动识别 · 需权限</td><td>支持官方列出的 37 个语种。可保持自动判断，或使用受支持的源语言、语言提示缩小范围，例如 <code>zh, en</code>，提示最多 8 种。不支持的语言会提示更正。</td><td>需要向讯飞另行申请多语种权限。</td></tr></tbody></table></div>
+<p>在<strong>录音设置</strong>选择<strong>实时 API → 讯飞 · 实时语音转写大模型</strong>。这里按名称显示已保存的模式，只能查看。三项认证信息只在配置引导保存，录音页不用重复填写；需要修改时点击<strong>管理服务</strong>。</p><figure data-topic="xfyun-recording477" data-source="xfyun-recording477-zh.png"><button class="screenshot screenshot-small" type="button" data-zoom aria-label="录音时复用已保存的服务与模式"><span class="image-stage"><img src="images/v050/xfyun-recording477-zh.png" width="289" height="646" alt="录音时复用已保存的服务与模式" loading="lazy" decoding="async"><span class="callout" style="left:0.000000%;top:13.931889%;width:100.000000%;height:5.572755%" aria-hidden="true"><span>1</span></span><span class="callout" style="left:0.000000%;top:31.114551%;width:100.000000%;height:4.489164%" aria-hidden="true"><span>2</span></span><span class="callout" style="left:0.000000%;top:67.182663%;width:100.000000%;height:5.572755%" aria-hidden="true"><span>3</span></span></span></button><figcaption>录音时复用已保存的服务与模式 · 示例配置；图中未进行真实账户识别。</figcaption><ol class="callout-legend"><li><span class="callout-number">1</span><span>选择已保存的讯飞服务，不用再次填写认证信息。</span></li><li><span class="callout-number">2</span><span>这里按名称显示已保存的模式，只能查看；更换时点击「管理服务」，回到配置引导修改。</span></li><li><span class="callout-number">3</span><span>中英与方言模式需将此项留空，并把录音源语言设为「自动」。灰色 zh, en 只是占位示例。</span></li></ol></figure>
+<p>经典 RTASR/IAT 地址和旧模型值会作为「旧配置」保留，不会自动改成新协议。迁移时先确认同一应用的产品权限，再主动修改地址、选择新模式并保存。</p>
+<p>点击「开始」后，麦克风音频会持续发送到讯飞，服务可能计费。源语言不符合所选模式时，会在开始前提示并阻止录音。点击「停止」后，剩余音频仍会提交，并等待服务端确认最终结果；收尾中请等待，不要立即开始下一次。断线或处理失败会显示错误，不会自动重连或重发；已确认文字仍保存，临时文字不会被当作最终结果。正常存储时，会议会话会保留原音供重转写，不依赖另存 WAV 的选项。出现存储提示时先检查磁盘空间；存储失败时不能保证原音完整保留。</p>
+<p>实际结果受账户权限、网络、音频和语言影响。先做短录音测试，复核人名与数字；不承诺固定准确率或延时。<a href="https://www.xfyun.cn/doc/spark/asr_llm/rtasr_llm.html" target="_blank" rel="noopener noreferrer">查看讯飞官方协议、权限与语言列表 →</a></p></section><section id="section-3"><h2>字幕显示与文件转写</h2><p>多语言字幕按段对齐。字号只改变当前页面阅读，不暂停后台翻译；「专注阅读」提供更清晰的阅读区域。浏览历史时暂停跟随，回到最新内容后继续观察新段落。可见段数限制只影响显示，完整译文在翻译恢复与会议导出中查找。</p><p>开启翻译后，完整句可先显示译文；尚未说完的价格、数字或条件可能暂缓，等待后续内容补齐，兼顾原意完整和字幕更新。录音片段结束时，会继续处理保留的末尾内容。短句暂时没有译文时，先看原文是否已出现、录音是否仍在继续，再等待后续讲话或片段收尾。</p><p>本地 Fun-ASR-Nano 转写长文件时，录音按最长 16 秒的非重叠片段依次处理，不足 16 秒的末段也会处理。各片段独立保留文字，重复发言仍需对照录音复核。查看分段进度，取消后等待任务结束。模型未正常结束生成时会报错；取消或失败不算全文转写成功，保留原录音，检查提示后再重试。</p><p>点击「音频转写」选择文件。使用与当前文件匹配的识别后端和语言，完成后复核人名、数字、专有名词与发言人边界。原生离线转写需要随程序配套的 native-stt 组件。</p><figure data-topic="raw-text"><button class="screenshot" type="button" data-zoom aria-label="放大截图"><span class="image-stage"><img src="images/v050/raw-text-zh.png" width="1440" height="1080" alt="原始文本 · 复核、复制与导出" loading="lazy" decoding="async"><span class="callout" style="left:90.6944%;top:26.0185%;width:4.5833%;height:3.3333%" aria-hidden="true"><span>1</span></span><span class="callout" style="left:85.3700%;top:26.0185%;width:4.7689%;height:3.3333%" aria-hidden="true"><span>2</span></span></span></button><figcaption>原始文本 · 复核、复制与导出 <span class="example-label">示例</span></figcaption><ol class="callout-legend"><li><span class="callout-number">1</span><span>复制识别原文。</span></li><li><span class="callout-number">2</span><span>将原文导出为文本文件。</span></li></ol></figure></section><section id="section-4"><h2>悬浮转录</h2><p>顶部「悬浮转录」打开轻量控制与字幕窗口。录音使用同一应用的输入与快捷键设置；先确认主界面可正常启停，再验证悬浮状态。悬浮窗口中的实时显示不代表独立启动了另一套识别模型。</p><p>悬浮控制窗提供开始、停止和返回主窗口按钮。说话时可查看声波反馈，在字幕窗阅读原文和译文；录音状态以控制窗和主界面的提示为准。</p><figure data-topic="floating"><button class="screenshot screenshot-small" type="button" data-zoom aria-label="放大截图"><span class="image-stage"><img src="images/v050/floating-zh.png" width="184" height="64" alt="悬浮控制 · 麦克风与返回主窗口" loading="lazy" decoding="async"><span class="callout" style="left:8.1522%;top:23.4375%;width:18.4783%;height:53.1250%" aria-hidden="true"><span>1</span></span><span class="callout" style="left:78.8043%;top:28.1250%;width:13.0435%;height:43.7500%" aria-hidden="true"><span>2</span></span></span></button><figcaption>悬浮控制 · 麦克风与返回主窗口 <span class="example-label">示例</span></figcaption><ol class="callout-legend"><li><span class="callout-number">1</span><span>点击麦克风开始转录。</span></li><li><span class="callout-number">2</span><span>返回主界面查看完整内容。</span></li></ol></figure><figure data-topic="floating-subtitles"><button class="screenshot" type="button" data-zoom aria-label="放大截图"><span class="image-stage"><img src="images/v050/floating-subtitles-zh.png" width="946" height="166" alt="悬浮字幕 · 双语阅读" loading="lazy" decoding="async"></span></button><figcaption>悬浮字幕 · 双语阅读 <span class="example-label">示例</span></figcaption></figure></section><section id="text-cleanup-preview" data-local-text486><h2>本地文字整理试用</h2>
+<p class="notice" data-source-availability486>本地文字试用已包含在 r492 Windows 安装预览中。增强语音输入的实时投递仍未开放；这里可以试用本地文字规则，不会向其他应用自动输入。</p>
+<p>打开<strong>录音设置 → 输出方式 → 文字整理</strong>，先用一句容易核对的话试试。本地预览不需要配置文字模型。要整理原始文本或已保存的转写片段，使用下方的<a href="#text-workspace490">文字整理工作区</a>。</p>
+<div class="table-scroll"><table><thead><tr><th>模式</th><th>本地试用会做什么</th></tr></thead><tbody><tr><td>原文</td><td>保持输入原样，不应用词典、禁改规则或格式模板，已保存的规则仍保留。</td></tr><tr><td>上下文校正</td><td>按适用的词典精确替换，保守保留不确定内容。输出用途只限定词典范围，不套用排版；本地试用不请求模型。</td></tr><tr><td>智能整理 · 本地改口与格式</td><td>本地处理支持的明确改口和词典规则。聊天、邮件、清单只整理已有文字的格式，不编造缺失信息。</td></tr></tbody></table></div>
+<h3>先试一句话</h3><ol><li>将「文字整理」选为<strong>智能整理 · 本地改口与格式</strong>，「输出用途」选为<strong>普通文字</strong>。</li><li>展开<strong>个人词典与禁改词</strong>。添加 <code>齐码蓝</code> → <code>ZimaBlueAI</code>，用途选<strong>所有用途</strong>；再添加 <code>无界音流</code> → <code>Boundless Flow</code>，用途选<strong>邮件</strong>。「听到」必须与原文精确一致；第二条只在输出用途为邮件时生效。</li><li>可在「禁改词」中单独写一行 <code>一号项目</code>，然后点击<strong>应用文字规则</strong>。如果提示重叠或冲突，先修正规则再继续。</li><li>展开<strong>本地文字试用 · 原文与整理对照</strong>，输入 <code>预算三千不对三万，齐码蓝负责一号项目。</code>，点击<strong>预览本地整理</strong>。</li><li>逐字对照原文与预览。在这个支持的明确改口示例中，<code>三千不对三万</code> 整理为 <code>三万</code>，第一条词典将名字写为 <code>ZimaBlueAI</code>。再看下方修改理由；若出现保护或不确定提示，请核对保留的文字，不要强行改写。</li><li>确认后，再点击<strong>复制预览文字</strong>，自行粘贴到需要的位置。预览不会向光标输入，也不会自动保存这段试用文字。</li></ol>
+<figure data-topic="speech-text486" data-source="speech-text486-zh.png"><button class="screenshot" style="max-width:700px" type="button" data-zoom aria-label="放大本地文字整理截图"><span class="image-stage"><img src="images/v050/speech-text486-zh.png" width="700" height="1609" alt="本地文字整理设置与预览" loading="lazy" decoding="async"><span class="callout" style="left:0.000000%;top:0.808151%;width:100.000000%;height:6.216550%" aria-hidden="true"><span>1</span></span><span class="callout" style="left:0.000000%;top:13.327700%;width:100.000000%;height:46.678517%" aria-hidden="true"><span>2</span></span><span class="callout" style="left:1.571429%;top:67.857524%;width:96.857143%;height:6.041709%" aria-hidden="true"><span>3</span></span><span class="callout" style="left:1.571429%;top:80.662645%;width:96.857143%;height:18.715700%" aria-hidden="true"><span>4</span></span></span></button><figcaption>本地文字整理设置与预览 <span class="example-label">受控示例</span> 图中为 r486 的真实设置组件；示例文字和预览回复由受控测试 handler 提供，未启动原生应用、麦克风或模型，也不代表自动输入验收。</figcaption><ol class="callout-legend"><li><span class="callout-number">1</span><span>选择智能整理和输出用途。实时语音自动输入仍未开放。</span></li><li><span class="callout-number">2</span><span>填写词典的精确写法和用途范围，再应用有效规则。</span></li><li><span class="callout-number">3</span><span>手动输入示例，再点击「预览本地整理」。</span></li><li><span class="callout-number">4</span><span>对照原文、预览和修改理由，确认后再主动复制。</span></li></ol></figure>
+<h3>设置规则时保住原意</h3><p>最多保留<strong>64 条词典规则</strong>和<strong>32 条禁改词</strong>，每项 1 至 80 个字符。「听到」有重叠时，请合并规则或分到互不重叠的用途。禁改词不能同时与要求替换的「听到」重叠。配置有错时会保留待修复内容，不会悄悄覆盖为默认值；修正后应用规则，再按主界面的配置保存流程保存。</p>
+<p><code>不知道</code> 等不确定表达、引语和条件句，不会被当作确定的改口强行整理。关键数值与否定关系需对照原文，尤其是「不要」「不需要」等会改变句意的表达。</p>
+<p><strong>代码</strong>用途保护标识符，不调用复核模型。智能模式的模板只排版已有内容。切换模式会保留规则草稿；语音任务运行时，设置与预览控件会锁定，请等任务结束后再改。</p>
+<h3>模型复核是单独的可选项</h3><p>智能模式可勾选<strong>智能模式使用文字模型保守复核（可选）</strong>，为投递流程沿用已配置的文字模型。复核超过 1 秒或失败时，投递流程保留本地整理结果；若配置的是外部服务，该服务会收到确认文本。当前实时投递仍未开放；即使勾选此项，<strong>本地试用也始终不调用模型</strong>。任何模式的代码用途均不联网复核。</p><p data-context-meaning506>核对整理结果时，把日期、金额和人名与否定词一起看。例如“今天不付款，明天付款”不能变成“今天付款，明天不付款”。发现意思变化时，使用原文或已核对的本地整理稿。模型复核不能保证语义完全不变；当前增强实时投递仍未开放，本地试用不会调用模型。</p>
+<p>本地预览只在点击后执行，不读取屏幕或剪贴板，也不自动保存试用文字。只有点击<strong>复制预览文字</strong>才写入剪贴板。这里的设置和示例不能代表实时自动输入已经交付，也不能据此判断优于其他产品。</p></section>
+<section id="text-workspace490" data-speech-workspace490><h2>把转写副本整理成可用文字</h2>
+<p class="notice">文字整理工作区已包含在 r492 Windows 安装预览中。它沿用已应用的个人词典与禁改词，不需要另外配置模型或 API。</p>
+<h3>从正在看的文字开始</h3>
+<ol><li>在<strong>原始文本</strong>点击<strong>整理文字</strong>，将当前文字带入工作区。只想处理其中一段时，先在文本框选中这一段，再点击按钮。</li><li>也可在<strong>会话浏览 → 逐字稿预览</strong>，找到一段转写，点击该段的<strong>整理文字</strong>。选区优先；没有选区就使用整段。短句默认紧凑显示，长内容可在框内滚动，也可拖动文本框右下角调高。</li><li>在<strong>文字整理工作区</strong>核对来文名称和左侧<strong>原文副本 · 可编辑</strong>。可在副本中补字或删字；原始转写与录音保持原样。</li><li>确认<strong>本次模式</strong>和<strong>本次用途</strong>，再点击工作区里的<strong>整理文字</strong>。带入副本不会自动开始处理。</li><li>对照右侧<strong>整理稿 · 待人工核对</strong>，展开<strong>逐项差异</strong>查看改前、改后和理由。重点核对人名、数字、否定词与代码。</li><li>满意后点击<strong>复制整理稿</strong>，自行粘贴到需要的位置。结果不会自动覆盖会话、写入其他应用或保存为报告。</li></ol>
+<figure data-topic="speech-workspace490" data-source="speech-workspace490-zh.png"><button class="screenshot" type="button" data-zoom aria-label="放大文字整理工作区截图"><span class="image-stage"><img src="images/v050/speech-workspace490-zh.png" alt="文字整理工作区，显示本次模式与用途、原文副本、整理稿、逐项差异和复制按钮" loading="lazy" decoding="async"></span></button><figcaption>文字整理工作区 <span class="example-label">受控示例</span> r490 实际组件使用示例文字，展示副本与整理稿对照；没有启动原生应用或自动输入。</figcaption></figure>
+<h3>本次选项不会改掉中央设置</h3>
+<div class="table-scroll"><table><thead><tr><th scope="col">本次模式</th><th scope="col">适合怎样使用</th></tr></thead><tbody><tr><th scope="row">保留原文</th><td>逐字保留当前副本，不应用词典、改口或格式。中央设置为原文时，这里也保持原文，不会自动开启整理。</td></tr><tr><th scope="row">保守规则</th><td>应用适用的本地词典精确替换。用途只限定词典范围，不套用格式，也不请求文字模型。</td></tr><tr><th scope="row">改口与格式</th><td>处理支持的明确改口、适用词典及所选用途格式，不补写缺失事实。并非通用语义纠错或自动润色。</td></tr></tbody></table></div>
+<p><strong>本次用途</strong>可选普通文字、聊天、邮件、清单、代码。模式与用途只作用于当前副本；个人词典和禁改词仍在同一处维护，点击<strong>管理中央文字规则</strong>即可返回设置。先按上面的<a href="#text-cleanup-preview">规则配置步骤</a>应用有效规则，再回工作区整理。</p>
+<h3>改错了，或想换一段怎么办</h3>
+<ul><li><strong>撤销整理</strong>把整理稿恢复成当前原文副本，并清除差异；不会撤销你对副本的手动编辑，也不会修改原始转写。<strong>清除整理稿</strong>只清除本次结果与差异。</li><li>工作区已有副本时，从别处再次带入文字会先提示选择。点<strong>用新文字替换本工作区副本</strong>才替换；点<strong>继续当前副本</strong>保留当前工作。</li><li>修改副本、本次选项或中央规则后，旧整理结果会作废，需重新点击<strong>整理文字</strong>。配置无效时请先修复，不会自动退回原文模式继续处理。</li><li>收起或关闭工作区会保留当前运行中的副本，之前任务的迟到结果不会覆盖它。整理稿没有自动存盘；退出软件前，请先复制需要保留的文字。</li></ul>
+<p>每次最多处理<strong>65,536 个 Unicode 字符</strong>，emoji 按一个字符计数。超出范围时整段不处理，也不截断文字；可返回来源选取较小范围。差异较多时分组翻页。遇到忙碌、超时或容量提示，副本仍保留，请按提示调整后重试。</p>
+<p>这条路径只使用本机文字规则，云端 API 调用和 API 费用均为零，不上传文字，也不调用中央设置中的文字复核模型。检查原音、确认事实和决定是否采用修改，仍由你完成。</p></section>
+<section id="mini-status491" data-speech-mini491><h2>看懂悬浮转录的开始、音量与停止状态</h2>
+<p class="notice">以下悬浮状态改进已包含在 r492 Windows 安装预览中。本节对应顶部<strong>悬浮转录</strong>打开的普通转录 Mini；增强语音输入的自动投递仍未开放。</p>
+<ol><li>打开<strong>悬浮转录</strong>，点击麦克风开始。先看状态文字，再判断是否正在录音；连点按钮或快捷键不会排队启动多次。</li><li>讲话时查看音量变化和字幕。音量来自实际收到的音频帧，不使用模拟跳动。静音帧的音量可以为零。</li><li>准备期间可点击<strong>取消准备</strong>，只取消本次准备。录音或文件转写期间点击<strong>停止转录</strong>后，请等待状态变化；文件转写的停止入口仍可使用。</li><li>点击<strong>返回主窗口</strong>只切换界面，当前后台任务继续。需要结束任务时仍须点击停止，并等收尾完成。</li></ol>
+<div class="table-scroll"><table><thead><tr><th scope="col">状态文字</th><th scope="col">怎样判断与操作</th></tr></thead><tbody><tr><th scope="row">准备中 · 尚未录音</th><td>模型或设备仍在准备，尚未开始采集。需要中止时使用「取消准备」。</td></tr><tr><th scope="row">录音中 · 等待音频</th><td>已收到录音开始状态，尚未收到本次音频帧。单凭这条提示不能判定麦克风损坏；可返回主窗口核对输入和运行提醒。</td></tr><tr><th scope="row">录音中 · 已收到音频</th><td>已收到本次实际音频帧，包含音量为零的静音帧。不等于已识别出文字。</td></tr><tr><th scope="row">已请求停止 / 正在收尾保存</th><td>停止请求已提交，或正在结束处理与保存，均不表示已经完成。等后台确认空闲后，再开始下一次。</td></tr><tr><th scope="row">状态待核对 / 请核对</th><td>查看状态提示，必要时返回主窗口。停止失败会保留当前任务状态，可按提示再次点击停止，不会显示成已停止。</td></tr></tbody></table></div>
+<figure data-topic="speech-mini491" data-source="speech-mini491-zh.png"><button class="screenshot" type="button" data-zoom aria-label="放大悬浮转录状态截图"><span class="image-stage"><img src="images/v050/speech-mini491-zh.png" width="480" height="184" alt="悬浮转录显示录音中并已收到本次音频，返回主窗口和停止按钮可见" loading="lazy" decoding="async"></span></button><figcaption>悬浮转录状态 <span class="example-label">受控示例</span> r491 实际 Mini 组件使用受控任务状态与音频帧，展示状态反馈；未使用真实麦克风或识别服务。</figcaption></figure>
+<figure data-topic="speech-mini491-preparing" data-source="speech-mini491-preparing-zh.png"><button class="screenshot" type="button" data-zoom aria-label="放大准备中：尚未录音，可取消本次准备"><span class="image-stage"><img src="images/v050/speech-mini491-preparing-zh.png" width="480" height="184" alt="准备中：尚未录音，可取消本次准备" loading="lazy" decoding="async"></span></button><figcaption>准备中：尚未录音，可取消本次准备 · 实际 Mini 组件的受控示例，未启动录音设备；按钮提示可查看完整说明。</figcaption></figure>
+<figure data-topic="speech-mini491-error" data-source="speech-mini491-error-zh.png"><button class="screenshot" type="button" data-zoom aria-label="放大录音中收到运行提醒：保留当前状态，返回主窗口核对"><span class="image-stage"><img src="images/v050/speech-mini491-error-zh.png" width="480" height="184" alt="录音中收到运行提醒：保留当前状态，返回主窗口核对" loading="lazy" decoding="async"></span></button><figcaption>录音中收到运行提醒：保留当前状态，返回主窗口核对 · 实际 Mini 组件的受控示例，未启动录音设备；按钮提示可查看完整说明。</figcaption></figure>
+<p>开始或停止<strong>超过 12 秒仍未确认</strong>时，会出现<strong>重新核对录音状态</strong>按钮。先点击核对，再按最新状态处理；软件不会自动重新启动。即使核对到空闲，之前的操作请求尚未返回时，开始仍保持禁用，避免重复录音。核对失败可再次核对；错误提示使用固定说明，不直接显示服务返回的敏感细节。</p></section>
+<section id="section-5"><h2>没有文字时</h2><p>检查输入设备是否有讲话、麦克风权限、模型检查提示和录音状态。若使用云端识别，再检查账户权限与独立 ASR 配置。辅助发言人分析失败时可继续检查字幕结果，勿把所有故障都归为转录失败。</p></section><section id="raw-recovery496"><h2>转写过程中改字，保留当前稿</h2><p>从 r496 开始，文件转写仍在进行时，您对「原始文本」的手动修改会保留。后续识别结果单独放在「比较识别稿」里；声音面板选择原始文本时也共用这份保护。</p><ol><li>看到「已保留您的编辑」后，展开「比较识别稿」。上方仍是您正在编辑的当前稿，下方是只读识别稿；长文可以滚动，也可拖高。</li><li>选「继续当前稿」会收起比较，不会替换文字；后续识别稿仍可再展开查看。</li><li>确实需要替换时，点「采用识别稿」。采用后可用「撤销采用」恢复此前的稿；若您又继续修改，撤销按钮会停用，避免丢掉新的修改。此前文字仍能从「查看采用前稿」中复制。</li><li>要永久保留当前稿，请使用原始文本的复制或导出。这里的选择不会修改已归档的会议、逐字稿或录音；会议正文请到会话浏览中编辑并保存。</li></ol><figure data-topic="raw-recovery496" data-source="raw-recovery496-zh.png"><button class="screenshot" type="button" data-zoom aria-label="比较识别稿并保留手动修改"><span class="image-stage"><img src="images/v050/raw-recovery496-zh.png" width="1164" height="302" alt="保留手改文本、查看只读识别稿并明确选择采用或继续当前稿" loading="lazy" decoding="async"></span></button><figcaption>实际桌面前端与完整样式，使用虚构文字和受控消息演示；不代表真实模型识别或桌面安装验收。</figcaption></figure><p>当前稿、比较稿和采用前稿保留在本次界面中。开始新的录音或文件转写、清空文字会重置这组比较草稿；需要留存的内容请先复制或导出。没有手动改字时，文件识别文字仍按进度正常更新。</p></section><nav class="page-nav" aria-label="相邻章节"><a href="onboarding.html">← 配置引导</a><a href="translation.html">多语言翻译 →</a></nav><footer>Boundless Flow · 0.5.0 <span class="brand-credit">ZimaBlueAI</span></footer><section id="transcript-reading492"><h2>阅读逐字稿，跟随原声核对</h2><p>在「会话浏览 → 逐字稿预览」，默认直接阅读每段正文。时间、说话人、整理文字和编辑放在同一行，短句不再占据大块输入框。此改进从 r492 提供。</p><ol><li>点击「编辑」修改本段正文或说话人，再用「保存文本」或相应的改名按钮保存。「收起编辑」会保留草稿；「恢复」用于放弃本地修改。</li><li>点击段落时间，从这一段开始回听原声。可暂停、停止，或勾选「接续播放」听后续片段；原声缺失或暂不可读时，文字仍可阅读。</li><li>「跟随原声」按整段时间高亮。手动滚动、筛选或翻页会暂停跟随；编辑时不会自动抢走阅读位置。需要时重新勾选跟随。</li><li>开始录音或音频转写时，原声回听会停止。录音或逐字稿发生变化后，先刷新，再重新回听。</li></ol><figure data-topic="transcript-reader492" data-source="transcript-reader492-zh.png"><button class="screenshot" type="button" data-zoom aria-label="阅读逐字稿，跟随原声核对"><span class="image-stage"><img src="images/v050/transcript-reader492-zh.png" width="854" height="764" alt="阅读逐字稿，跟随原声核对" loading="lazy" decoding="async"></span></button><figcaption>生产逐字稿组件及完整桌面样式，使用虚构文字和受控音频展示跟读状态；不代表真实麦克风或识别结果。</figcaption></figure><p>高亮按片段时间切换，不是逐字精确对齐。「接续播放」从下一片段的起点继续，不包含未选中的段间空隙。正在录音、尚未保存的内容不提供这种原声回听。原声留在本机，仅在点击播放后按需读取。</p></section><section id="dictation-results498"><h2>找回最近的语音输入结果</h2><p>语音已识别，却没出现在目标输入框中时，回到主窗口，展开「最近输入结果」。这里保留<strong>本次打开软件期间</strong>接纳的最终识别段，只收录已开启「输入到当前窗口」的录音任务。无需重新识别；普通会议或文件转写请查看原始文本及会话浏览。</p><ol><li>按时间选择片段，核对只读「识别稿」。启用了翻译时，「译文」另列主目标语言；未完成翻译时仍可复制识别稿。多语言的其他译文请到原有翻译区核对。</li><li>先查看原目标输入框，再点「复制识别稿」或「复制译文」，回到目标处手动粘贴。文字可能已经输入了一部分，粘贴前请避免重复。「已复制」只代表复制动作完成，不代表已输入成功。</li><li>有新结果时，不会切走您正在查看的片段。暂不可读取时可点「刷新」；复制失败仍可选中文字手动复制。</li><li>「清空本列表」只清空这里，不改原始转写、已保存会话或录音。若清空时刚收到新结果，会先保留并提醒您重新核对。</li></ol><p>这是临时找回入口，最多 64 段，并有文字总容量限制。更早或超长内容未列出时会提示，请核对原始转写或已保存会话；需要长期留存的文字请主动保存或导出。关闭软件后本列表不会恢复。这里只读展示和按需复制，不会自动再次输入、重试录音或发送回车。</p><figure data-topic="dictation-results498" data-source="dictation-results498-zh.png"><button class="screenshot" type="button" data-zoom aria-label="找回最近的语音输入结果"><span class="image-stage"><img src="images/v050/dictation-results498-zh.png" width="1206" height="512" alt="找回最近的语音输入结果" loading="lazy" decoding="async"></span></button><figcaption>实际主窗口组件与完整样式，使用虚构文字及受控消息、复制接口展示；不代表真实模型、目标应用输入或原生安装验收。</figcaption></figure></section><section id="remember-terms499"><h2>改正术语，确认后再记住</h2><p>打开「原始文本 → 整理文字」或逐字稿中的「整理文字」，在<strong>原文副本</strong>里选中一个误识别的短词，再替换成正确写法，会出现「记住……？」建议。普通整段编辑不会自动学习；也可主动点「记住一个术语」填写词对。</p><ol><li>核对「识别成」和「以后写成」。只填写两个不同的 1–24 字术语，可以含文字、数字及 _ . / -，不要填写整句、空白或纯数字修订。</li><li>来自项目逐字稿时默认仅本项目，详见下方项目词典。无项目归属时默认当前用途；中央用途规则会被不同项目共用，选择「中央 · 所有用途」时还需勾选确认。</li><li>点「确认记住」才保存。「取消」不保存；「忽略本次」不学习，并在本工作区本次打开期间抑制同一词对重复建议。输入法组合输入完成前不提出建议。</li><li>保存成功后可点「撤销刚记住的词」。只撤销刚添加的规则，不恢复旧稿或清空其他词条；中央设置后来有改变时，会保留并提示先核对词典。相同规则不重复添加。</li><li>规则不会立即改写当前稿，也不会打开自动输入。原文模式保留原样；在文字整理工作区主动选择保守规则或改口与格式，再点「整理文字」核对效果。禁改词、重叠规则、词典容量或未应用草稿有冲突时，先到「管理词典」处理。</li></ol><p>保存和撤销传递所选词对、文字设置及必要的本机项目标识，不保存本段正文，不读取其他应用或剪贴板。中央用途规则跨项目复用；项目专属规则见下节。一次只保留最近一次新增规则的快捷撤销；其他规则可到管理词典移除。</p><figure data-topic="remember-terms499" data-source="terms499-zh.png"><button class="screenshot" type="button" data-zoom aria-label="改正术语，确认后再记住"><span class="image-stage"><img src="images/v050/terms499-zh.png" width="1156" height="311" alt="改正术语，确认后再记住" loading="lazy" decoding="async"></span></button><figcaption>实际主界面和完整样式，使用虚构术语与受控配置接口展示。不是原生应用或真实语音质量验收。</figcaption></figure></section><section id="project-terms500"><h2>项目专属词典，确认后仅在本项目整理时使用</h2><p>先把已保存录音归入资料库中的项目，再从这条录音的<strong>逐字稿 → 整理文字</strong>打开工作区。「项目词典」显示实际归属项目和词条数量；它依据录音归属核对，名称相同也不会借用另一个项目的词。</p><ol><li>选中误识别的短词并改正，或点「记住一个术语」。保存范围默认「仅……项目」。确认项目名称与词对后，再点「确认记住」。选择「中央 · 普通文字」等用途会跨项目共用；「中央 · 所有用途」还需另行勾选。</li><li>规则不会改动原始转写、录音或旧报告。主动选择本次「保守规则」或「改口与格式」，再点「整理文字」核对；原文模式仍严格保留原样。这是文字整理词典，不代表语音模型已经学会识别该词。</li><li>需要查看或移除时，展开「查看并管理本项目词条」。移除只影响这个项目；可用「恢复刚移除的词」恢复最近一次移除。刚添加的词仍可用下方的撤销按钮撤销。</li><li>移动条目、归档项目、修改词典或中央规则后，先刷新核对。旧项目的迟到结果不会替换当前稿；复制整理稿前也会重新核对项目。发现变化时，保留文字并要求重新整理。</li></ol><figure data-topic="project-learn500" data-source="project-learn500-zh.png"><button class="screenshot" type="button" data-zoom aria-label="项目专属词典，确认后仅在本项目整理时使用"><span class="image-stage"><img src="images/v050/project-learn500-zh.png" width="1156" height="310" alt="项目专属词典，确认后仅在本项目整理时使用" loading="lazy" decoding="async"></span></button><figcaption>实际主界面与完整样式，通过纯 Rust 核验驱动读写隔离的真实项目文件；使用虚构文字，不是原生桌面或语音质量验收。</figcaption></figure><p>尚未归入项目的录音会明确提示，并使用中央规则；独立原始文本不猜测所属项目。词典读取失败或项目归档时，不会静默改用另一个项目的规则。</p><p>每项目最多 64 条，合并后的有效规则也受容量上限约束。相同词对只处理一次；不同含义的中央规则、禁改词或重叠词条发生冲突时，需要先核对。当前从已归属项目的逐字稿进入；批量导入词典及空项目的独立管理入口尚未提供。</p><figure data-topic="project-terms500" data-source="project-terms500-zh.png"><button class="screenshot" type="button" data-zoom aria-label="项目专属词典，确认后仅在本项目整理时使用"><span class="image-stage"><img src="images/v050/project-terms500-zh.png" width="1156" height="184" alt="项目专属词典，确认后仅在本项目整理时使用" loading="lazy" decoding="async"></span></button><figcaption>实际主界面与完整样式，通过纯 Rust 核验驱动读写隔离的真实项目文件；使用虚构文字，不是原生桌面或语音质量验收。</figcaption></figure></section><section id="dictionary508"><h2>批量导入词典，查看和撤销变更</h2><p class="notice">此词典入口需 Windows r512 或后续安装预览；Mac r492 源码 ZIP 尚未包含。</p>
+<ol><li>跨项目共用的词，在文字设置点<strong>「词典导入与历史」</strong>；仅项目使用的词，在资料库选中项目，点<strong>「项目词典与历史」</strong>。还没有录音的空项目也能提前准备。已有文字规则草稿时，先应用或放弃草稿。</li><li>粘贴词典，或明确选择 UTF-8 的 JSON、TSV、CSV 文件；选择对应格式，点<strong>「预览导入」</strong>。文件最多 256 条候选、64 KiB；保存的规则仍最多 64 条。</li><li>核对「新词」「已存在」「替换 · 需确认」「规则冲突」「格式无效」。替换项不会自动勾选，请先看原写法，再逐条确认。组合冲突或超过容量时减少选择，不会自动截断。点<strong>「确认采用所选词条」</strong>后才保存。</li><li>展开<strong>「变更历史」</strong>，核对日期和新增、移除的词。点<strong>「撤销这次变更…」</strong>，阅读提示后再次确认。后来新增的无关词保留；相关词已改动时先刷新核对，不直接覆盖。</li><li>如果写入结果无法确认，输入会保留。点<strong>「刷新词典与历史」</strong>查看实际保存结果，再决定下一步。保存中关闭面板不会取消已发出的写入，重新打开同一词典核对即可。</li></ol>
+<p>表格列名可用「听到、写成、用途」，也可用 <code>from</code>、<code>to</code>、<code>scope</code>。用途列可省略，默认 <code>all</code>；中央词典还可指定 plain、chat、email、list、code。项目词典的 all 只在该项目内生效。支持 CSV 引号内的逗号、UTF-8 BOM。</p><pre>from&#9;to&#9;scope
+齐马蓝&#9;齐码蓝&#9;all</pre>
+<p>JSON 可用词条数组，如 <code>[{"from":"齐马蓝","to":"齐码蓝","scope":"all"}]</code>。批量导入不增加禁改词，禁改词继续在文字设置编辑。原录音与逐字稿保持原样；这是文字整理规则，不代表语音模型已学会这个词。</p>
+<p>历史最多保留最近 64 次、256 KiB，更早部分可能合并为基线；此前未记录的操作不会补造。它是本机词典变更记录，不是完整的身份认证日志或跨设备同步。请避免使用旧版软件覆盖新版项目词典。</p><figure data-topic="dictionary508"><button class="screenshot" type="button" data-zoom aria-label="批量导入词典，查看和撤销变更"><span class="image-stage"><img src="images/v050/dictionary508-zh.png" width="860" height="810" alt="批量导入词典，查看和撤销变更" loading="lazy" decoding="async"></span></button><figcaption>实际组件与隔离本地词典文件，使用虚构词条演示；不是原生桌面或真实语音质量验收。</figcaption></figure></section></main></div><dialog id="image-viewer" aria-label="截图详情"><button type="button" data-close aria-label="关闭放大截图">×</button><div class="viewer-body"></div></dialog></body></html>

@@ -1,73 +1,22 @@
-# Boundless Flow Docs Site
+# Boundless Flow 用户手册 / User manual
 
-Documentation and landing pages for **Boundless Flow (无界音流)**.
+更新于 2026-10-22，对应已交付 Windows v0.5.0.r514；r515 在制改进未交付。商店上传验证已完成，应用尚未公开发布或通过认证。
 
-🌐 Live site: https://boundless-flow.github.io/
+- [中文首页](index.html) / [English](index-en.html)
+- [新手场景](scenarios/index.html) / [Beginner scenarios](scenarios/index-en.html)
+- [模型与 API](models.html) / [Models and APIs](models-en.html)
+- [隐私政策 / Privacy policy](policy.html)
+- 产品域名：https://boundless-flow.zimablueai.com/
+- 支持、隐私和内容反馈：bf-support@zimablueai.com
 
-## Project Overview
+本目录包含公开使用手册、样式、脚本、截图和品牌资源。保持目录结构可离线阅读。旧设计首页保存在 design-philosophy-v04.html，不是当前操作教程。
 
-This folder contains the static documentation site for Boundless Flow, including:
+This directory contains the public manual and its local assets. Keep it intact for offline reading. The old design landing page remains as historical material, not the current setup guide.
 
-- product landing pages in Chinese and English
-- end-user guides for STT, translation, proofreading, summaries, and TTS
-- appendix pages for installation, model downloads, and beginner-friendly setup
-- shared screenshots and visual assets used across the site
+## 发布 / Publishing
 
-## Main Pages
+产品域名当前由 GitHub Pages 提供，此仓库 docs 为实际已发布内容源。提交后须等待 Pages 构建并核对 HTTP 响应与内容；Git push 成功不等于网页已经上线。
 
-- `index.html` / `index-en.html`: product landing pages
-- `welcome.html` / `welcome-en.html`: what Boundless Flow is and how to get started
-- `onboarding.html` / `onboarding-en.html`: 5-step onboarding wizard walkthrough
-- `stt.html` / `stt-en.html`: real-time STT and native-stt offline transcription
-- `translation.html` / `translation-en.html`: real-time translation workflow
-- `proofreading-summary.html` / `proofreading-summary-en.html`: AI proofreading and summary features
-- `tts-voice-cloning.html` / `tts-voice-cloning-en.html`: TTS and voice cloning
-- `sts.html` / `sts-en.html`: STS speech-translation workbench
-- `linglu.html` / `linglu-en.html`: **LingLu · live topic tree minutes** (v0.4) — 9 LLM providers, 8 scenarios, 5 report themes (incl. sumi-ink Chinese aesthetic), Ollama-first
-- `appendix.html` / `appendix-en.html`: installation and configuration appendix
-- `style.css`: shared site stylesheet
-- `images/`: screenshots, banners, and product illustrations
+Product documentation is served through GitHub Pages. Verify live content after pushing; successful Git publication alone does not prove website publication.
 
-## Planning Docs
-
-- `boundless-flow-v0.4-upgrade-plan.md`: upgraded v0.4 migration plan tailored to the current plugin workspace, including architecture mapping, phased rollout, data contracts, and implementation milestones
-
-## Deploy to GitHub Pages
-
-1. **Create the repo** as `boundless-flow/boundless-flow.github.io`  
-   (the special `<username>.github.io` naming makes GitHub Pages serve the site directly at `https://boundless-flow.github.io/`).
-
-2. Push this folder as the `main` branch root:
-   ```bash
-   git init
-   git remote add origin https://github.com/boundless-flow/boundless-flow.github.io.git
-   git add .
-   git commit -m "chore: initial site publish"
-   git push -u origin main
-   ```
-
-3. In the repo **Settings → Pages**:
-   - Source: **Deploy from branch**
-   - Branch: `main` / `(root)`
-   - Save.
-
-The site is live in ~1 minute.
-
-## Syncing with the Plugin Source
-
-Source docs live in `ai-whiteboard-next/plugins/boundless-flow/docs/`.
-
-After editing docs there, re-sync with:
-```powershell
-Copy-Item -Path "plugins\boundless-flow\docs\*" `
-          -Destination "..\..\boundless-flow.github.io\" `
-          -Recurse -Force
-```
-
-## Relationship to Main Project
-
-This site is maintained from the Boundless Flow plugin workspace and should stay aligned with the main project README, screenshots, and feature set.
-
-## License
-
-See [boundless-flow](https://github.com/ZimaBlueAI/boundless-flow) for the main project license.
+隐私政策同时在官网维护目录 public/boundless-flow/policy.html 保留同版，发布时核对两个副本的 SHA-256。不要添加私有源码、内部报告、测试数据、安装包、模型或凭据。
