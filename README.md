@@ -2,7 +2,7 @@
 <img src="docs/images/v050/brand-mark.png" width="72" alt="Boundless Flow">
 <h1>Boundless Flow · 无界音流</h1>
 <p>A desktop voice workspace for transcription, project records, LingLu reports and speech.</p>
-<p><a href="README-zh.md">简体中文</a> · <a href="https://boundless-flow.zimablueai.com/">Manual</a> · <a href="https://boundless-flow.zimablueai.com/policy.html">Privacy</a> · <a href="https://github.com/ZimaBlueAI/boundless-flow/releases">Releases</a> · <a href="https://github.com/ZimaBlueAI/boundless-flow/issues">Issues</a></p>
+<p><a href="README-zh.md">简体中文</a> · <a href="https://www.zimablueai.com/boundless-flow/docs/">Manual</a> · <a href="https://boundless-flow.zimablueai.com/policy.html">Privacy</a> · <a href="https://github.com/ZimaBlueAI/boundless-flow/releases">Releases</a> · <a href="https://github.com/ZimaBlueAI/boundless-flow/issues">Issues</a></p>
 </div>
 
 ## Current status
@@ -56,7 +56,7 @@ No model weights, private keys, API credentials, test audio or installers are co
 | Analysis and configuration | [Voiceprints](docs/voiceprints-en.html), [Models and APIs](docs/models-en.html), [Appendix](docs/appendix-en.html) |
 | Privacy | [Policy](docs/policy.html) |
 
-Keep the docs folder intact for offline reading. The old [design landing page](docs/design-philosophy-v04.html) remains as historical material, not the current setup guide.
+Keep the docs folder intact for offline reading. The [original product homepage](https://boundless-flow.zimablueai.com/) remains unchanged. Updated manuals are hosted separately on the company website.
 
 ## Privacy and feedback
 

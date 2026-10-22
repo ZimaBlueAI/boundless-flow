@@ -15,8 +15,8 @@ This directory contains the public manual and its local assets. Keep it intact f
 
 ## 发布 / Publishing
 
-公开说明及手册镜像保存在 ZimaBlueAI/boundless-flow 的 docs；实际绑定产品域名的是 ZimaBlueAI/boundless-flow.github.io 仓库的 main 分支根目录。两处需同步，等待 Pages 构建并核对 HTTP 响应与内容；Git push 成功不等于网页已经上线。
+公开说明及新版手册保存在 ZimaBlueAI/boundless-flow 的 docs，并独立发布到 https://www.zimablueai.com/boundless-flow/docs/ 。产品主页由 ZimaBlueAI/boundless-flow.github.io 托管，保留原样，不用新版手册覆盖。Git push 成功不等于网页已经上线。
 
-Product documentation is served through GitHub Pages. Verify live content after pushing; successful Git publication alone does not prove website publication.
+The original product homepage stays on GitHub Pages. The updated manual is published separately at https://www.zimablueai.com/boundless-flow/docs/ . Keep the product landing page unchanged.
 
 隐私政策同时在官网维护目录 public/boundless-flow/policy.html 保留同版，发布时核对两个副本的 SHA-256。不要添加私有源码、内部报告、测试数据、安装包、模型或凭据。

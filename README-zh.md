@@ -2,7 +2,7 @@
 <img src="docs/images/v050/brand-mark.png" width="72" alt="Boundless Flow">
 <h1>Boundless Flow · 无界音流</h1>
 <p>录音、转写、项目资料、灵录报告与声音创作的桌面语音工作台。</p>
-<p><a href="README.md">English</a> · <a href="https://boundless-flow.zimablueai.com/">使用手册</a> · <a href="https://boundless-flow.zimablueai.com/policy.html">隐私政策</a> · <a href="https://github.com/ZimaBlueAI/boundless-flow/releases">发布页</a> · <a href="https://github.com/ZimaBlueAI/boundless-flow/issues">反馈</a></p>
+<p><a href="README.md">English</a> · <a href="https://www.zimablueai.com/boundless-flow/docs/">使用手册</a> · <a href="https://boundless-flow.zimablueai.com/policy.html">隐私政策</a> · <a href="https://github.com/ZimaBlueAI/boundless-flow/releases">发布页</a> · <a href="https://github.com/ZimaBlueAI/boundless-flow/issues">反馈</a></p>
 </div>
 
 ## 当前版本与发布状态
@@ -56,7 +56,7 @@ r515 配置复用改进尚未交付，不作为已发布功能介绍。Linux、m
 | 分析与配置 | [声纹](docs/voiceprints.html)、[模型与 API](docs/models.html)、[附录](docs/appendix.html) |
 | 数据与隐私 | [隐私政策](docs/policy.html) |
 
-保留整个 docs 文件夹可离线阅读。原来的[设计哲学页面](docs/design-philosophy-v04.html)保留作历史资料，不作为当前操作说明。
+保留整个 docs 文件夹可离线阅读。[原产品主页](https://boundless-flow.zimablueai.com/)保持原样，新版使用手册在企业官网独立托管。
 
 ## 隐私与反馈
 
